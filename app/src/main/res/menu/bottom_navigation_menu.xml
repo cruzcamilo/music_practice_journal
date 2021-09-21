@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/home_24"
+        android:title="Home"/>
+    <item
+        android:id="@+id/my_collection"
+        android:enabled="true"
+        android:icon="@drawable/folder_24"
+        android:title="@string/bottom_nav_my_collection"/>
+    <item
+        android:id="@+id/calendar"
+        android:enabled="true"
+        android:icon="@drawable/calendar_today_24"
+        android:title="@string/bottom_nav_calendar"/>
+
+    <item
+        android:id="@+id/help"
+        android:enabled="true"
+        android:icon="@drawable/help_center_24"
+        android:title="@string/bottom_nav_help"/>
+</menu>
