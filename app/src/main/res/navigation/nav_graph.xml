@@ -8,5 +8,29 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.example.musicpracticejournal.MainScreenFragment"
         android:label="MainScreenFragment"
-        tools:layout="@layout/fragment_main_screen"/>
+        tools:layout="@layout/fragment_main_screen">
+        <action
+            android:id="@+id/action_mainScreenFragment_to_createFragment"
+            app:destination="@id/createFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.example.musicpracticejournal.CreateFragment"
+        android:label="CreateFragment"
+        tools:layout="@layout/fragment_create"/>
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.example.musicpracticejournal.CollectionFragment"
+        android:label="CollectionFragment"
+        tools:layout="@layout/fragment_collection"/>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.musicpracticejournal.HelpFragment"
+        android:label="HelpFragment"
+        tools:layout="@layout/fragment_help"/>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.musicpracticejournal.CalendarFragment"
+        android:label="CalendarFragment"
+        tools:layout="@layout/fragment_calendar"/>
 </navigation>
