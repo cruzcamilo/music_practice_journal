@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainScreenFragment">
+    app:startDestination="@id/home">
     <fragment
-        android:id="@+id/mainScreenFragment"
+        android:id="@+id/home"
         android:name="com.example.musicpracticejournal.MainScreenFragment"
         android:label="MainScreenFragment"
         tools:layout="@layout/fragment_main_screen">
@@ -14,23 +14,23 @@
             app:destination="@id/createFragment" />
     </fragment>
     <fragment
-        android:id="@+id/createFragment"
-        android:name="com.example.musicpracticejournal.CreateFragment"
-        android:label="CreateFragment"
-        tools:layout="@layout/fragment_create"/>
-    <fragment
-        android:id="@+id/collectionFragment"
+        android:id="@+id/my_collection"
         android:name="com.example.musicpracticejournal.CollectionFragment"
         android:label="CollectionFragment"
         tools:layout="@layout/fragment_collection"/>
     <fragment
-        android:id="@+id/helpFragment"
+        android:id="@+id/calendar"
+        android:name="com.example.musicpracticejournal.CalendarFragment"
+        android:label="CalendarFragment"
+        tools:layout="@layout/fragment_calendar"/>
+    <fragment
+        android:id="@+id/help"
         android:name="com.example.musicpracticejournal.HelpFragment"
         android:label="HelpFragment"
         tools:layout="@layout/fragment_help"/>
     <fragment
-        android:id="@+id/calendarFragment"
-        android:name="com.example.musicpracticejournal.CalendarFragment"
-        android:label="CalendarFragment"
-        tools:layout="@layout/fragment_calendar"/>
+        android:id="@+id/createFragment"
+        android:name="com.example.musicpracticejournal.CreateFragment"
+        android:label="CreateFragment"
+        tools:layout="@layout/fragment_create"/>
 </navigation>

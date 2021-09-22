@@ -67,7 +67,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginTop="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:hint="Practice Time (minutes)">
@@ -80,11 +79,21 @@
         android:layout_height="wrap_content"/>
 </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:foregroundGravity="right"
+        android:text="Save to My Collection"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Save"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         />
 </androidx.appcompat.widget.LinearLayoutCompat>
