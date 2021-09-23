@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MusicFragmentDao {
 
-    @Query("SELECT * FROM musical_fragment_table ORDER BY date ASC")
+    @Query("SELECT * FROM musical_fragment_table ORDER BY name ASC")
     fun getCurrentWeekPractice(): Flow<List<MusicFragment>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

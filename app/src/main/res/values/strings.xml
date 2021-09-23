@@ -7,4 +7,17 @@
     <string name="bottom_nav_calendar">Calendar</string>
     <string name="bottom_nav_help">Help</string>
     <string name="fab_description">Add new musical fragment</string>
+    <string name="fragment_type_error">Fragment type is a required field</string>
+    <string name="fragment_author">Author is a required field</string>
+    <string name="fragment_name">Name is a required field</string>
+    <string name="fragment_practice_time">Practice time is a required field</string>
+    <string name="fragment_practice_date">Practice date is a required field</string>
+    <string name="fragment_create_title">Add A Music Fragment To Practice</string>
+    <string name="practice_time_hint">Practice Time (minutes)</string>
+    <string name="save_to_my_collection">Save to My Collection</string>
+    <string name="save_btn_text">Save</string>
+    <string name="name_hint">Name</string>
+    <string name="author_hint">Author</string>
+    <string name="type_hint">Type</string>
+    <string name="date_hint">Date</string>
 </resources>

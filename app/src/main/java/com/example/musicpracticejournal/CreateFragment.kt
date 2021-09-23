@@ -1,25 +1,27 @@
 package com.example.musicpracticejournal
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
-import java.text.SimpleDateFormat
-import java.util.*
+import com.google.android.material.textfield.TextInputLayout
 
 
 class CreateFragment : Fragment() {
 
     private var _binding: FragmentCreateBinding? = null
     private val binding get() = _binding!!
+    lateinit var navController: NavController
+
     private val viewModel by viewModels<MusicPracticeViewModel> {
         MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository)
     }
@@ -36,36 +38,90 @@ class CreateFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val spinnerTypeArray = arrayOf("Song", "Exercise")
         val typeAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity, R.layout.dropdown_menu_type_item, spinnerTypeArray)
-        binding.createTypeSpinner.setAdapter(typeAdapter)
+        binding.spinnerCreateType.setAdapter(typeAdapter)
 
         val spinnerTimeArray = arrayOf("5", "10", "15", "20")
         val minutesAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity, R.layout.dropdown_menu_type_item, spinnerTimeArray)
-        binding.createPracticeTimeSpinner.setAdapter(minutesAdapter)
+        binding.spinnerCreatePracticeTime.setAdapter(minutesAdapter)
 
+        navController = Navigation.findNavController(view)
+
+        observeViewModelResult()
+        handleListeners()
+    }
+
+    private fun handleListeners() {
         binding.btnSaveMusicFragment.setOnClickListener {
-            val type = binding.createTypeSpinner.text.toString()
-            val author = binding.createAuthor.text.toString()
-            val name = binding.createName.text.toString()
-            val practiceTime = binding.createPracticeTimeSpinner.text?.toString()
+            saveMusicalFragment()
+        }
 
-            val pattern = "yyyy-MM-dd"
-            val simpleDateFormat = SimpleDateFormat(pattern)
-            val date = simpleDateFormat.format(Date())
+        binding.spinnerCreateType.addTextChangedListener {
+            binding.textInputLayoutCreateType.error = null
+        }
 
-            val inputValues = arrayOf(type, author, name, practiceTime)
-            if (validateInputs(inputValues)) {
-                viewModel.insert(MusicFragment(0, author, name, practiceTime!!, date.toString()))
-            }
+        binding.etCreateName.addTextChangedListener {
+            binding.textInputLayoutCreateName.error = null
+        }
+
+        binding.etCreateAuthor.addTextChangedListener {
+            binding.textInputLayoutCreateAuthor.error = null
+        }
+
+        binding.spinnerCreatePracticeTime.addTextChangedListener {
+            binding.textInputLayoutPracticeTime.error = null
+        }
+
+        binding.etPracticeDate.addTextChangedListener {
+            binding.textInputLayoutPracticeDate.error = null
+        }
+
+        binding.etPracticeDate.setOnClickListener {
+            showDatePickerDialog()
         }
     }
 
-    fun validateInputs(inputValues: Array<String?>): Boolean {
-        inputValues.forEach {
-            if (TextUtils.isEmpty(it)) {
-                Log.d("Create fragment", "Empty fields")
-                return false
-            }
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment.newInstance{ _, year, month, day ->
+            val formattedDay = day.addInitialZero()
+            val formattedMonth = (month+1).addInitialZero()
+            val selectedDate = "$formattedDay / $formattedMonth / $year"
+            binding.etPracticeDate.setText(selectedDate)
         }
-        return true
+        datePicker.show(requireActivity().supportFragmentManager, "datePicker")
     }
+
+    private fun saveMusicalFragment() {
+        val type = binding.spinnerCreateType.text?.toString() ?: ""
+        val author = binding.etCreateAuthor.text?.toString() ?: ""
+        val name = binding.etCreateName.text?.toString() ?: ""
+        val practiceTime = binding.spinnerCreatePracticeTime.text?.toString() ?: ""
+        val practiceDate = binding.etPracticeDate.text?.toString() ?: ""
+
+        viewModel.insert(MusicFragment(type, author, name, practiceTime, practiceDate))
+    }
+
+    private fun observeViewModelResult() {
+        viewModel.createMusicFragmentState.observe(viewLifecycleOwner, {
+            when (it) {
+                is MusicPracticeViewModel.CreateMusicFragmentState.CreateMusicFragmentSaved -> navController.popBackStack()
+                is MusicPracticeViewModel.CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields -> handleErrorFields(it.fields)
+            }
+        })
+    }
+
+    private fun handleErrorFields(fields: List<Pair<String, Int>>) {
+        val validationFields: Map<String, TextInputLayout> = initValidationFields()
+        fields.forEach {
+            val stringErrorMessage = getString(it.second)
+            validationFields[it.first]?.error = stringErrorMessage
+        }
+    }
+
+    private fun initValidationFields() = mapOf(
+        MusicPracticeViewModel.INPUT_TYPE.first to binding.textInputLayoutCreateType,
+        MusicPracticeViewModel.INPUT_NAME.first to binding.textInputLayoutCreateName,
+        MusicPracticeViewModel.INPUT_AUTHOR.first to binding.textInputLayoutCreateAuthor,
+        MusicPracticeViewModel.INPUT_PRACTICE_TIME.first to binding.textInputLayoutPracticeTime,
+        MusicPracticeViewModel.INPUT_PRACTICE_DATE.first to binding.textInputLayoutPracticeDate
+    )
 }
