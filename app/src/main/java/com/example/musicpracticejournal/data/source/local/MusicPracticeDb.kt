@@ -1,10 +1,10 @@
-package com.example.musicpracticejournal.repository.room
+package com.example.musicpracticejournal.data.source.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.musicpracticejournal.MusicFragment
+import com.example.musicpracticejournal.data.MusicFragment
 import kotlinx.coroutines.CoroutineScope
 
 @Database(entities = arrayOf(MusicFragment::class), version = 1, exportSchema = false)

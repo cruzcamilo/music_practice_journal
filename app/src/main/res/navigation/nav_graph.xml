@@ -6,31 +6,39 @@
     app:startDestination="@id/home">
     <fragment
         android:id="@+id/home"
-        android:name="com.example.musicpracticejournal.MainScreenFragment"
+        android:name="com.example.musicpracticejournal.screens.MainScreenFragment"
         android:label="MainScreenFragment"
         tools:layout="@layout/fragment_main_screen">
         <action
-            android:id="@+id/action_mainScreenFragment_to_createFragment"
+            android:id="@+id/action_home_to_createFragment"
             app:destination="@id/createFragment" />
+        <action
+            android:id="@+id/action_home_to_practiceFragment"
+            app:destination="@id/practiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/my_collection"
-        android:name="com.example.musicpracticejournal.CollectionFragment"
+        android:name="com.example.musicpracticejournal.screens.CollectionFragment"
         android:label="CollectionFragment"
         tools:layout="@layout/fragment_collection"/>
     <fragment
         android:id="@+id/calendar"
-        android:name="com.example.musicpracticejournal.CalendarFragment"
+        android:name="com.example.musicpracticejournal.screens.CalendarFragment"
         android:label="CalendarFragment"
         tools:layout="@layout/fragment_calendar"/>
     <fragment
         android:id="@+id/help"
-        android:name="com.example.musicpracticejournal.HelpFragment"
+        android:name="com.example.musicpracticejournal.screens.HelpFragment"
         android:label="HelpFragment"
         tools:layout="@layout/fragment_help"/>
     <fragment
         android:id="@+id/createFragment"
-        android:name="com.example.musicpracticejournal.CreateFragment"
+        android:name="com.example.musicpracticejournal.screens.CreateFragment"
         android:label="CreateFragment"
         tools:layout="@layout/fragment_create"/>
+    <fragment
+        android:id="@+id/practiceFragment"
+        android:name="com.example.musicpracticejournal.screens.PracticeFragment"
+        android:label="PracticeFragment"
+        tools:layout="@layout/fragment_practice"/>
 </navigation>

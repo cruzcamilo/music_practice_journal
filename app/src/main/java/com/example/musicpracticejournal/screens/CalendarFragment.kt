@@ -1,23 +1,23 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.musicpracticejournal.databinding.FragmentCollectionBinding
+import com.example.musicpracticejournal.databinding.FragmentCalendarBinding
 
 
-class CollectionFragment : Fragment() {
+class CalendarFragment : Fragment() {
 
-    private var _binding: FragmentCollectionBinding? = null
+    private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCollectionBinding.inflate(inflater, container, false)
+        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         return binding.root
     }
 }

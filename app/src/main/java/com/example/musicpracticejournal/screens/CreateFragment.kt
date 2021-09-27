@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.musicpracticejournal.*
+import com.example.musicpracticejournal.data.MusicFragment
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
+import com.example.musicpracticejournal.screens.common.DatePickerFragment
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 import com.google.android.material.textfield.TextInputLayout
@@ -37,11 +40,13 @@ class CreateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val spinnerTypeArray = arrayOf("Song", "Exercise")
-        val typeAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity, R.layout.dropdown_menu_type_item, spinnerTypeArray)
+        val typeAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity,
+            R.layout.dropdown_menu_type_item, spinnerTypeArray)
         binding.spinnerCreateType.setAdapter(typeAdapter)
 
         val spinnerTimeArray = arrayOf("5", "10", "15", "20")
-        val minutesAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity, R.layout.dropdown_menu_type_item, spinnerTimeArray)
+        val minutesAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity,
+            R.layout.dropdown_menu_type_item, spinnerTimeArray)
         binding.spinnerCreatePracticeTime.setAdapter(minutesAdapter)
 
         navController = Navigation.findNavController(view)
@@ -81,9 +86,9 @@ class CreateFragment : Fragment() {
     }
 
     private fun showDatePickerDialog() {
-        val datePicker = DatePickerFragment.newInstance{ _, year, month, day ->
+        val datePicker = DatePickerFragment.newInstance { _, year, month, day ->
             val formattedDay = day.addInitialZero()
-            val formattedMonth = (month+1).addInitialZero()
+            val formattedMonth = (month + 1).addInitialZero()
             val selectedDate = "$formattedDay / $formattedMonth / $year"
             binding.etPracticeDate.setText(selectedDate)
         }

@@ -2,7 +2,7 @@ package com.example.musicpracticejournal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.musicpracticejournal.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
 
 class MainActivityViewModelFactory(private val repository: MusicPracticeRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

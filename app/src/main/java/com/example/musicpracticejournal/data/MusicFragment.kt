@@ -1,10 +1,10 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "musical_fragment_table")
-class MusicFragment(
+data class MusicFragment(
     val type:String,
     val author:String,
     val name:String,

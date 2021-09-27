@@ -1,8 +1,8 @@
 package com.example.musicpracticejournal
 
 import android.app.Application
-import com.example.musicpracticejournal.repository.MusicPracticeRepository
-import com.example.musicpracticejournal.repository.room.MusicPracticeDb
+import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
+import com.example.musicpracticejournal.data.source.local.MusicPracticeDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 

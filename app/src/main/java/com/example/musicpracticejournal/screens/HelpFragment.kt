@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
