@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import com.example.musicpracticejournal.databinding.FragmentMainScreenBinding
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
+import kotlinx.coroutines.Dispatchers
 
 
 class MainScreenFragment : Fragment() {
@@ -30,11 +31,11 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity(), MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository))
+        viewModel = ViewModelProvider(requireActivity(), MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository, Dispatchers.IO))
             .get(MusicPracticeViewModel::class.java)
-        navController = Navigation.findNavController(view)
 
         binding.fabButton.setOnClickListener {
+                navController = Navigation.findNavController(binding.root)
                 navController.navigate(R.id.action_mainScreenFragment_to_createFragment)
             }
         }
