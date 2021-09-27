@@ -39,6 +39,8 @@ class MainScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity(), MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository))
             .get(MusicPracticeViewModel::class.java)
+
+        //viewModel.deleteAllMusicFragments()
         navController = Navigation.findNavController(binding.root)
 
         binding.rvFragments.layoutManager = LinearLayoutManager(context)
@@ -51,16 +53,19 @@ class MainScreenFragment : Fragment() {
             navController.navigate(R.id.action_home_to_createFragment)
         }
 
-        viewModel.emptyMessageVisibility.observe(viewLifecycleOwner) {
-            if (it && binding.emptyListMessage.visibility == View.INVISIBLE) {
-                binding.emptyListMessage.visibility = View.VISIBLE
-            } else if (!it) {
-                binding.emptyListMessage.visibility = View.INVISIBLE
-            }
+        viewModel.musicFragments.observe(viewLifecycleOwner) { musicFragments ->
+            viewModel.updateEmptyListText(musicFragments)
+            musicFragmentAdapter.bindData(musicFragments)
         }
 
-        viewModel.allMusicFragments.observe(viewLifecycleOwner) { musicFragments ->
-            musicFragmentAdapter.bindData(musicFragments)
+        viewModel.emptyMessageVisibility.observe(viewLifecycleOwner) {
+            binding.emptyListMessage.apply {
+                if (it) {
+                    this.visibility = View.VISIBLE
+                } else {
+                    this.visibility = View.INVISIBLE
+                }
+            }
         }
     }
 
