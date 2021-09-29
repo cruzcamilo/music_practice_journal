@@ -11,7 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.musicpracticejournal.*
+import com.example.musicpracticejournal.data.FragmentTypeEnum
 import com.example.musicpracticejournal.data.MusicFragment
+import com.example.musicpracticejournal.data.PracticeTimeEnum
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.screens.common.DatePickerFragment
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
@@ -39,18 +41,15 @@ class CreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val spinnerTypeArray = arrayOf("Song", "Exercise")
-        val typeAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity,
-            R.layout.dropdown_menu_type_item, spinnerTypeArray)
+        val typeAdapter: ArrayAdapter<FragmentTypeEnum> = ArrayAdapter(activity as MainActivity,
+            R.layout.dropdown_menu_type_item, FragmentTypeEnum.values())
         binding.spinnerCreateType.setAdapter(typeAdapter)
 
-        val spinnerTimeArray = arrayOf("5", "10", "15", "20")
-        val minutesAdapter: ArrayAdapter<String> = ArrayAdapter(activity as MainActivity,
-            R.layout.dropdown_menu_type_item, spinnerTimeArray)
+        val minutesAdapter: ArrayAdapter<PracticeTimeEnum> = ArrayAdapter(activity as MainActivity,
+            R.layout.dropdown_menu_type_item, PracticeTimeEnum.values())
         binding.spinnerCreatePracticeTime.setAdapter(minutesAdapter)
 
         navController = Navigation.findNavController(view)
-
         observeViewModelResult()
         handleListeners()
     }
