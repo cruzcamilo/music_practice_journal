@@ -40,7 +40,7 @@ class TasksDaoTest {
             MusicPracticeDb::class.java
         ).build()
         musicFragment = MusicFragment(FragmentTypeEnum.SONG.type, "ameseours", "sens",
-            PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().toString())
+            PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString())
     }
 
     @After
@@ -62,7 +62,9 @@ class TasksDaoTest {
     @Test
     fun updateMusicFragmentAndGetById() = runBlockingTest {
         val musicFragmentId = database.musicFragmentDao().insertMusicFragment(musicFragment)
-        val musicFragmentUpdate = MusicFragment(FragmentTypeEnum.EXERCISE.type, "Ameseours", "heurt", PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().toString(), musicFragmentId)
+        val musicFragmentUpdate = MusicFragment(
+            FragmentTypeEnum.EXERCISE.type, "Ameseours", "heurt",
+            PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(), musicFragmentId)
 
         database.musicFragmentDao().updateMusicFragment(musicFragmentUpdate)
 

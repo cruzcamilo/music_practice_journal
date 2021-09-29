@@ -44,7 +44,6 @@ class MusicPracticeViewModel(private val repository: MusicPracticeRepository): V
 
     private fun validateCreateForm(musicFragment: MusicFragment):Boolean {
         val invalidFields = arrayListOf<Pair<String, Int>>()
-
         if (TextUtils.isEmpty(musicFragment.type)) {
             invalidFields.add(INPUT_TYPE)
         }
@@ -57,11 +56,9 @@ class MusicPracticeViewModel(private val repository: MusicPracticeRepository): V
         if (TextUtils.isEmpty(musicFragment.practiceTime)) {
             invalidFields.add(INPUT_PRACTICE_TIME)
         }
-
         if (TextUtils.isEmpty(musicFragment.practiceDate)) {
             invalidFields.add(INPUT_PRACTICE_DATE)
         }
-
         if (invalidFields.isNotEmpty()) {
             _createMusicFragmentState.value = CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields(invalidFields)
             return false

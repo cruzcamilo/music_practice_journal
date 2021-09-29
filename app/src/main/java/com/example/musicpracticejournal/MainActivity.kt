@@ -16,6 +16,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.myToolbar)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.baseline_arrow_back_24)
+        binding.myToolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onStart() {
@@ -30,8 +39,10 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.createFragment) {
                 binding.bottomNav.visibility = View.INVISIBLE
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             } else {
                 binding.bottomNav.visibility = View.VISIBLE
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
         }
     }
