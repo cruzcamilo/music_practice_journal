@@ -39,10 +39,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_layout_create_author"
+        android:id="@+id/text_input_layout_song_technique"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/author_hint"
+        android:hint="@string/song_hint"
         android:layout_marginTop="8dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/name_hint"
+        android:hint="@string/section_hint"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -97,16 +97,46 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switch_save_to_collection"
-        android:layout_marginTop="8dp"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="true"
-        android:layout_marginStart="16dp"
-        android:textSize="16sp"
-        android:foregroundGravity="right"
-        android:text="@string/save_to_my_collection"/>
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_current_tempo"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Current Tempo"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_current_tempo"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout_target_tempo"
+            android:layout_width="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Target Tempo"
+            android:layout_marginTop="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_target_tempo"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <Button
         android:id="@+id/btn_save_music_fragment"
         android:layout_width="wrap_content"

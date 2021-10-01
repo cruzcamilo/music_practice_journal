@@ -16,8 +16,9 @@ class DatePickerFragment : DialogFragment() {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-
-        return DatePickerDialog(activity as Context, listener, year, month, day)
+        var picker = DatePickerDialog(activity as Context, listener, year, month, day)
+        picker.datePicker.minDate = System.currentTimeMillis()-1000
+        return picker
     }
 
     companion object {

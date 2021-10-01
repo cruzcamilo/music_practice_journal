@@ -1,6 +1,8 @@
 package com.example.musicpracticejournal.screens
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +27,7 @@ class CreateFragment : Fragment() {
 
     private var _binding: FragmentCreateBinding? = null
     private val binding get() = _binding!!
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     private val viewModel by viewModels<MusicPracticeViewModel> {
         MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository)
@@ -41,17 +43,26 @@ class CreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val typeAdapter: ArrayAdapter<FragmentTypeEnum> = ArrayAdapter(activity as MainActivity,
-            R.layout.dropdown_menu_type_item, FragmentTypeEnum.values())
-        binding.spinnerCreateType.setAdapter(typeAdapter)
-
-        val minutesAdapter: ArrayAdapter<PracticeTimeEnum> = ArrayAdapter(activity as MainActivity,
-            R.layout.dropdown_menu_type_item, PracticeTimeEnum.values())
-        binding.spinnerCreatePracticeTime.setAdapter(minutesAdapter)
 
         navController = Navigation.findNavController(view)
+        initializeSpinners()
         observeViewModelResult()
         handleListeners()
+    }
+
+    private fun initializeSpinners() {
+        val typeAdapter: ArrayAdapter<FragmentTypeEnum> = ArrayAdapter(
+            activity as MainActivity,
+            R.layout.dropdown_menu_type_item, FragmentTypeEnum.values()
+        )
+        binding.spinnerCreateType.setText(FragmentTypeEnum.SONG.type)
+        binding.spinnerCreateType.setAdapter(typeAdapter)
+
+        val minutesAdapter: ArrayAdapter<PracticeTimeEnum> = ArrayAdapter(
+            activity as MainActivity,
+            R.layout.dropdown_menu_type_item, PracticeTimeEnum.values()
+        )
+        binding.spinnerCreatePracticeTime.setAdapter(minutesAdapter)
     }
 
     private fun handleListeners() {
@@ -68,7 +79,7 @@ class CreateFragment : Fragment() {
         }
 
         binding.etCreateAuthor.addTextChangedListener {
-            binding.textInputLayoutCreateAuthor.error = null
+            binding.textInputLayoutSongTechnique.error = null
         }
 
         binding.spinnerCreatePracticeTime.addTextChangedListener {
@@ -82,13 +93,31 @@ class CreateFragment : Fragment() {
         binding.etPracticeDate.setOnClickListener {
             showDatePickerDialog()
         }
+
+        binding.spinnerCreateType.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+                when (p0.toString()) {
+                    FragmentTypeEnum.SONG.type -> {
+                        binding.textInputLayoutSongTechnique.hint = getString(R.string.song_hint)
+                        binding.textInputLayoutCreateName.hint = getString(R.string.section_hint)
+                    }
+                    FragmentTypeEnum.EXERCISE.type -> {
+                        binding.textInputLayoutSongTechnique.hint = getString(R.string.technique_hint)
+                        binding.textInputLayoutCreateName.hint = getString(R.string.name_hint)
+                    }
+                }
+            }
+        })
     }
 
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment.newInstance { _, year, month, day ->
             val formattedDay = day.addInitialZero()
             val formattedMonth = (month + 1).addInitialZero()
-            val selectedDate = "$formattedDay / $formattedMonth / $year"
+            val selectedDate = "$formattedDay/$formattedMonth/$year"
             binding.etPracticeDate.setText(selectedDate)
         }
         datePicker.show(requireActivity().supportFragmentManager, "datePicker")
@@ -124,7 +153,7 @@ class CreateFragment : Fragment() {
     private fun initValidationFields() = mapOf(
         MusicPracticeViewModel.INPUT_TYPE.first to binding.textInputLayoutCreateType,
         MusicPracticeViewModel.INPUT_NAME.first to binding.textInputLayoutCreateName,
-        MusicPracticeViewModel.INPUT_AUTHOR.first to binding.textInputLayoutCreateAuthor,
+        MusicPracticeViewModel.INPUT_AUTHOR.first to binding.textInputLayoutSongTechnique,
         MusicPracticeViewModel.INPUT_PRACTICE_TIME.first to binding.textInputLayoutPracticeTime,
         MusicPracticeViewModel.INPUT_PRACTICE_DATE.first to binding.textInputLayoutPracticeDate
     )

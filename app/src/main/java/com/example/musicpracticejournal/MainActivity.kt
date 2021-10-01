@@ -10,6 +10,7 @@ import com.example.musicpracticejournal.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewsIdArrayForBackButton: ArrayList<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupToolbar()
+        viewsIdArrayForBackButton = arrayListOf(R.id.createFragment, R.id.practiceFragment)
     }
 
     private fun setupToolbar() {
@@ -37,12 +39,15 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (viewsIdArrayForBackButton.contains(destination.id)) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            } else {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
             if(destination.id == R.id.createFragment) {
                 binding.bottomNav.visibility = View.INVISIBLE
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             } else {
                 binding.bottomNav.visibility = View.VISIBLE
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
         }
     }

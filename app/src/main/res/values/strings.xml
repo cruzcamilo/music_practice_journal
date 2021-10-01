@@ -17,7 +17,9 @@
     <string name="save_to_my_collection">Save to My Collection</string>
     <string name="save_btn_text">Save</string>
     <string name="name_hint">Name</string>
-    <string name="author_hint">Author</string>
+    <string name="song_hint">Song Name</string>
+    <string name="technique_hint">Technique</string>
     <string name="type_hint">Type</string>
     <string name="date_hint">Date</string>
+    <string name="section_hint">Section</string>
 </resources>

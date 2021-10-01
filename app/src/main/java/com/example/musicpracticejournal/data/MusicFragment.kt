@@ -10,6 +10,8 @@ data class MusicFragment(
     val name:String,
     val practiceTime:String,
     val practiceDate:String,
+    val targetTempo: Int? = null,
+    val currentTempo: Int?= null,
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null
 )
