@@ -12,7 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.musicpracticejournal.*
+import com.example.musicpracticejournal.MainActivity
+import com.example.musicpracticejournal.MusicPracticeApplication
+import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.addInitialZero
 import com.example.musicpracticejournal.data.FragmentTypeEnum
 import com.example.musicpracticejournal.data.MusicFragment
 import com.example.musicpracticejournal.data.PracticeTimeEnum
@@ -25,10 +28,8 @@ import com.google.android.material.textfield.TextInputLayout
 
 class CreateFragment : Fragment() {
 
-    private var _binding: FragmentCreateBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentCreateBinding
     private lateinit var navController: NavController
-
     private val viewModel by viewModels<MusicPracticeViewModel> {
         MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository)
     }
@@ -37,7 +38,7 @@ class CreateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCreateBinding.inflate(inflater, container, false)
+        binding = FragmentCreateBinding.inflate(inflater, container, false)
         return binding.root
     }
 

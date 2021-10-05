@@ -64,7 +64,8 @@ class TasksDaoTest {
         val musicFragmentId = database.musicFragmentDao().insertMusicFragment(musicFragment)
         val musicFragmentUpdate = MusicFragment(
             FragmentTypeEnum.EXERCISE.type, "Ameseours", "heurt",
-            PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(), musicFragmentId)
+            PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(),
+            null, null, musicFragmentId)
 
         database.musicFragmentDao().updateMusicFragment(musicFragmentUpdate)
 

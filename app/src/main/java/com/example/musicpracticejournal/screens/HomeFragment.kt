@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,36 +22,40 @@ import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
-    lateinit var navController: NavController
-    lateinit var viewModel: MusicPracticeViewModel
+    private val viewModel by viewModels<MusicPracticeViewModel> {
+        MainActivityViewModelFactory((requireContext().applicationContext as MusicPracticeApplication).repository)
+    }
+    private lateinit var binding : FragmentHomeBinding
+    private lateinit var navController: NavController
+    private lateinit var musicFragmentAdapter: MusicFragmentAdapter
+
+    companion object {
+        val MUSIC_FRAGMENT_KEY = "music_fragment"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity(), MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository))
-            .get(MusicPracticeViewModel::class.java)
 
         //viewModel.deleteAllMusicFragments()
         navController = Navigation.findNavController(binding.root)
 
         binding.rvFragments.layoutManager = LinearLayoutManager(context)
-        val musicFragmentAdapter = MusicFragmentAdapter {
-            navController.navigate(R.id.action_home_to_practiceFragment)
+        musicFragmentAdapter = MusicFragmentAdapter { musicFragment->
+            val bundle = bundleOf(MUSIC_FRAGMENT_KEY to musicFragment)
+            navController.navigate(R.id.action_home_to_practiceFragment, bundle)
         }
-        binding.rvFragments.adapter = musicFragmentAdapter
-
         binding.fabButton.setOnClickListener {
             navController.navigate(R.id.action_home_to_createFragment)
         }
+        binding.rvFragments.adapter = musicFragmentAdapter
 
         viewModel.musicFragments.observe(viewLifecycleOwner) { musicFragments ->
             viewModel.updateEmptyListText(musicFragments)
@@ -95,9 +100,10 @@ class HomeFragment : Fragment() {
             holder.author.text = musicFragmentsList[position].author
             holder.name.text = musicFragmentsList[position].name
             holder.date.text = musicFragmentsList[position].practiceDate
-            holder.practiceTime.text = musicFragmentsList[position].practiceTime + " mins"
+            holder.practiceTime.text = holder.practiceTime.context.resources
+                .getString(R.string.mins_amount, musicFragmentsList[position].practiceTime )
             holder.itemView.setOnClickListener {
-                onFragmentClickListener.invoke(musicFragmentsList[position])
+                onFragmentClickListener(musicFragmentsList[position])
             }
         }
 

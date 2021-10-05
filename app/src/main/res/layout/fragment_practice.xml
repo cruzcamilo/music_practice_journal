@@ -1,19 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top1_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Practice Screen"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top2_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.20" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_top3_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="256dp" />
+
+    <TextView
+        android:id="@+id/tv_music_fragment_title"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/gl_top1_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Transylvania - Intro" />
+
+    <TextView
+        android:id="@+id/tv_last_practice_label"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/last_practice_label"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/tv_total_time_label"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gl_top1_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_last_practice"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/tv_last_practice_label"
+        app:layout_constraintStart_toStartOf="@+id/tv_last_practice_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_last_practice_label"
+        tools:text="01/10/2020" />
+
+    <TextView
+        android:id="@+id/tv_total_time_label"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/total_time_label"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_last_practice_label"
+        app:layout_constraintTop_toTopOf="@+id/gl_top1_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_total_time"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/tv_total_time_label"
+        app:layout_constraintStart_toStartOf="@+id/tv_total_time_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_total_time_label"
+        tools:text="20:00" />
+
+    <TextView
+        android:id="@+id/tv_current_tempo_label"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/last_tempo_label"
+        app:layout_constraintEnd_toEndOf="@+id/tv_last_practice_label"
+        app:layout_constraintStart_toStartOf="@+id/tv_last_practice_label"
+        app:layout_constraintTop_toTopOf="@+id/gl_top2_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_current_tempo"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_current_tempo_label"
+        app:layout_constraintStart_toStartOf="@+id/tv_current_tempo_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_current_tempo_label"
+        tools:text="150 bpm" />
+
+    <TextView
+        android:id="@+id/tv_target_tempo_label"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/target_tempo_label"
+        app:layout_constraintEnd_toEndOf="@+id/tv_total_time_label"
+        app:layout_constraintStart_toStartOf="@+id/tv_total_time_label"
+        app:layout_constraintTop_toTopOf="@+id/gl_top2_horizontal" />
+
+    <TextView
+        android:id="@+id/tv_target_tempo"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_target_tempo_label"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="@+id/tv_target_tempo_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_target_tempo_label"
+        tools:text="180 bpm" />
+
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="58sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="05:00" />
+
+    <TextView
+        android:id="@+id/tv_timer_label"
+        style="@style/TextAppearance.AppCompat.Title.Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/practice_time_label"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/tv_timer"
+        app:layout_constraintEnd_toEndOf="@+id/tv_timer"
+        app:layout_constraintStart_toStartOf="@+id/tv_timer"
+        app:layout_constraintTop_toTopOf="@+id/gl_top3_horizontal"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/btn_start_timer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/desc_play_button"
+        android:src="@drawable/ic_baseline_play_circle_outline_24"
+        app:layout_constraintEnd_toEndOf="@+id/tv_timer"
+        app:layout_constraintStart_toStartOf="@+id/tv_timer"
+        app:layout_constraintTop_toBottomOf="@+id/tv_timer"
+        app:tint="@android:color/black" />
+
+    <ImageView
+        android:id="@+id/btn_stop_timer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/desc_play_button"
+        android:src="@drawable/ic_baseline_pause_circle_outline_24"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/btn_start_timer"
+        app:layout_constraintStart_toStartOf="@+id/btn_start_timer"
+        app:layout_constraintTop_toBottomOf="@+id/tv_timer" />
+
+    <!--  <TextView
+        android:id="@+id/tv_accuracy_review"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="637dp"
+        tools:text="Accuracy" />
+
+    <TextView
+        android:id="@+id/tv_rhythm_review"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="676dp"
+        tools:text="Rhythm" />
+
+    <TextView
+        android:id="@+id/tv_dynamics_review"
+        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="716dp"
+        tools:text="Dynamics" />-->
+
+    <ImageView
+        android:id="@+id/btn_restart_timer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/desc_play_button"
+        android:src="@drawable/ic_baseline_restore_24"
+        app:layout_constraintEnd_toEndOf="@+id/btn_start_timer"
+        app:layout_constraintStart_toStartOf="@+id/btn_start_timer"
+        app:layout_constraintTop_toBottomOf="@+id/btn_start_timer"
+        app:tint="@android:color/black" />
+
+    <Button
+        android:id="@+id/btn_practice_review_label"
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/darker_gray"
+        android:clickable="false"
+        android:text="@string/btn_performance_review"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btn_restart_timer"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="@+id/btn_restart_timer"
+        app:layout_constraintTop_toBottomOf="@+id/btn_restart_timer"
+        app:layout_constraintVertical_bias="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

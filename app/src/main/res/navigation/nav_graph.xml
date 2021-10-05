@@ -40,5 +40,9 @@
         android:id="@+id/practiceFragment"
         android:name="com.example.musicpracticejournal.screens.PracticeFragment"
         android:label="PracticeFragment"
-        tools:layout="@layout/fragment_practice"/>
+        tools:layout="@layout/fragment_practice">
+        <argument
+            android:name="fragment_id"
+            app:argType="long" />
+    </fragment>
 </navigation>
