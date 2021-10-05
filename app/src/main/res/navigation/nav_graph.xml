@@ -6,9 +6,9 @@
     app:startDestination="@id/home">
     <fragment
         android:id="@+id/home"
-        android:name="com.example.musicpracticejournal.screens.MainScreenFragment"
+        android:name="com.example.musicpracticejournal.screens.HomeFragment"
         android:label="MainScreenFragment"
-        tools:layout="@layout/fragment_main_screen">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_createFragment"
             app:destination="@id/createFragment" />

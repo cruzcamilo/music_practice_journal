@@ -1,7 +1,6 @@
 package com.example.musicpracticejournal.screens
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.MusicFragment
-import com.example.musicpracticejournal.databinding.FragmentMainScreenBinding
+import com.example.musicpracticejournal.databinding.FragmentHomeBinding
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 
 
-class MainScreenFragment : Fragment() {
+class HomeFragment : Fragment() {
 
-    private var _binding: FragmentMainScreenBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     lateinit var navController: NavController
     lateinit var viewModel: MusicPracticeViewModel
@@ -31,7 +30,7 @@ class MainScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMainScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 

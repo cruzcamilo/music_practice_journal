@@ -9,7 +9,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.example.musicpracticejournal.screens.MainScreenFragment
+import com.example.musicpracticejournal.screens.HomeFragment
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
@@ -21,7 +21,7 @@ class NavigationTest {
 
     @Test
     fun clickTask_navigateToDetailFragmentOne() {
-        val scenario = launchFragmentInContainer<MainScreenFragment>(Bundle(), R.style.Theme_AppCompat_Light)
+        val scenario = launchFragmentInContainer<HomeFragment>(Bundle(), R.style.Theme_AppCompat_Light)
         val navController = mock(NavController::class.java)
 
         Thread.sleep(2000)
