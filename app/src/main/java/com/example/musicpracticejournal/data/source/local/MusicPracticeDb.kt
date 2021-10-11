@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.musicpracticejournal.data.MusicFragment
 import kotlinx.coroutines.CoroutineScope
 
 @Database(entities = arrayOf(MusicFragment::class), version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class MusicPracticeDb : RoomDatabase() {
     abstract fun musicFragmentDao(): MusicFragmentDao
 

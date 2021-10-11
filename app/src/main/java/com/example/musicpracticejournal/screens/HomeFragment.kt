@@ -1,6 +1,7 @@
 package com.example.musicpracticejournal.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,6 +88,7 @@ class HomeFragment : Fragment() {
 
         fun bindData(musicFragments: List<MusicFragment>) {
             musicFragmentsList = ArrayList(musicFragments)
+            Log.d("Home Fragment - List", musicFragments.toString())
             notifyDataSetChanged()
         }
 

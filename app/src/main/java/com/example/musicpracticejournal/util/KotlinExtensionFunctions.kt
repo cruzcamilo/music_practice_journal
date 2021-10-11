@@ -2,6 +2,8 @@ package com.example.musicpracticejournal
 
 import android.util.Log
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun Int.addInitialZero(): String {
     return if (this < 10) {
@@ -29,4 +31,9 @@ fun Long.secondsToMinutesSeconds():String {
     val min = this / 60
     val sec = this % 60
     return f.format(min) + ":" + f.format(sec)
+}
+
+fun Date.formatToString():String {
+    val f = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+    return f.format(this)
 }

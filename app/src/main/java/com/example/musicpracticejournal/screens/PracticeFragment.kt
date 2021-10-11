@@ -12,7 +12,9 @@ import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.MusicFragment
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
+import com.example.musicpracticejournal.formatToString
 import com.example.musicpracticejournal.screens.HomeFragment.Companion.MUSIC_FRAGMENT_KEY
+import com.example.musicpracticejournal.secondsToMinutesSeconds
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 
@@ -20,7 +22,7 @@ import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 class PracticeFragment : Fragment() {
 
     private lateinit var binding: FragmentPracticeBinding
-    private lateinit var currentPracticeFragment: MusicFragment
+    private lateinit var practiceFragment: MusicFragment
     private var practiceTimesInSecs:Long? = null
     private val viewModel by viewModels<MusicPracticeViewModel> {
         MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository, (requireActivity().application as MusicPracticeApplication).timerUseCase)
@@ -28,7 +30,7 @@ class PracticeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currentPracticeFragment = requireArguments().getParcelable(MUSIC_FRAGMENT_KEY)!!
+        practiceFragment = requireArguments().getParcelable(MUSIC_FRAGMENT_KEY)!!
     }
 
     override fun onCreateView(
@@ -41,7 +43,7 @@ class PracticeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        practiceTimesInSecs = currentPracticeFragment.practiceTime.toLong() * 60
+        practiceTimesInSecs = practiceFragment.practiceTime.toLong() * 60
         setValuesOnViews()
         handleListeners()
         observeViewModel()
@@ -79,18 +81,21 @@ class PracticeFragment : Fragment() {
         }
 
         binding.btnRestartTimer.setOnClickListener {
-            viewModel.resetTimer(currentPracticeFragment.practiceTime.toLong())
+            viewModel.resetTimer(practiceFragment.practiceTime.toLong())
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun setValuesOnViews() {
-        val title = "${currentPracticeFragment.author} - ${currentPracticeFragment.name}"
+        val title = "${practiceFragment.author} - ${practiceFragment.name}"
         binding.tvMusicFragmentTitle.text = title
-        binding.tvCurrentTempo.text = currentPracticeFragment.currentTempo?.toString() ?: getString(
+        binding.tvCurrentTempo.text = practiceFragment.currentTempo?.toString() ?: getString(
                     R.string.no_data)
-        binding.tvTargetTempo.text = currentPracticeFragment.targetTempo?.toString() ?: getString(
+        binding.tvTargetTempo.text = practiceFragment.targetTempo?.toString() ?: getString(
             R.string.no_data)
-        binding.tvTimer.text = "${currentPracticeFragment.practiceTime}:00"
+        binding.tvTotalTime.text = practiceFragment.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
+        binding.tvLastPractice.text = practiceFragment.updated?.formatToString()?:getString(
+            R.string.no_data)
+        binding.tvTimer.text = "${practiceFragment.practiceTime}:00"
     }
 }

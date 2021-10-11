@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
+        app:layout_constraintGuide_percent="0.21" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_top3_horizontal"
@@ -54,10 +54,11 @@
 
     <TextView
         android:id="@+id/tv_last_practice"
-        style="@style/TextAppearance.AppCompat.Title"
+        style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:padding="8dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/tv_last_practice_label"
         app:layout_constraintStart_toStartOf="@+id/tv_last_practice_label"
@@ -79,10 +80,11 @@
 
     <TextView
         android:id="@+id/tv_total_time"
-        style="@style/TextAppearance.AppCompat.Title"
+        style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:padding="8dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/tv_total_time_label"
         app:layout_constraintStart_toStartOf="@+id/tv_total_time_label"
