@@ -17,13 +17,13 @@ import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.MusicFragment
 import com.example.musicpracticejournal.databinding.FragmentHomeBinding
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
-import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
+import com.example.musicpracticejournal.viewmodel.MusicFragmentViewModel
 
 
 class HomeFragment : Fragment() {
 
-    private val viewModel by viewModels<MusicPracticeViewModel> {
-        MainActivityViewModelFactory((requireContext().applicationContext as MusicPracticeApplication).repository)
+    private val viewModel by viewModels<MusicFragmentViewModel> {
+        MainActivityViewModelFactory((requireContext().applicationContext as MusicPracticeApplication).repository, (requireContext().applicationContext as MusicPracticeApplication).timerUseCase)
     }
     private lateinit var binding : FragmentHomeBinding
     private lateinit var navController: NavController

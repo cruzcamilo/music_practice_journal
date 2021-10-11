@@ -10,4 +10,5 @@ class MusicPracticeApplication : Application() {
     val applicationScope = CoroutineScope(SupervisorJob())
     val database by lazy { MusicPracticeDb.getDatabase(this, applicationScope) }
     val repository by lazy { MusicPracticeRepository(database.musicFragmentDao()) }
+    val timerUseCase by lazy { TimerUseCase(applicationScope) }
 }

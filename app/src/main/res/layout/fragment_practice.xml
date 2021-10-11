@@ -173,7 +173,7 @@
         app:tint="@android:color/black" />
 
     <ImageView
-        android:id="@+id/btn_stop_timer"
+        android:id="@+id/btn_pause_timer"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="24dp"

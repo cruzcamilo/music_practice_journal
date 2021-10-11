@@ -22,7 +22,7 @@ import com.example.musicpracticejournal.data.PracticeTimeEnum
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.screens.common.DatePickerFragment
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
-import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
+import com.example.musicpracticejournal.viewmodel.MusicFragmentViewModel
 import com.google.android.material.textfield.TextInputLayout
 
 
@@ -30,8 +30,8 @@ class CreateFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateBinding
     private lateinit var navController: NavController
-    private val viewModel by viewModels<MusicPracticeViewModel> {
-        MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository)
+    private val viewModel by viewModels<MusicFragmentViewModel> {
+        MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository, (requireActivity().application as MusicPracticeApplication).timerUseCase)
     }
 
     override fun onCreateView(
@@ -137,8 +137,8 @@ class CreateFragment : Fragment() {
     private fun observeViewModelResult() {
         viewModel.createMusicFragmentState.observe(viewLifecycleOwner, {
             when (it) {
-                is MusicPracticeViewModel.CreateMusicFragmentState.CreateMusicFragmentSaved -> navController.popBackStack()
-                is MusicPracticeViewModel.CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields -> handleErrorFields(it.fields)
+                is MusicFragmentViewModel.CreateMusicFragmentState.CreateMusicFragmentSaved -> navController.popBackStack()
+                is MusicFragmentViewModel.CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields -> handleErrorFields(it.fields)
             }
         })
     }
@@ -152,10 +152,10 @@ class CreateFragment : Fragment() {
     }
 
     private fun initValidationFields() = mapOf(
-        MusicPracticeViewModel.INPUT_TYPE.first to binding.textInputLayoutCreateType,
-        MusicPracticeViewModel.INPUT_NAME.first to binding.textInputLayoutCreateName,
-        MusicPracticeViewModel.INPUT_AUTHOR.first to binding.textInputLayoutSongTechnique,
-        MusicPracticeViewModel.INPUT_PRACTICE_TIME.first to binding.textInputLayoutPracticeTime,
-        MusicPracticeViewModel.INPUT_PRACTICE_DATE.first to binding.textInputLayoutPracticeDate
+        MusicFragmentViewModel.INPUT_TYPE.first to binding.textInputLayoutCreateType,
+        MusicFragmentViewModel.INPUT_NAME.first to binding.textInputLayoutCreateName,
+        MusicFragmentViewModel.INPUT_AUTHOR.first to binding.textInputLayoutSongTechnique,
+        MusicFragmentViewModel.INPUT_PRACTICE_TIME.first to binding.textInputLayoutPracticeTime,
+        MusicFragmentViewModel.INPUT_PRACTICE_DATE.first to binding.textInputLayoutPracticeDate
     )
 }
