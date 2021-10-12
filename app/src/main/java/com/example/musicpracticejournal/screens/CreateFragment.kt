@@ -17,7 +17,7 @@ import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.addInitialZero
 import com.example.musicpracticejournal.data.FragmentTypeEnum
-import com.example.musicpracticejournal.data.MusicFragment
+import com.example.musicpracticejournal.data.PracticeFragment
 import com.example.musicpracticejournal.data.PracticeTimeEnum
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.screens.common.DatePickerFragment
@@ -131,7 +131,7 @@ class CreateFragment : Fragment() {
         val practiceTime = binding.spinnerCreatePracticeTime.text?.toString() ?: ""
         val practiceDate = binding.etPracticeDate.text?.toString() ?: ""
 
-        viewModel.insert(MusicFragment(type, author, name, practiceTime, practiceDate))
+        viewModel.insert(PracticeFragment(type, author, name, practiceTime, practiceDate))
     }
 
     private fun observeViewModelResult() {

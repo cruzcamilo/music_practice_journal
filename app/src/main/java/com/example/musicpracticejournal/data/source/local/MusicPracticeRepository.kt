@@ -1,16 +1,16 @@
 package com.example.musicpracticejournal.data.source.local
 
 import androidx.annotation.WorkerThread
-import com.example.musicpracticejournal.data.MusicFragment
+import com.example.musicpracticejournal.data.PracticeFragment
 import kotlinx.coroutines.flow.Flow
 
 class MusicPracticeRepository(private val musicFragmentDao: MusicFragmentDao) {
 
-    val allMusicFragments: Flow<List<MusicFragment>> = musicFragmentDao.getAllMusicFragments()
+    val allPracticeFragments: Flow<List<PracticeFragment>> = musicFragmentDao.getAllMusicFragments()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(word: MusicFragment) {
+    suspend fun insert(word: PracticeFragment) {
         musicFragmentDao.insertMusicFragment(word)
     }
 

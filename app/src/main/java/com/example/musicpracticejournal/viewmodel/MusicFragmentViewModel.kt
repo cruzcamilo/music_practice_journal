@@ -2,8 +2,9 @@ package com.example.musicpracticejournal.viewmodel
 
 import android.text.TextUtils
 import androidx.lifecycle.*
+import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.MusicFragment
+import com.example.musicpracticejournal.data.PracticeFragment
 import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
 import kotlinx.coroutines.launch
 
@@ -26,36 +27,42 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
     private val _emptyMessageVisibility = MutableLiveData<Boolean>()
     val emptyMessageVisibility : LiveData<Boolean> = _emptyMessageVisibility
 
-    private val _musicFragments: LiveData<List<MusicFragment>> = repository.allMusicFragments.asLiveData()
-    val musicFragments : LiveData<List<MusicFragment>> = _musicFragments
+    private val _practiceFragments: LiveData<List<PracticeFragment>> = repository.allPracticeFragments.asLiveData()
+    val practiceFragments : LiveData<List<PracticeFragment>> = _practiceFragments
 
     private val _createMusicFragmentState = MutableLiveData<CreateMusicFragmentState>()
     val createMusicFragmentState: LiveData<CreateMusicFragmentState>
         get() = _createMusicFragmentState
 
-    fun insert(musicFragment: MusicFragment) = viewModelScope.launch {
-        if (validateCreateForm(musicFragment)) {
+    private val _createPracticeFragmentEvent = MutableLiveData<Event<Unit>>()
+    val createPracticeFragmentEvent: LiveData<Event<Unit>> = _createPracticeFragmentEvent
+
+    private val _startPracticeEvent = MutableLiveData<Event<PracticeFragment>>()
+    val startPracticeEvent: LiveData<Event<PracticeFragment>> = _startPracticeEvent
+
+    fun insert(practiceFragment: PracticeFragment) = viewModelScope.launch {
+        if (validateCreateForm(practiceFragment)) {
             _createMusicFragmentState.value = CreateMusicFragmentState.CreateMusicFragmentSaved()
-            musicFragment.practiceDate.replace(" ", "")
-            repository.insert(musicFragment)
+            practiceFragment.practiceDate.replace(" ", "")
+            repository.insert(practiceFragment)
         }
     }
 
-    private fun validateCreateForm(musicFragment: MusicFragment):Boolean {
+    private fun validateCreateForm(practiceFragment: PracticeFragment):Boolean {
         val invalidFields = arrayListOf<Pair<String, Int>>()
-        if (TextUtils.isEmpty(musicFragment.type)) {
+        if (TextUtils.isEmpty(practiceFragment.type)) {
             invalidFields.add(INPUT_TYPE)
         }
-        if (TextUtils.isEmpty(musicFragment.name)) {
+        if (TextUtils.isEmpty(practiceFragment.name)) {
             invalidFields.add(INPUT_NAME)
         }
-        if (TextUtils.isEmpty(musicFragment.author)) {
+        if (TextUtils.isEmpty(practiceFragment.author)) {
             invalidFields.add(INPUT_AUTHOR)
         }
-        if (TextUtils.isEmpty(musicFragment.practiceTime)) {
+        if (TextUtils.isEmpty(practiceFragment.practiceTime)) {
             invalidFields.add(INPUT_PRACTICE_TIME)
         }
-        if (TextUtils.isEmpty(musicFragment.practiceDate)) {
+        if (TextUtils.isEmpty(practiceFragment.practiceDate)) {
             invalidFields.add(INPUT_PRACTICE_DATE)
         }
         if (invalidFields.isNotEmpty()) {
@@ -67,11 +74,19 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
     }
 
 
-    fun updateEmptyListText(musicFragments: List<MusicFragment>?) {
-        _emptyMessageVisibility.value = musicFragments.isNullOrEmpty()
+    fun updateEmptyListText(practiceFragments: List<PracticeFragment>?) {
+        _emptyMessageVisibility.value = practiceFragments.isNullOrEmpty()
     }
 
     fun deleteAllMusicFragments() = viewModelScope.launch {
         repository.deleteAllMusicFragments()
+    }
+
+    fun createPracticeFragment() {
+        _createPracticeFragmentEvent.value = Event(Unit)
+    }
+
+    fun startPractice(musicFragment: PracticeFragment) {
+        _startPracticeEvent.value = Event(musicFragment)
     }
 }

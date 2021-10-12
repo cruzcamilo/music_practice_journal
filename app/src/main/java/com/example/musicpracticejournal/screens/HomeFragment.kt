@@ -13,9 +13,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.musicpracticejournal.EventObserver
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.MusicFragment
+import com.example.musicpracticejournal.data.PracticeFragment
 import com.example.musicpracticejournal.databinding.FragmentHomeBinding
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicFragmentViewModel
@@ -44,21 +45,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //viewModel.deleteAllMusicFragments()
         navController = Navigation.findNavController(binding.root)
-
         binding.rvFragments.layoutManager = LinearLayoutManager(context)
         musicFragmentAdapter = MusicFragmentAdapter { musicFragment->
-            val bundle = bundleOf(MUSIC_FRAGMENT_KEY to musicFragment)
-            navController.navigate(R.id.action_home_to_practiceFragment, bundle)
-        }
-        binding.fabButton.setOnClickListener {
-            navController.navigate(R.id.action_home_to_createFragment)
+            viewModel.startPractice(musicFragment)
+
         }
         binding.rvFragments.adapter = musicFragmentAdapter
+        setupFab()
+        setupNavigation()
+        observePracticeFragmentList()
+    }
 
-        viewModel.musicFragments.observe(viewLifecycleOwner) { musicFragments ->
+    private fun observePracticeFragmentList() {
+        viewModel.practiceFragments.observe(viewLifecycleOwner) { musicFragments ->
             viewModel.updateEmptyListText(musicFragments)
             musicFragmentAdapter.bindData(musicFragments)
         }
@@ -74,10 +75,26 @@ class HomeFragment : Fragment() {
         }
     }
 
-    class MusicFragmentAdapter(private val onFragmentClickListener: (MusicFragment) -> Unit) :
+    private fun setupFab() {
+        binding.fabButton.setOnClickListener {
+            viewModel.createPracticeFragment()
+        }
+    }
+
+    private fun setupNavigation() {
+        viewModel.createPracticeFragmentEvent.observe(viewLifecycleOwner, EventObserver{
+            navController.navigate(R.id.action_home_to_createFragment)
+        })
+        viewModel.startPracticeEvent.observe(viewLifecycleOwner, EventObserver{
+            val bundle = bundleOf(MUSIC_FRAGMENT_KEY to it)
+            navController.navigate(R.id.action_home_to_practiceFragment, bundle)
+        })
+    }
+
+    class MusicFragmentAdapter(private val onFragmentClickListener: (PracticeFragment) -> Unit) :
         RecyclerView.Adapter<MusicFragmentAdapter.MusicFragmentViewHolder>() {
 
-        private var musicFragmentsList : List<MusicFragment> = ArrayList(0)
+        private var practiceFragmentsList : List<PracticeFragment> = ArrayList(0)
 
         inner class MusicFragmentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val author: AppCompatTextView = view.findViewById(R.id.music_fragment_author)
@@ -86,9 +103,9 @@ class HomeFragment : Fragment() {
             val practiceTime: AppCompatTextView = view.findViewById(R.id.music_fragment_practice_time)
         }
 
-        fun bindData(musicFragments: List<MusicFragment>) {
-            musicFragmentsList = ArrayList(musicFragments)
-            Log.d("Home Fragment - List", musicFragments.toString())
+        fun bindData(practiceFragments: List<PracticeFragment>) {
+            practiceFragmentsList = ArrayList(practiceFragments)
+            Log.d("Home Fragment - List", practiceFragments.toString())
             notifyDataSetChanged()
         }
 
@@ -99,18 +116,18 @@ class HomeFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: MusicFragmentViewHolder, position: Int) {
-            holder.author.text = musicFragmentsList[position].author
-            holder.name.text = musicFragmentsList[position].name
-            holder.date.text = musicFragmentsList[position].practiceDate
+            holder.author.text = practiceFragmentsList[position].author
+            holder.name.text = practiceFragmentsList[position].name
+            holder.date.text = practiceFragmentsList[position].practiceDate
             holder.practiceTime.text = holder.practiceTime.context.resources
-                .getString(R.string.mins_amount, musicFragmentsList[position].practiceTime )
+                .getString(R.string.mins_amount, practiceFragmentsList[position].practiceTime )
             holder.itemView.setOnClickListener {
-                onFragmentClickListener(musicFragmentsList[position])
+                onFragmentClickListener(practiceFragmentsList[position])
             }
         }
 
         override fun getItemCount(): Int {
-            return musicFragmentsList.size
+            return practiceFragmentsList.size
         }
     }
 }

@@ -44,5 +44,17 @@
         <argument
             android:name="fragment_id"
             app:argType="long" />
+        <action
+            android:id="@+id/action_practiceFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewFragment"
+        android:name="com.example.musicpracticejournal.screens.ReviewFragment"
+        android:label="ReviewFragment"
+        tools:layout="@layout/fragment_review">
+    <argument
+        android:name="fragment_id"
+        app:argType="long" />
     </fragment>
 </navigation>

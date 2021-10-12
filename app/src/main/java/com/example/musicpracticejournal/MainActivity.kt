@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.musicpracticejournal.databinding.ActivityMainBinding
+import com.example.musicpracticejournal.util.ScreenList
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setupToolbar()
-        viewsIdArrayForBackButton = arrayListOf(R.id.createFragment, R.id.practiceFragment)
+        viewsIdArrayForBackButton = ScreenList.screensWithBackButton
     }
 
     private fun setupToolbar() {

@@ -186,36 +186,6 @@
         app:layout_constraintStart_toStartOf="@+id/btn_start_timer"
         app:layout_constraintTop_toBottomOf="@+id/tv_timer" />
 
-    <!--  <TextView
-        android:id="@+id/tv_accuracy_review"
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="637dp"
-        tools:text="Accuracy" />
-
-    <TextView
-        android:id="@+id/tv_rhythm_review"
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="676dp"
-        tools:text="Rhythm" />
-
-    <TextView
-        android:id="@+id/tv_dynamics_review"
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="716dp"
-        tools:text="Dynamics" />-->
-
     <ImageView
         android:id="@+id/btn_restart_timer"
         android:layout_width="80dp"
@@ -229,12 +199,12 @@
         app:tint="@android:color/black" />
 
     <Button
-        android:id="@+id/btn_practice_review_label"
+        android:id="@+id/btn_review_practice"
         style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/darker_gray"
-        android:clickable="false"
+
         android:text="@string/btn_performance_review"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.TimerUseCase
 import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
 import com.example.musicpracticejournal.timeStringToSeconds
@@ -15,6 +16,9 @@ class MusicPracticeViewModel(private val repository: MusicPracticeRepository, pr
 
     val timerCurrentTime = timerUseCase.timerValueFlow.asLiveData()
     val timerState = timerUseCase.timerState.asLiveData()
+
+    private val _reviewFragmentEvent = MutableLiveData<Event<Unit>>()
+    val reviewFragmentEvent: LiveData<Event<Unit>> = _reviewFragmentEvent
 
     fun startTimer(totalTime: Long)  {
         timerUseCase.start(totalTime)
@@ -29,5 +33,9 @@ class MusicPracticeViewModel(private val repository: MusicPracticeRepository, pr
         val totalSeconds = totalMinutes * 60
         _timerSeconds.postValue(totalSeconds)
         timerUseCase.reset(totalSeconds)
+    }
+
+    fun reviewPracticeFragment() {
+        _reviewFragmentEvent.value = Event(Unit)
     }
 }

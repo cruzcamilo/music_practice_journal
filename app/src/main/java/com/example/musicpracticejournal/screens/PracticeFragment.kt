@@ -5,16 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.musicpracticejournal.EventObserver
+import com.example.musicpracticejournal.secondsToMinutesSeconds
+import com.example.musicpracticejournal.formatToString
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.MusicFragment
+import com.example.musicpracticejournal.data.PracticeFragment
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
-import com.example.musicpracticejournal.formatToString
 import com.example.musicpracticejournal.screens.HomeFragment.Companion.MUSIC_FRAGMENT_KEY
-import com.example.musicpracticejournal.secondsToMinutesSeconds
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 
@@ -22,7 +26,8 @@ import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 class PracticeFragment : Fragment() {
 
     private lateinit var binding: FragmentPracticeBinding
-    private lateinit var practiceFragment: MusicFragment
+    private lateinit var practiceFragment: PracticeFragment
+    private lateinit var navController: NavController
     private var practiceTimesInSecs:Long? = null
     private val viewModel by viewModels<MusicPracticeViewModel> {
         MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository, (requireActivity().application as MusicPracticeApplication).timerUseCase)
@@ -43,10 +48,13 @@ class PracticeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(binding.root)
         practiceTimesInSecs = practiceFragment.practiceTime.toLong() * 60
         setValuesOnViews()
         handleListeners()
         observeViewModel()
+        setupReviewBtn()
+        setupNavigation()
     }
 
     private fun observeViewModel() {
@@ -75,14 +83,25 @@ class PracticeFragment : Fragment() {
         binding.btnStartTimer.setOnClickListener {
             viewModel.startTimer(practiceTimesInSecs!!)
         }
-
         binding.btnPauseTimer.setOnClickListener {
             viewModel.pauseTimer()
         }
-
         binding.btnRestartTimer.setOnClickListener {
             viewModel.resetTimer(practiceFragment.practiceTime.toLong())
         }
+    }
+
+    private fun setupReviewBtn() {
+        binding.btnReviewPractice.setOnClickListener {
+            viewModel.reviewPracticeFragment()
+        }
+    }
+
+    private fun setupNavigation() {
+        viewModel.reviewFragmentEvent.observe(viewLifecycleOwner, EventObserver{
+            val bundle = bundleOf(MUSIC_FRAGMENT_KEY to practiceFragment.id)
+            navController.navigate(R.id.action_practiceFragment_to_reviewFragment, bundle)
+        })
     }
 
     @SuppressLint("SetTextI18n")
