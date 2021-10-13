@@ -89,4 +89,9 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
     fun startPractice(musicFragment: PracticeFragment) {
         _startPracticeEvent.value = Event(musicFragment)
     }
+
+    fun addMockPracticeFragment() = viewModelScope.launch {
+        val practiceFragment = PracticeFragment("Song", "LMB", "Absent Minded", "1", "02/03/2022")
+        repository.insert(practiceFragment)
+    }
 }

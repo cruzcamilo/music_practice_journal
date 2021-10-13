@@ -1,17 +1,25 @@
 package com.example.musicpracticejournal
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.musicpracticejournal.databinding.ActivityMainBinding
 import com.example.musicpracticejournal.util.ScreenList
+import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
+import com.example.musicpracticejournal.viewmodel.MusicFragmentViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewsIdArrayForBackButton: ArrayList<Int>
+    private val viewModel by viewModels<MusicFragmentViewModel> {
+        MainActivityViewModelFactory((application as MusicPracticeApplication).repository, (application as MusicPracticeApplication).timerUseCase)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,4 +61,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu);
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.addTestPractice -> {
+                viewModel.addMockPracticeFragment()
+                true
+            }
+            R.id.deletePracticeFragments -> {
+                viewModel.deleteAllMusicFragments()
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        }
+    }
 }
