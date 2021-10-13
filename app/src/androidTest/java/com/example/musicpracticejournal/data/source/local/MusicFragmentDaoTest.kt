@@ -5,9 +5,9 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.example.musicpracticejournal.data.FragmentTypeEnum
-import com.example.musicpracticejournal.data.PracticeFragment
-import com.example.musicpracticejournal.data.PracticeTimeEnum
+import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
+import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -39,7 +39,7 @@ class TasksDaoTest {
             getApplicationContext(),
             MusicPracticeDb::class.java
         ).build()
-        practiceFragment = PracticeFragment(FragmentTypeEnum.SONG.type, "ameseours", "sens",
+        practiceFragment = PracticeFragment(PracticeTypeEnum.SONG.type, "ameseours", "sens",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString())
     }
 
@@ -63,7 +63,7 @@ class TasksDaoTest {
     fun updateMusicFragmentAndGetById() = runBlockingTest {
         val musicFragmentId = database.musicFragmentDao().insertMusicFragment(practiceFragment)
         val musicFragmentUpdate = PracticeFragment(
-            FragmentTypeEnum.EXERCISE.type, "Ameseours", "heurt",
+            PracticeTypeEnum.EXERCISE.type, "Ameseours", "heurt",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(),
             null, null, musicFragmentId)
 

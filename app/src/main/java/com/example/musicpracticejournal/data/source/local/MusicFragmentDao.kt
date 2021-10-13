@@ -1,7 +1,7 @@
 package com.example.musicpracticejournal.data.source.local
 
 import androidx.room.*
-import com.example.musicpracticejournal.data.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import kotlinx.coroutines.flow.Flow
 
 @Dao

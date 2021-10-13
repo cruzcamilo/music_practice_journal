@@ -15,7 +15,7 @@ import com.example.musicpracticejournal.secondsToMinutesSeconds
 import com.example.musicpracticejournal.formatToString
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
 import com.example.musicpracticejournal.screens.HomeFragment.Companion.MUSIC_FRAGMENT_KEY

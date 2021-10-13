@@ -16,9 +16,9 @@ import com.example.musicpracticejournal.MainActivity
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.addInitialZero
-import com.example.musicpracticejournal.data.FragmentTypeEnum
-import com.example.musicpracticejournal.data.PracticeFragment
-import com.example.musicpracticejournal.data.PracticeTimeEnum
+import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
+import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.screens.common.DatePickerFragment
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
@@ -52,11 +52,11 @@ class CreateFragment : Fragment() {
     }
 
     private fun initializeSpinners() {
-        val typeAdapter: ArrayAdapter<FragmentTypeEnum> = ArrayAdapter(
+        val typeAdapter: ArrayAdapter<PracticeTypeEnum> = ArrayAdapter(
             activity as MainActivity,
-            R.layout.dropdown_menu_type_item, FragmentTypeEnum.values()
+            R.layout.dropdown_menu_type_item, PracticeTypeEnum.values()
         )
-        binding.spinnerCreateType.setText(FragmentTypeEnum.SONG.type)
+        binding.spinnerCreateType.setText(PracticeTypeEnum.SONG.type)
         binding.spinnerCreateType.setAdapter(typeAdapter)
 
         val minutesAdapter: ArrayAdapter<PracticeTimeEnum> = ArrayAdapter(
@@ -101,11 +101,11 @@ class CreateFragment : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {
                 when (p0.toString()) {
-                    FragmentTypeEnum.SONG.type -> {
+                    PracticeTypeEnum.SONG.type -> {
                         binding.textInputLayoutSongTechnique.hint = getString(R.string.song_hint)
                         binding.textInputLayoutCreateName.hint = getString(R.string.section_hint)
                     }
-                    FragmentTypeEnum.EXERCISE.type -> {
+                    PracticeTypeEnum.EXERCISE.type -> {
                         binding.textInputLayoutSongTechnique.hint = getString(R.string.technique_hint)
                         binding.textInputLayoutCreateName.hint = getString(R.string.name_hint)
                     }

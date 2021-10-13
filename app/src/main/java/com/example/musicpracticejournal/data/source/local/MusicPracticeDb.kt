@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.musicpracticejournal.data.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import kotlinx.coroutines.CoroutineScope
 
 @Database(entities = [PracticeFragment::class], version = 1, exportSchema = false)

@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.data
+package com.example.musicpracticejournal.practicefragments
 
 enum class PracticeTimeEnum(val minutes:Int) {
     FIVE(5),

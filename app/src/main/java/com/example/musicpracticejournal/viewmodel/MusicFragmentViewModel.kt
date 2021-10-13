@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.*
 import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
 import kotlinx.coroutines.launch
 
