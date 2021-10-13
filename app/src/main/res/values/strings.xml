@@ -31,5 +31,17 @@
     <string name="btn_performance_review">Go to Performance Review</string>
     <string name="mins_amount">%1$s mins</string>
     <string name="no_data">No data</string>
+    <string name="review_your_performance_title">Review Your Performance</string>
+    <string name="accuracy_label">Accuracy:</string>
+    <string name="rhythm_label">Rhythm:</string>
+    <string name="accuracy_description">Did you played the correct notes? Did the notes sounded clear?</string>
+    <string name="rhythm_description">How accurate was your rhythm?</string>
+    <string name="articulation_label">Articulation:</string>
+    <string name="articulation_description">Did the music articulations sounded clean?</string>
+    <string name="dynamics_label">Dynamics:</string>
+    <string name="dynamics_description">In your performance the intended dynamics are clear?</string>
+    <string name="additional_notes_label">Additional Notes</string>
+    <string name="additional_notes_hint">Write any other relevant aspect about your performance (optional).</string>
+    <string name="save_review">Save Review</string>
 
 </resources>

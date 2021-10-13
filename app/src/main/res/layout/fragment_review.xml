@@ -1,49 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Review Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".MainActivity">
 
-    <!--  <TextView
-    android:id="@+id/tv_accuracy_review"
-    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/black"
-    tools:layout_editor_absoluteX="28dp"
-    tools:layout_editor_absoluteY="637dp"
-    tools:text="Accuracy" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_review_performance_title"
+            style="@android:style/TextAppearance.Material.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/review_your_performance_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-<TextView
-    android:id="@+id/tv_rhythm_review"
-    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/black"
-    tools:layout_editor_absoluteX="28dp"
-    tools:layout_editor_absoluteY="676dp"
-    tools:text="Rhythm" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_top1_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
 
-<TextView
-    android:id="@+id/tv_dynamics_review"
-    style="@style/TextAppearance.MaterialComponents.Subtitle1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/black"
-    tools:layout_editor_absoluteX="28dp"
-    tools:layout_editor_absoluteY="716dp"
-    tools:text="Dynamics" />-->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_accuracy_label"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/accuracy_label"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gl_top1_horizontal" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_accuracy_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/gl_vertical"
+            app:layout_constraintStart_toStartOf="@+id/tv_accuracy_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_accuracy_label"
+            android:text="@string/accuracy_description" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar_accuracy"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:isIndicator="false"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_accuracy_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_accuracy_description"
+            app:layout_constraintTop_toTopOf="@+id/tv_accuracy_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_rhythm_label"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/rhythm_label"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_accuracy_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_rhythm_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/gl_vertical"
+            app:layout_constraintStart_toStartOf="@+id/tv_rhythm_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rhythm_label"
+            android:text="@string/rhythm_description" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar_rhythm"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:isIndicator="false"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_rhythm_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_rhythm_description"
+            app:layout_constraintTop_toTopOf="@+id/tv_rhythm_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_articulation_label"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/articulation_label"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rhythm_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_articulation_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/gl_vertical"
+            app:layout_constraintStart_toStartOf="@+id/tv_articulation_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_articulation_label"
+            android:text="@string/articulation_description" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar_articulation"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:isIndicator="false"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_articulation_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_articulation_description"
+            app:layout_constraintTop_toTopOf="@+id/tv_articulation_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dynamics_label"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/dynamics_label"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_articulation_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_dynamics_label_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/gl_vertical"
+            app:layout_constraintStart_toStartOf="@+id/tv_dynamics_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dynamics_label"
+            android:text="@string/dynamics_description" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rating_bar_dynamics"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX=".8"
+            android:scaleY=".8"
+            android:isIndicator="false"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_dynamics_label_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_dynamics_label_description"
+            app:layout_constraintTop_toTopOf="@+id/tv_dynamics_label_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_additional_notes_label"
+            style="@android:style/TextAppearance.Material.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/additional_notes_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dynamics_label_description" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_additional_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="5"
+            android:minLines="5"
+            android:overScrollMode="always"
+            android:padding="10dp"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_additional_notes_label"
+            android:hint="@string/additional_notes_hint"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_review_practice"
+            style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:text="@string/save_review"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_additional_notes" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
