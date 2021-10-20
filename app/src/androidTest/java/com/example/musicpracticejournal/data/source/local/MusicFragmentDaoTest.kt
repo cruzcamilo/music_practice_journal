@@ -5,21 +5,24 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
+import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.not
+import org.hamcrest.Matchers.notNullValue
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.*
+
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -48,7 +51,7 @@ class TasksDaoTest {
 
     @Test
     fun insertMusicFragmentAndGetById() = runBlockingTest {
-        val insertedFragmentId = database.musicFragmentDao().insertMusicFragment(practiceFragment)
+        val insertedFragmentId = database.musicFragmentDao().savePracticeFragment(practiceFragment)
         val savedMusicFragment = database.musicFragmentDao().getMusicFragmentById(insertedFragmentId)
 
         assertThat(savedMusicFragment as PracticeFragment, notNullValue())
@@ -61,7 +64,7 @@ class TasksDaoTest {
 
     @Test
     fun updateMusicFragmentAndGetById() = runBlockingTest {
-        val musicFragmentId = database.musicFragmentDao().insertMusicFragment(practiceFragment)
+        val musicFragmentId = database.musicFragmentDao().savePracticeFragment(practiceFragment)
         val musicFragmentUpdate = PracticeFragment(
             PracticeTypeEnum.EXERCISE.type, "Ameseours", "heurt",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(),
@@ -82,7 +85,7 @@ class TasksDaoTest {
     @Test
     fun deleteAllMusicFragments() = runBlockingTest {
         val fragmentList = database.musicFragmentDao().getAllMusicFragments()
-        database.musicFragmentDao().insertMusicFragment(practiceFragment)
+        database.musicFragmentDao().savePracticeFragment(practiceFragment)
         val list = fragmentList.take(1).toList()[0]
 
         assertThat(list,  notNullValue())

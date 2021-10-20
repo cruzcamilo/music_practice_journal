@@ -212,7 +212,7 @@
             android:hint="@string/additional_notes_hint"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_review_practice"
+            android:id="@+id/btn_save_review"
             style="@style/MaterialAlertDialog.MaterialComponents.Title.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

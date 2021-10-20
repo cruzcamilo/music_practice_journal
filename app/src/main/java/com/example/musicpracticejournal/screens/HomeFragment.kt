@@ -1,6 +1,7 @@
 package com.example.musicpracticejournal.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel.deleteAllMusicFragments()
         navController = Navigation.findNavController(binding.root)
         binding.rvFragments.layoutManager = LinearLayoutManager(context)
         practiceFragmentAdapter = PracticeFragmentAdapter { musicFragment->
@@ -61,12 +61,18 @@ class HomeFragment : Fragment() {
             practiceFragmentAdapter.bindData(musicFragments)
         }
 
+        viewModel.reviews.observe(viewLifecycleOwner) { reviews ->
+            Log.d("Reviews", reviews.toString())
+        }
+
         viewModel.emptyMessageVisibility.observe(viewLifecycleOwner) {
             binding.emptyListMessage.apply {
                 if (it) {
                     this.visibility = View.VISIBLE
+                    binding.icEmptyHome.visibility = View.VISIBLE
                 } else {
                     this.visibility = View.INVISIBLE
+                    binding.icEmptyHome.visibility = View.INVISIBLE
                 }
             }
         }

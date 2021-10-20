@@ -6,12 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeFragmentDao
+import com.example.musicpracticejournal.reviews.Review
+import com.example.musicpracticejournal.reviews.ReviewDao
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = [PracticeFragment::class], version = 1, exportSchema = false)
+@Database(entities = [PracticeFragment::class, Review::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MusicPracticeDb : RoomDatabase() {
-    abstract fun musicFragmentDao(): MusicFragmentDao
+    abstract fun musicFragmentDao(): PracticeFragmentDao
+    abstract fun reviewDao(): ReviewDao
 
     companion object {
         @Volatile

@@ -52,6 +52,7 @@
         android:id="@+id/reviewFragment"
         android:name="com.example.musicpracticejournal.screens.ReviewFragment"
         android:label="ReviewFragment"
+        app:popUpTo="@+id/home"
         tools:layout="@layout/fragment_review">
     <argument
         android:name="fragment_id"

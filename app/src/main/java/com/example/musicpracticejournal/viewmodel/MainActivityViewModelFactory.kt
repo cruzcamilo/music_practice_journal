@@ -15,6 +15,10 @@ class MainActivityViewModelFactory(private val repository: MusicPracticeReposito
             @Suppress("UNCHECKED_CAST")
             return MusicPracticeViewModel(repository, timerUseCase) as T
         }
+        if (modelClass.isAssignableFrom(ReviewViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ReviewViewModel(repository) as T
+        }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

@@ -1,11 +1,16 @@
 package com.example.musicpracticejournal.viewmodel
 
 import android.text.TextUtils
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
+import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.reviews.Review
 import kotlinx.coroutines.launch
 
 class MusicFragmentViewModel(private val repository: MusicPracticeRepository): ViewModel() {
@@ -40,11 +45,14 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
     private val _startPracticeEvent = MutableLiveData<Event<PracticeFragment>>()
     val startPracticeEvent: LiveData<Event<PracticeFragment>> = _startPracticeEvent
 
+    private val _reviews: LiveData<List<Review>> = repository.allReviews.asLiveData()
+    val reviews : LiveData<List<Review>> = _reviews
+
     fun insert(practiceFragment: PracticeFragment) = viewModelScope.launch {
         if (validateCreateForm(practiceFragment)) {
             _createMusicFragmentState.value = CreateMusicFragmentState.CreateMusicFragmentSaved()
             practiceFragment.practiceDate.replace(" ", "")
-            repository.insert(practiceFragment)
+            repository.savePracticeFragment(practiceFragment)
         }
     }
 
@@ -92,6 +100,6 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
 
     fun addMockPracticeFragment() = viewModelScope.launch {
         val practiceFragment = PracticeFragment("Song", "LMB", "Absent Minded", "1", "02/03/2022")
-        repository.insert(practiceFragment)
+        repository.savePracticeFragment(practiceFragment)
     }
 }
