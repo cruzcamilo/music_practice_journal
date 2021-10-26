@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.musicpracticejournal.EventObserver
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(binding.root)
-        binding.rvFragments.layoutManager = LinearLayoutManager(context)
+        binding.rvFragments.layoutManager = GridLayoutManager(context, 2)
         practiceFragmentAdapter = PracticeFragmentAdapter { musicFragment->
             viewModel.startPractice(musicFragment)
 

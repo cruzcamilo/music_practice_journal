@@ -30,7 +30,10 @@
     <string name="practice_time_label">Practice Time</string>
     <string name="btn_performance_review">Go to Performance Review</string>
     <string name="mins_amount">%1$s mins</string>
+    <string name="bpm_amount">%1$s bpm</string>
     <string name="no_data">No data</string>
+    <string name="title">%1$s - %2$s</string>
+
 
     <!--    Review Screen-->
     <string name="review_your_performance_title">Review Your Performance</string>

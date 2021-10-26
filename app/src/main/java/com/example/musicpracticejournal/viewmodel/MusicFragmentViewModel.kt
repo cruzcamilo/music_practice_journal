@@ -99,7 +99,7 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
     }
 
     fun addMockPracticeFragment() = viewModelScope.launch {
-        val practiceFragment = PracticeFragment("Song", "LMB", "Absent Minded", "1", "02/03/2022")
+        val practiceFragment = PracticeFragment("Song", "Drowning", "Post solo", "1", "02/03/2022", 180, 150)
         repository.savePracticeFragment(practiceFragment)
     }
 }
