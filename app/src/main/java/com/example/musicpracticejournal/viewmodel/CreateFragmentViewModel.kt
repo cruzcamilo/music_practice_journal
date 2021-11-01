@@ -10,17 +10,17 @@ import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
 import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import com.example.musicpracticejournal.reviews.Review
 import kotlinx.coroutines.launch
 
-class MusicFragmentViewModel(private val repository: MusicPracticeRepository): ViewModel() {
+class CreateFragmentViewModel(private val repository: MusicPracticeRepository): ViewModel() {
 
     companion object {
         val INPUT_TYPE = "INPUT_TYPE" to R.string.fragment_practice_time
         val INPUT_NAME = "INPUT_NAME" to R.string.fragment_name
         val INPUT_AUTHOR = "INPUT_AUTHOR" to R.string.fragment_author
         val INPUT_PRACTICE_TIME = "INPUT_PRACTICE_TIME" to R.string.fragment_practice_time
-        val INPUT_PRACTICE_DATE = "INPUT_PRACTICE_DATE" to R.string.fragment_practice_date
     }
 
     sealed class CreateMusicFragmentState {
@@ -51,7 +51,6 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
     fun insert(practiceFragment: PracticeFragment) = viewModelScope.launch {
         if (validateCreateForm(practiceFragment)) {
             _createMusicFragmentState.value = CreateMusicFragmentState.CreateMusicFragmentSaved()
-            practiceFragment.practiceDate.replace(" ", "")
             repository.savePracticeFragment(practiceFragment)
         }
     }
@@ -69,9 +68,6 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
         }
         if (TextUtils.isEmpty(practiceFragment.practiceTime)) {
             invalidFields.add(INPUT_PRACTICE_TIME)
-        }
-        if (TextUtils.isEmpty(practiceFragment.practiceDate)) {
-            invalidFields.add(INPUT_PRACTICE_DATE)
         }
         if (invalidFields.isNotEmpty()) {
             _createMusicFragmentState.value = CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields(invalidFields)
@@ -99,7 +95,7 @@ class MusicFragmentViewModel(private val repository: MusicPracticeRepository): V
     }
 
     fun addMockPracticeFragment() = viewModelScope.launch {
-        val practiceFragment = PracticeFragment("Song", "Drowning", "Post solo", "1", "02/03/2022", 180, 150)
+        val practiceFragment = PracticeFragment("Song", "Drowning", "Post solo", "1", PracticeStateEnum.ACTIVE.name, 180, 150)
         repository.savePracticeFragment(practiceFragment)
     }
 }

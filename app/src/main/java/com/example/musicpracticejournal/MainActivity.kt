@@ -11,13 +11,13 @@ import androidx.navigation.ui.NavigationUI
 import com.example.musicpracticejournal.databinding.ActivityMainBinding
 import com.example.musicpracticejournal.util.ScreenList
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
-import com.example.musicpracticejournal.viewmodel.MusicFragmentViewModel
+import com.example.musicpracticejournal.viewmodel.CreateFragmentViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewsIdArrayForBackButton: ArrayList<Int>
-    private val viewModel by viewModels<MusicFragmentViewModel> {
+    private val viewModel by viewModels<CreateFragmentViewModel> {
         MainActivityViewModelFactory((application as MusicPracticeApplication).repository, (application as MusicPracticeApplication).timerUseCase)
     }
 

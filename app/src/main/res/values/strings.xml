@@ -11,7 +11,7 @@
     <string name="fragment_author">Author is a required field</string>
     <string name="fragment_name">Name is a required field</string>
     <string name="fragment_practice_time">Practice time is a required field</string>
-    <string name="fragment_practice_date">Practice date is a required field</string>
+    <string name="fragment_practice_state">Practice fragment state is a required field</string>
     <string name="fragment_create_title">Add A Music Fragment To Practice</string>
     <string name="save_to_my_collection">Save to My Collection</string>
     <string name="save_btn_text">Save</string>
@@ -22,6 +22,9 @@
     <string name="section_hint">Section*</string>
     <string name="practice_time_hint">Practice Time (minutes)*</string>
     <string name="date_hint">Date</string>
+    <string name="create_fragment_state">State*</string>
+
+<!--    Practice Screen-->
     <string name="desc_play_button">Play button</string>
     <string name="last_practice_label">Last Practice:</string>
     <string name="total_time_label">Total Time</string>
@@ -33,7 +36,6 @@
     <string name="bpm_amount">%1$s bpm</string>
     <string name="no_data">No data</string>
     <string name="title">%1$s - %2$s</string>
-
 
     <!--    Review Screen-->
     <string name="review_your_performance_title">Review Your Performance</string>
@@ -80,5 +82,7 @@
     <string name="additional_notes_label">Additional Notes</string>
     <string name="additional_notes_hint">Write any other relevant aspect about your performance (optional).</string>
     <string name="save_review">Save Review</string>
+    <string name="target_tempo">Target Tempo</string>
+    <string name="current_tempo">Current Tempo</string>
 
 </resources>

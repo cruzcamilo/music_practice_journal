@@ -7,9 +7,9 @@ import com.example.musicpracticejournal.data.source.local.MusicPracticeRepositor
 
 class MainActivityViewModelFactory(private val repository: MusicPracticeRepository, private val timerUseCase: TimerUseCase) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(MusicFragmentViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CreateFragmentViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MusicFragmentViewModel(repository) as T
+            return CreateFragmentViewModel(repository) as T
         }
         if (modelClass.isAssignableFrom(MusicPracticeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

@@ -16,13 +16,13 @@ import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.databinding.FragmentHomeBinding
 import com.example.musicpracticejournal.practicefragments.PracticeFragmentAdapter
+import com.example.musicpracticejournal.viewmodel.CreateFragmentViewModel
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
-import com.example.musicpracticejournal.viewmodel.MusicFragmentViewModel
 
 
 class HomeFragment : Fragment() {
 
-    private val viewModel by viewModels<MusicFragmentViewModel> {
+    private val viewModel by viewModels<CreateFragmentViewModel> {
         MainActivityViewModelFactory((requireContext().applicationContext as MusicPracticeApplication).repository, (requireContext().applicationContext as MusicPracticeApplication).timerUseCase)
     }
     private lateinit var binding : FragmentHomeBinding
