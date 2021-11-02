@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.setBpmInformation
 
 class PracticeFragmentAdapter(private val onFragmentClickListener: (PracticeFragment) -> Unit) :
     RecyclerView.Adapter<PracticeFragmentAdapter.MusicFragmentViewHolder>() {
@@ -37,11 +38,9 @@ class PracticeFragmentAdapter(private val onFragmentClickListener: (PracticeFrag
         holder.fragmentType.text = practiceFragmentsList[position].type
         holder.title.text = holder.targetTempo.context.resources
             .getString(R.string.title, practiceFragmentsList[position].author, practiceFragmentsList[position].name)
-        holder.lastPractice.text = practiceFragmentsList[position].updated?.toString()?:"No Data"
-        holder.currentTempo.text = holder.targetTempo.context.resources
-            .getString(R.string.bpm_amount,practiceFragmentsList[position].currentTempo?.toString()?:"No Data")
-        holder.targetTempo.text = holder.targetTempo.context.resources
-            .getString(R.string.bpm_amount, practiceFragmentsList[position].targetTempo?.toString() )
+        holder.lastPractice.text = practiceFragmentsList[position].updated?.toString()?:""
+        holder.currentTempo.text = practiceFragmentsList[position].currentTempo.setBpmInformation(holder.currentTempo.context)
+        holder.targetTempo.text = practiceFragmentsList[position].targetTempo.setBpmInformation(holder.targetTempo.context)
         holder.itemView.setOnClickListener {
             onFragmentClickListener(practiceFragmentsList[position])
         }

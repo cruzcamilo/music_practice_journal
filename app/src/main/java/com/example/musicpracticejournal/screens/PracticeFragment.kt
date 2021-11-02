@@ -12,13 +12,14 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.musicpracticejournal.EventObserver
 import com.example.musicpracticejournal.MusicPracticeApplication
-import com.example.musicpracticejournal.formatToString
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.secondsToMinutesSeconds
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
+import com.example.musicpracticejournal.formatToString
 import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import com.example.musicpracticejournal.screens.HomeFragment.Companion.MUSIC_FRAGMENT_KEY
+import com.example.musicpracticejournal.secondsToMinutesSeconds
+import com.example.musicpracticejournal.setBpmInformation
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.viewmodel.MusicPracticeViewModel
 
@@ -108,10 +109,8 @@ class PracticeFragment : Fragment() {
     private fun setValuesOnViews() {
         val title = "${practiceFragment.author} - ${practiceFragment.name}"
         binding.tvMusicFragmentTitle.text = title
-        binding.tvCurrentTempo.text = practiceFragment.currentTempo?.toString() ?: getString(
-                    R.string.no_data)
-        binding.tvTargetTempo.text = practiceFragment.targetTempo?.toString() ?: getString(
-            R.string.no_data)
+        binding.tvCurrentTempo.text = practiceFragment.currentTempo.setBpmInformation(requireContext())
+        binding.tvTargetTempo.text = practiceFragment.targetTempo.setBpmInformation(requireContext())
         binding.tvTotalTime.text = practiceFragment.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
         binding.tvLastPractice.text = practiceFragment.updated?.formatToString()?:getString(
             R.string.no_data)
