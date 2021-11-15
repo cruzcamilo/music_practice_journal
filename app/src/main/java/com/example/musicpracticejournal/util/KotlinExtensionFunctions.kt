@@ -34,9 +34,9 @@ fun Long.secondsToMinutesSeconds(): String {
     return f.format(min) + ":" + f.format(sec)
 }
 
-fun Date.formatToString(): String {
+fun String.formatDate(): String {
     val f = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-    return f.format(this)
+    return f.format(this)?:""
 }
 
 fun Int?.setBpmInformation(context: Context): String {

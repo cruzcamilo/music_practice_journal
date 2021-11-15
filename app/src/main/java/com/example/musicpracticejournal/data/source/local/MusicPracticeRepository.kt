@@ -1,5 +1,6 @@
 package com.example.musicpracticejournal.data.source.local
 
+import android.annotation.SuppressLint
 import androidx.annotation.WorkerThread
 import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import com.example.musicpracticejournal.practicefragments.PracticeFragmentDao
@@ -27,5 +28,10 @@ class MusicPracticeRepository(private val practiceFragmentDao: PracticeFragmentD
 
     suspend fun deleteAllMusicFragments() {
         practiceFragmentDao.deleteAlLMusicFragments()
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    suspend fun updatePracticeDate(date: String, fragmentId: Long) {
+        practiceFragmentDao.updatePracticeFragmentDate(date, fragmentId)
     }
 }

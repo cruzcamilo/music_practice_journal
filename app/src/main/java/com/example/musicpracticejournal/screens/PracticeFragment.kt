@@ -15,7 +15,6 @@ import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
-import com.example.musicpracticejournal.formatToString
 import com.example.musicpracticejournal.practicefragments.PracticeFragment
 import com.example.musicpracticejournal.screens.HomeFragment.Companion.MUSIC_FRAGMENT_KEY
 import com.example.musicpracticejournal.secondsToMinutesSeconds
@@ -74,6 +73,9 @@ class PracticeFragment : Fragment() {
         viewModel.timerSeconds.observe(viewLifecycleOwner, {
             practiceTimesInSecs = it
         })
+        viewModel.lastPracticeDate.observe(viewLifecycleOwner, {
+            binding.tvLastPractice.text = it
+        })
         viewModel.timerCurrentTime.observe(viewLifecycleOwner, {
             if(it.isNotEmpty()) binding.tvTimer.text = it
         })
@@ -83,6 +85,7 @@ class PracticeFragment : Fragment() {
     private fun handleListeners() {
         binding.btnStartTimer.setOnClickListener {
             viewModel.startTimer(practiceTimesInSecs!!)
+            viewModel.saveLastPracticeDate(practiceFragment.id!!)
         }
         binding.btnPauseTimer.setOnClickListener {
             viewModel.pauseTimer()
@@ -112,7 +115,7 @@ class PracticeFragment : Fragment() {
         binding.tvCurrentTempo.text = practiceFragment.currentTempo.setBpmInformation(requireContext())
         binding.tvTargetTempo.text = practiceFragment.targetTempo.setBpmInformation(requireContext())
         binding.tvTotalTime.text = practiceFragment.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
-        binding.tvLastPractice.text = practiceFragment.updated?.formatToString()?:getString(
+        binding.tvLastPractice.text = practiceFragment.updated?:getString(
             R.string.no_data)
         binding.tvTimer.text = "${practiceFragment.practiceTime}:00"
     }

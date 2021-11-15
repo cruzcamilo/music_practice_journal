@@ -19,6 +19,6 @@ data class PracticeFragment(
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
     val created: Date = Date(Date().time),
-    val updated: Date? = null,
+    val updated: String? = null,
     val totalPracticeTimeInSeconds: Long = 0,
 ) : Parcelable

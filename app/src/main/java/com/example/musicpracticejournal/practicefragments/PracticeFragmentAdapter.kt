@@ -36,9 +36,10 @@ class PracticeFragmentAdapter(private val onFragmentClickListener: (PracticeFrag
 
     override fun onBindViewHolder(holder: MusicFragmentViewHolder, position: Int) {
         holder.fragmentType.text = practiceFragmentsList[position].type
-        holder.title.text = holder.targetTempo.context.resources
+        holder.title.text = holder.title.context.resources
             .getString(R.string.title, practiceFragmentsList[position].author, practiceFragmentsList[position].name)
-        holder.lastPractice.text = practiceFragmentsList[position].updated?.toString()?:""
+        holder.lastPractice.visibility = if (practiceFragmentsList[position].updated.isNullOrEmpty()) View.GONE else View.VISIBLE
+        holder.lastPractice.text = holder.title.context.resources.getString(R.string.last_practice_item, practiceFragmentsList[position].updated?:"")
         holder.currentTempo.text = practiceFragmentsList[position].currentTempo.setBpmInformation(holder.currentTempo.context)
         holder.targetTempo.text = practiceFragmentsList[position].targetTempo.setBpmInformation(holder.targetTempo.context)
         holder.itemView.setOnClickListener {

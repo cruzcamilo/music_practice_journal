@@ -2,9 +2,9 @@ package com.example.musicpracticejournal.practicefragments
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import androidx.room.OnConflictStrategy
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -21,6 +21,9 @@ interface PracticeFragmentDao {
 
     @Update
     suspend fun updateMusicFragment(practiceFragment: PracticeFragment): Int
+
+    @Query("UPDATE musical_fragment_table set updated =:updateDate WHERE id = :fragmentId")
+    suspend fun updatePracticeFragmentDate(updateDate: String, fragmentId: Long): Int
 
     @Query("DELETE FROM musical_fragment_table WHERE id = :fragmentId")
     suspend fun deleteMusicFragmentById(fragmentId: String): Int
