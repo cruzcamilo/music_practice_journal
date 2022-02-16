@@ -57,17 +57,11 @@ class CreateFragmentViewModel(private val repository: MusicPracticeRepository): 
 
     private fun validateCreateForm(practiceFragment: PracticeFragment):Boolean {
         val invalidFields = arrayListOf<Pair<String, Int>>()
-        if (TextUtils.isEmpty(practiceFragment.type)) {
-            invalidFields.add(INPUT_TYPE)
-        }
-        if (TextUtils.isEmpty(practiceFragment.name)) {
-            invalidFields.add(INPUT_NAME)
-        }
-        if (TextUtils.isEmpty(practiceFragment.author)) {
-            invalidFields.add(INPUT_AUTHOR)
-        }
-        if (TextUtils.isEmpty(practiceFragment.practiceTime)) {
-            invalidFields.add(INPUT_PRACTICE_TIME)
+        with(practiceFragment) {
+            if (TextUtils.isEmpty(type)) invalidFields.add(INPUT_TYPE)
+            if (TextUtils.isEmpty(name)) invalidFields.add(INPUT_NAME)
+            if (TextUtils.isEmpty(author)) invalidFields.add(INPUT_AUTHOR)
+            if (TextUtils.isEmpty(practiceTime)) invalidFields.add(INPUT_PRACTICE_TIME)
         }
         if (invalidFields.isNotEmpty()) {
             _createMusicFragmentState.value = CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields(invalidFields)
