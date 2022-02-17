@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.screens
+package com.example.musicpracticejournal.screens.create
 
 import android.os.Bundle
 import android.text.Editable
@@ -16,11 +16,10 @@ import com.example.musicpracticejournal.MainActivity
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
-import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
-import com.example.musicpracticejournal.viewmodel.CreateFragmentViewModel
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.google.android.material.textfield.TextInputLayout
 

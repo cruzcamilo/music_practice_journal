@@ -1,9 +1,10 @@
-package com.example.musicpracticejournal.reviews
+package com.example.musicpracticejournal.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.musicpracticejournal.data.db.entity.Review
 import kotlinx.coroutines.flow.Flow
 
 @Dao

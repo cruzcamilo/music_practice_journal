@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.reviews
+package com.example.musicpracticejournal.data.db.entity
 
 import android.os.Parcelable
 import androidx.room.Entity

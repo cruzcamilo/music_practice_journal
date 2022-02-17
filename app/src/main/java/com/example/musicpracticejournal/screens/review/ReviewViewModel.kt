@@ -1,12 +1,12 @@
-package com.example.musicpracticejournal.viewmodel
+package com.example.musicpracticejournal.screens.review
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.Event
-import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
-import com.example.musicpracticejournal.reviews.Review
+import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.data.db.entity.Review
 import kotlinx.coroutines.launch
 
 class ReviewViewModel(private val repository: MusicPracticeRepository): ViewModel() {

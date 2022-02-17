@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.viewmodel
+package com.example.musicpracticejournal.screens.create
 
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
@@ -8,10 +8,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
-import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
-import com.example.musicpracticejournal.reviews.Review
+import com.example.musicpracticejournal.data.db.entity.Review
 import kotlinx.coroutines.launch
 
 class CreateFragmentViewModel(private val repository: MusicPracticeRepository): ViewModel() {
@@ -64,7 +64,8 @@ class CreateFragmentViewModel(private val repository: MusicPracticeRepository): 
             if (TextUtils.isEmpty(practiceTime)) invalidFields.add(INPUT_PRACTICE_TIME)
         }
         if (invalidFields.isNotEmpty()) {
-            _createMusicFragmentState.value = CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields(invalidFields)
+            _createMusicFragmentState.value =
+                CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields(invalidFields)
             return false
         }
 

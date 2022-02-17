@@ -5,7 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.example.musicpracticejournal.practicefragments.PracticeFragment
+import com.example.musicpracticejournal.data.MusicPracticeDb
+import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import kotlinx.coroutines.ExperimentalCoroutinesApi

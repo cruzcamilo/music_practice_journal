@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.data.source.local
+package com.example.musicpracticejournal.data
 
 import androidx.room.TypeConverter
 import java.util.*

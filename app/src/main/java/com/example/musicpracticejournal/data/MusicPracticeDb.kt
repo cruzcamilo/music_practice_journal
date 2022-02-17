@@ -1,14 +1,14 @@
-package com.example.musicpracticejournal.data.source.local
+package com.example.musicpracticejournal.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.musicpracticejournal.practicefragments.PracticeFragment
-import com.example.musicpracticejournal.practicefragments.PracticeFragmentDao
-import com.example.musicpracticejournal.reviews.Review
-import com.example.musicpracticejournal.reviews.ReviewDao
+import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.data.db.dao.PracticeFragmentDao
+import com.example.musicpracticejournal.data.db.entity.Review
+import com.example.musicpracticejournal.data.db.dao.ReviewDao
 import kotlinx.coroutines.CoroutineScope
 
 @Database(entities = [PracticeFragment::class, Review::class], version = 1, exportSchema = false)

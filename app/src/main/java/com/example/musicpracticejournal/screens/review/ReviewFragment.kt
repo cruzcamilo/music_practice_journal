@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.screens
+package com.example.musicpracticejournal.screens.review
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,9 @@ import androidx.navigation.Navigation
 import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.databinding.FragmentReviewBinding
-import com.example.musicpracticejournal.reviews.Review
+import com.example.musicpracticejournal.data.db.entity.Review
+import com.example.musicpracticejournal.screens.home.HomeFragment
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
-import com.example.musicpracticejournal.viewmodel.ReviewViewModel
 
 
 class ReviewFragment : Fragment() {

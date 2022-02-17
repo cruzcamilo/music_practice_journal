@@ -11,7 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.musicpracticejournal.databinding.ActivityMainBinding
 import com.example.musicpracticejournal.util.ScreenList
 import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
-import com.example.musicpracticejournal.viewmodel.CreateFragmentViewModel
+import com.example.musicpracticejournal.screens.create.CreateFragmentViewModel
 
 class MainActivity : AppCompatActivity() {
 

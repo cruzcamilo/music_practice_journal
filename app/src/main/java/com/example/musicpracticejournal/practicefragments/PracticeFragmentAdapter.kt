@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.setBpmInformation
 
 class PracticeFragmentAdapter(private val onFragmentClickListener: (PracticeFragment) -> Unit) :

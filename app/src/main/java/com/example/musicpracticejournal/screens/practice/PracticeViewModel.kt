@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.viewmodel
+package com.example.musicpracticejournal.screens.practice
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.Event
-import com.example.musicpracticejournal.TimerUseCase
-import com.example.musicpracticejournal.data.source.local.MusicPracticeRepository
+import com.example.musicpracticejournal.data.domain.usecase.TimerUseCase
+import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.timeStringToSeconds
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class MusicPracticeViewModel(private val repository: MusicPracticeRepository, private val timerUseCase: TimerUseCase): ViewModel() {
+class PracticeViewModel(private val repository: MusicPracticeRepository, private val timerUseCase: TimerUseCase): ViewModel() {
 
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
 

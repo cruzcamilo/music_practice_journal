@@ -1,6 +1,7 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.data.domain.usecase
 
 import com.example.musicpracticejournal.data.TimerStateEnum
+import com.example.musicpracticejournal.secondsToMinutesSeconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

@@ -6,7 +6,7 @@
     app:startDestination="@id/home">
     <fragment
         android:id="@+id/home"
-        android:name="com.example.musicpracticejournal.screens.HomeFragment"
+        android:name="com.example.musicpracticejournal.screens.home.HomeFragment"
         android:label="MainScreenFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -33,12 +33,12 @@
         tools:layout="@layout/fragment_help"/>
     <fragment
         android:id="@+id/createFragment"
-        android:name="com.example.musicpracticejournal.screens.CreateFragment"
+        android:name="com.example.musicpracticejournal.screens.create.CreateFragment"
         android:label="CreateFragment"
         tools:layout="@layout/fragment_create"/>
     <fragment
         android:id="@+id/practiceFragment"
-        android:name="com.example.musicpracticejournal.screens.PracticeFragment"
+        android:name="com.example.musicpracticejournal.screens.practice.PracticeFragment"
         android:label="PracticeFragment"
         tools:layout="@layout/fragment_practice">
         <argument
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"
-        android:name="com.example.musicpracticejournal.screens.ReviewFragment"
+        android:name="com.example.musicpracticejournal.screens.review.ReviewFragment"
         android:label="ReviewFragment"
         app:popUpTo="@+id/home"
         tools:layout="@layout/fragment_review">

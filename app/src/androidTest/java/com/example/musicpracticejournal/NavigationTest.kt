@@ -9,7 +9,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.example.musicpracticejournal.screens.HomeFragment
+import com.example.musicpracticejournal.screens.home.HomeFragment
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock

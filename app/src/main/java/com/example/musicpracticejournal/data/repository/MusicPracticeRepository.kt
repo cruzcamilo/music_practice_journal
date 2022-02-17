@@ -1,15 +1,17 @@
-package com.example.musicpracticejournal.data.source.local
+package com.example.musicpracticejournal.data.repository
 
 import android.annotation.SuppressLint
 import androidx.annotation.WorkerThread
-import com.example.musicpracticejournal.practicefragments.PracticeFragment
-import com.example.musicpracticejournal.practicefragments.PracticeFragmentDao
-import com.example.musicpracticejournal.reviews.Review
-import com.example.musicpracticejournal.reviews.ReviewDao
+import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.data.db.dao.PracticeFragmentDao
+import com.example.musicpracticejournal.data.db.entity.Review
+import com.example.musicpracticejournal.data.db.dao.ReviewDao
 import kotlinx.coroutines.flow.Flow
 
-class MusicPracticeRepository(private val practiceFragmentDao: PracticeFragmentDao,
-                              private val reviewDao: ReviewDao) {
+class MusicPracticeRepository(
+    private val practiceFragmentDao: PracticeFragmentDao,
+    private val reviewDao: ReviewDao
+) {
 
     val allPracticeFragments: Flow<List<PracticeFragment>> = practiceFragmentDao.getAllMusicFragments()
     val allReviews : Flow<List<Review>> = reviewDao.getAllReviews()
