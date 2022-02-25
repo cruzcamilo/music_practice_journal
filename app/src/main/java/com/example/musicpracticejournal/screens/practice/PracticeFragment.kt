@@ -57,7 +57,7 @@ class PracticeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.timerState.observe(viewLifecycleOwner, {
+        viewModel.timerState.observe(viewLifecycleOwner) {
             when (it) {
                 TimerStateEnum.ACTIVE -> {
                     binding.btnStartTimer.visibility = View.INVISIBLE
@@ -68,16 +68,16 @@ class PracticeFragment : Fragment() {
                     binding.btnPauseTimer.visibility = View.INVISIBLE
                 }
             }
-        })
-        viewModel.timerSeconds.observe(viewLifecycleOwner, {
+        }
+        viewModel.timerSeconds.observe(viewLifecycleOwner) {
             practiceTimesInSecs = it
-        })
-        viewModel.lastPracticeDate.observe(viewLifecycleOwner, {
+        }
+        viewModel.lastPracticeDate.observe(viewLifecycleOwner) {
             binding.tvLastPractice.text = it
-        })
-        viewModel.timerCurrentTime.observe(viewLifecycleOwner, {
-            if(it.isNotEmpty()) binding.tvTimer.text = it
-        })
+        }
+        viewModel.timerCurrentTime.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) binding.tvTimer.text = it
+        }
     }
 
     @SuppressLint("SetTextI18n")

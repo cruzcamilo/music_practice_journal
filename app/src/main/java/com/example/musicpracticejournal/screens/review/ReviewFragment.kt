@@ -58,8 +58,8 @@ class ReviewFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.saveReviewEvent.observe(viewLifecycleOwner, {
+        viewModel.saveReviewEvent.observe(viewLifecycleOwner) {
             navController.popBackStack(R.id.home, false)
-        })
+        }
     }
 }

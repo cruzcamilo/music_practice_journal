@@ -125,12 +125,14 @@ class CreateFragment : Fragment() {
     }
 
     private fun observeViewModelResult() {
-        viewModel.createMusicFragmentState.observe(viewLifecycleOwner, {
+        viewModel.createMusicFragmentState.observe(viewLifecycleOwner) {
             when (it) {
                 is CreateFragmentViewModel.CreateMusicFragmentState.CreateMusicFragmentSaved -> navController.popBackStack()
-                is CreateFragmentViewModel.CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields -> handleErrorFields(it.fields)
+                is CreateFragmentViewModel.CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields -> handleErrorFields(
+                    it.fields
+                )
             }
-        })
+        }
     }
 
     private fun handleErrorFields(fields: List<Pair<String, Int>>) {
