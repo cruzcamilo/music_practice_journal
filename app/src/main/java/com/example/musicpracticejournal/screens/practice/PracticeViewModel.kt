@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.data.domain.usecase.TimerUseCase
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
-import com.example.musicpracticejournal.timeStringToSeconds
+import com.example.musicpracticejournal.util.timeStringToSeconds
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat

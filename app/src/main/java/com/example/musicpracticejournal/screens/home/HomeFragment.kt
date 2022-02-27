@@ -8,7 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.databinding.FragmentHomeBinding
@@ -18,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private var binding : FragmentHomeBinding? = null
+    private var binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var practiceFragmentAdapter: PracticeFragmentAdapter
 
@@ -44,20 +43,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerAdapter() {
-        binding?.rvFragments?.layoutManager = GridLayoutManager(context, 2)
-        practiceFragmentAdapter = PracticeFragmentAdapter()
-        binding?.rvFragments?.adapter = practiceFragmentAdapter
-        practiceFragmentAdapter.onItemClickListener = object : PracticeFragmentAdapter.OnItemClickListener {
-            override fun onItemClick(practiceFragment: PracticeFragment) {
-            val bundle = bundleOf(MUSIC_FRAGMENT_KEY to practiceFragment)
-            findNavController().navigate(R.id.action_home_to_practiceFragment, bundle)
-            }
+        practiceFragmentAdapter = PracticeFragmentAdapter {
+            showPracticeScreen(it)
         }
+        binding?.rvFragments?.adapter = practiceFragmentAdapter
     }
 
     private fun setupObservers() {
         viewModel.practiceFragments.observe(viewLifecycleOwner) { musicFragments ->
-            practiceFragmentAdapter.bindData(musicFragments)
+            practiceFragmentAdapter.submitList(musicFragments)
         }
     }
 
@@ -67,5 +61,10 @@ class HomeFragment : Fragment() {
                 is HomeViewModel.Event.CreateScreen -> findNavController().navigate(R.id.action_home_to_createFragment)
             }
         }
+    }
+
+    private fun showPracticeScreen(practiceFragment: PracticeFragment) {
+        val bundle = bundleOf(MUSIC_FRAGMENT_KEY to practiceFragment)
+        findNavController().navigate(R.id.action_home_to_practiceFragment, bundle)
     }
 }

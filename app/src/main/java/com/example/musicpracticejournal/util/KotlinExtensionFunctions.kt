@@ -1,7 +1,8 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.util
 
 import android.content.Context
 import android.util.Log
+import com.example.musicpracticejournal.R
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*

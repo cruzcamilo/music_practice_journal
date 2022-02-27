@@ -1,5 +1,8 @@
 package com.example.musicpracticejournal
 
+import com.example.musicpracticejournal.util.addInitialZero
+import com.example.musicpracticejournal.util.secondsToMinutesSeconds
+import com.example.musicpracticejournal.util.timeStringToSeconds
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

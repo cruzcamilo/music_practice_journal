@@ -1,59 +1,61 @@
 package com.example.musicpracticejournal.practicefragments
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
-import com.example.musicpracticejournal.setBpmInformation
+import com.example.musicpracticejournal.databinding.MusicFragmentItemBinding
+import com.example.musicpracticejournal.util.setBpmInformation
 
-class PracticeFragmentAdapter() :
-    RecyclerView.Adapter<PracticeFragmentAdapter.MusicFragmentViewHolder>() {
+class PracticeFragmentAdapter(
+    private val onItemClickListener: (practiceFragment: PracticeFragment) -> Unit
+) :
+    ListAdapter<PracticeFragment, PracticeFragmentAdapter.ViewHolder>(MusicFragmentDiffCallback) {
 
-    interface OnItemClickListener {
-        fun onItemClick(practiceFragment: PracticeFragment)
+    inner class ViewHolder(val binding : MusicFragmentItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = MusicFragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
-    private var practiceFragmentsList : List<PracticeFragment> = ArrayList(0)
-    var onItemClickListener: OnItemClickListener? = null
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        with(holder) {
+            with(getItem(position)) {
+                binding.practiceFragmentTypeTv.text = type
+                binding.practiceFragmentTitleTv.text =
+                    binding.practiceFragmentLastPracticeTv.context.getString(
+                        R.string.title,
+                        author,
+                        name
+                    )
+                binding.practiceFragmentLastPracticeTv.text =
+                    binding.practiceFragmentLastPracticeTv.context.resources.getString(
+                        R.string.last_practice_item,
+                        updated ?: ""
+                    )
+                binding.practiceFragmentCurrentTempo.text =
+                    currentTempo.setBpmInformation(binding.practiceFragmentCurrentTempo.context)
+                binding.musicFragmentTargetTempo.text =
+                    targetTempo.setBpmInformation(binding.musicFragmentTargetTempo.context)
 
-    inner class MusicFragmentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val fragmentType: AppCompatTextView = view.findViewById(R.id.practice_fragment_type_tv)
-        val title: AppCompatTextView = view.findViewById(R.id.practice_fragment_title_tv)
-        val currentTempo: AppCompatTextView = view.findViewById(R.id.practice_fragment_current_tempo)
-        val lastPractice: AppCompatTextView = view.findViewById(R.id.practice_fragment_last_practice_tv)
-        val targetTempo: AppCompatTextView = view.findViewById(R.id.music_fragment_target_tempo)
-    }
-
-    fun bindData(practiceFragments: List<PracticeFragment>) {
-        practiceFragmentsList = ArrayList(practiceFragments)
-        Log.d("PracticeFragmentAdapter", "Practice Fragment List: $practiceFragments")
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicFragmentViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.music_fragment_item, parent, false)
-        return MusicFragmentViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: MusicFragmentViewHolder, position: Int) {
-        holder.fragmentType.text = practiceFragmentsList[position].type
-        holder.title.text = holder.title.context.resources
-            .getString(R.string.title, practiceFragmentsList[position].author, practiceFragmentsList[position].name)
-        holder.lastPractice.visibility = if (practiceFragmentsList[position].updated.isNullOrEmpty()) View.GONE else View.VISIBLE
-        holder.lastPractice.text = holder.title.context.resources.getString(R.string.last_practice_item, practiceFragmentsList[position].updated?:"")
-        holder.currentTempo.text = practiceFragmentsList[position].currentTempo.setBpmInformation(holder.currentTempo.context)
-        holder.targetTempo.text = practiceFragmentsList[position].targetTempo.setBpmInformation(holder.targetTempo.context)
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.onItemClick(practiceFragmentsList[position])
+                itemView.setOnClickListener {
+                    onItemClickListener.invoke(this)
+                }
+            }
         }
     }
 
-    override fun getItemCount(): Int {
-        return practiceFragmentsList.size
+    object MusicFragmentDiffCallback : DiffUtil.ItemCallback<PracticeFragment>() {
+        override fun areItemsTheSame(oldItem: PracticeFragment, newItem: PracticeFragment): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: PracticeFragment, newItem: PracticeFragment): Boolean {
+            return oldItem == newItem
+        }
     }
 }

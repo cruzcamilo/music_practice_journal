@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.EventObserver
 import com.example.musicpracticejournal.R
@@ -17,8 +15,8 @@ import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
 import com.example.musicpracticejournal.screens.home.HomeFragment.Companion.MUSIC_FRAGMENT_KEY
-import com.example.musicpracticejournal.secondsToMinutesSeconds
-import com.example.musicpracticejournal.setBpmInformation
+import com.example.musicpracticejournal.util.secondsToMinutesSeconds
+import com.example.musicpracticejournal.util.setBpmInformation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
