@@ -12,9 +12,14 @@ import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import com.example.musicpracticejournal.data.db.entity.Review
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CreateFragmentViewModel(private val repository: MusicPracticeRepository): ViewModel() {
+@HiltViewModel
+class CreateFragmentViewModel @Inject constructor(
+    private val repository: MusicPracticeRepository
+    ) : ViewModel() {
 
     companion object {
         val INPUT_TYPE = "INPUT_TYPE" to R.string.fragment_practice_time

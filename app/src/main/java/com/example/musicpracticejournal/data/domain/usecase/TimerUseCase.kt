@@ -8,8 +8,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
+import javax.inject.Inject
 
-class TimerUseCase(private val timerScope: CoroutineScope) {
+class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
 
     private var _timerValueFlow = MutableStateFlow("")
     val timerValueFlow: Flow<String> = _timerValueFlow

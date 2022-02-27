@@ -2,38 +2,37 @@ package com.example.musicpracticejournal.data.repository
 
 import android.annotation.SuppressLint
 import androidx.annotation.WorkerThread
+import com.example.musicpracticejournal.data.AppDatabase
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
-import com.example.musicpracticejournal.data.db.dao.PracticeFragmentDao
 import com.example.musicpracticejournal.data.db.entity.Review
-import com.example.musicpracticejournal.data.db.dao.ReviewDao
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class MusicPracticeRepository(
-    private val practiceFragmentDao: PracticeFragmentDao,
-    private val reviewDao: ReviewDao
+class MusicPracticeRepository @Inject constructor(
+    private val database: AppDatabase
 ) {
 
-    val allPracticeFragments: Flow<List<PracticeFragment>> = practiceFragmentDao.getAllMusicFragments()
-    val allReviews : Flow<List<Review>> = reviewDao.getAllReviews()
+    val allPracticeFragments: Flow<List<PracticeFragment>> = database.practiceFragmentDao().getAllMusicFragments()
+    val allReviews : Flow<List<Review>> = database.reviewDao().getAllReviews()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun savePracticeFragment(word: PracticeFragment) {
-        practiceFragmentDao.savePracticeFragment(word)
+        database.practiceFragmentDao().savePracticeFragment(word)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun saveReview(review: Review) {
-        reviewDao.saveReview(review)
+        database.reviewDao().saveReview(review)
     }
 
     suspend fun deleteAllMusicFragments() {
-        practiceFragmentDao.deleteAlLMusicFragments()
+        database.practiceFragmentDao().deleteAlLMusicFragments()
     }
 
     @SuppressLint("SimpleDateFormat")
     suspend fun updatePracticeDate(date: String, fragmentId: Long) {
-        practiceFragmentDao.updatePracticeFragmentDate(date, fragmentId)
+        database.practiceFragmentDao().updatePracticeFragmentDate(date, fragmentId)
     }
 }

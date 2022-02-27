@@ -9,22 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.musicpracticejournal.MusicPracticeApplication
+import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.databinding.FragmentReviewBinding
 import com.example.musicpracticejournal.data.db.entity.Review
+import com.example.musicpracticejournal.databinding.FragmentReviewBinding
 import com.example.musicpracticejournal.screens.home.HomeFragment
-import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ReviewFragment : Fragment() {
 
     private lateinit var binding: FragmentReviewBinding
     private var fragmentId: Long? = null
-    private lateinit var navController: NavController
-    private val viewModel by viewModels<ReviewViewModel> {
-        MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository, (requireActivity().application as MusicPracticeApplication).timerUseCase)
-    }
+    private val viewModel:ReviewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +39,6 @@ class ReviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-
         binding.btnSaveReview.setOnClickListener {
             saveReview()
         }
@@ -59,7 +54,7 @@ class ReviewFragment : Fragment() {
 
     private fun setupNavigation() {
         viewModel.saveReviewEvent.observe(viewLifecycleOwner) {
-            navController.popBackStack(R.id.home, false)
+            findNavController().popBackStack(R.id.home, false)
         }
     }
 }

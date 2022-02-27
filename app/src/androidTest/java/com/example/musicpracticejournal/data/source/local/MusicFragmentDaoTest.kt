@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.example.musicpracticejournal.data.MusicPracticeDb
+import com.example.musicpracticejournal.data.AppDatabase
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
@@ -32,7 +32,7 @@ class TasksDaoTest {
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
-    private lateinit var database: MusicPracticeDb
+    private lateinit var database: AppDatabase
     private lateinit var practiceFragment: PracticeFragment
 
     @Before
@@ -41,7 +41,7 @@ class TasksDaoTest {
         // process is killed.
         database = Room.inMemoryDatabaseBuilder(
             getApplicationContext(),
-            MusicPracticeDb::class.java
+            AppDatabase::class.java
         ).build()
         practiceFragment = PracticeFragment(PracticeTypeEnum.SONG.type, "ameseours", "sens",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString())
@@ -52,8 +52,8 @@ class TasksDaoTest {
 
     @Test
     fun insertMusicFragmentAndGetById() = runBlockingTest {
-        val insertedFragmentId = database.musicFragmentDao().savePracticeFragment(practiceFragment)
-        val savedMusicFragment = database.musicFragmentDao().getMusicFragmentById(insertedFragmentId)
+        val insertedFragmentId = database.practiceFragmentDao().savePracticeFragment(practiceFragment)
+        val savedMusicFragment = database.practiceFragmentDao().getMusicFragmentById(insertedFragmentId)
 
         assertThat(savedMusicFragment as PracticeFragment, notNullValue())
         assertThat(savedMusicFragment.id, `is`(insertedFragmentId))
@@ -65,15 +65,15 @@ class TasksDaoTest {
 
     @Test
     fun updateMusicFragmentAndGetById() = runBlockingTest {
-        val musicFragmentId = database.musicFragmentDao().savePracticeFragment(practiceFragment)
+        val musicFragmentId = database.practiceFragmentDao().savePracticeFragment(practiceFragment)
         val musicFragmentUpdate = PracticeFragment(
             PracticeTypeEnum.EXERCISE.type, "Ameseours", "heurt",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(),
             null, null, musicFragmentId)
 
-        database.musicFragmentDao().updateMusicFragment(musicFragmentUpdate)
+        database.practiceFragmentDao().updateMusicFragment(musicFragmentUpdate)
 
-        val updatedMusicFragment = database.musicFragmentDao().getMusicFragmentById(musicFragmentId)
+        val updatedMusicFragment = database.practiceFragmentDao().getMusicFragmentById(musicFragmentId)
 
         assertThat(updatedMusicFragment as PracticeFragment, notNullValue())
         assertThat(updatedMusicFragment.id, `is`(musicFragmentId))
@@ -85,15 +85,15 @@ class TasksDaoTest {
 
     @Test
     fun deleteAllMusicFragments() = runBlockingTest {
-        val fragmentList = database.musicFragmentDao().getAllMusicFragments()
-        database.musicFragmentDao().savePracticeFragment(practiceFragment)
+        val fragmentList = database.practiceFragmentDao().getAllMusicFragments()
+        database.practiceFragmentDao().savePracticeFragment(practiceFragment)
         val list = fragmentList.take(1).toList()[0]
 
         assertThat(list,  notNullValue())
         assertThat(list,  not(emptyList()))
         assertThat(list.size, `is`(1))
 
-        database.musicFragmentDao().deleteAlLMusicFragments()
+        database.practiceFragmentDao().deleteAlLMusicFragments()
         val deletedList = fragmentList.take(1).toList()[0]
         assertThat(deletedList,  `is`(emptyList()))
     }

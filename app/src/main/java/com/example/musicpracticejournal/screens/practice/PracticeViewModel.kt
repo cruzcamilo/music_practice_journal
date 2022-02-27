@@ -9,11 +9,17 @@ import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.data.domain.usecase.TimerUseCase
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.timeStringToSeconds
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
+import javax.inject.Inject
 
-class PracticeViewModel(private val repository: MusicPracticeRepository, private val timerUseCase: TimerUseCase): ViewModel() {
+@HiltViewModel
+class PracticeViewModel @Inject constructor(
+    private val repository: MusicPracticeRepository,
+    private val timerUseCase: TimerUseCase
+    ): ViewModel() {
 
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
 

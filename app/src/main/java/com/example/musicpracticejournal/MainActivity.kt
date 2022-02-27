@@ -2,6 +2,7 @@ package com.example.musicpracticejournal
 
 import android.os.Bundle
 import android.view.Menu
+
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -10,16 +11,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.musicpracticejournal.databinding.ActivityMainBinding
 import com.example.musicpracticejournal.util.ScreenList
-import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.example.musicpracticejournal.screens.create.CreateFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewsIdArrayForBackButton: ArrayList<Int>
-    private val viewModel by viewModels<CreateFragmentViewModel> {
-        MainActivityViewModelFactory((application as MusicPracticeApplication).repository, (application as MusicPracticeApplication).timerUseCase)
-    }
+    private val viewModel: CreateFragmentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +61,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+            menuInflater.inflate(R.menu.menu_main, menu)
+            return true
+        }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

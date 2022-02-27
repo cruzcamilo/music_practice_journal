@@ -13,24 +13,21 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.musicpracticejournal.MainActivity
-import com.example.musicpracticejournal.MusicPracticeApplication
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
-import com.example.musicpracticejournal.viewmodel.MainActivityViewModelFactory
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CreateFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateBinding
     private lateinit var navController: NavController
-    private val viewModel by viewModels<CreateFragmentViewModel> {
-        MainActivityViewModelFactory((requireActivity().application as MusicPracticeApplication).repository, (requireActivity().application as MusicPracticeApplication).timerUseCase)
-    }
+    private val viewModel:CreateFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
