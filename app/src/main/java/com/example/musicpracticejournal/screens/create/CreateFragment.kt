@@ -27,7 +27,7 @@ class CreateFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateBinding
     private lateinit var navController: NavController
-    private val viewModel:CreateFragmentViewModel by viewModels()
+    private val viewModel:CreateViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -124,8 +124,8 @@ class CreateFragment : Fragment() {
     private fun observeViewModelResult() {
         viewModel.createMusicFragmentState.observe(viewLifecycleOwner) {
             when (it) {
-                is CreateFragmentViewModel.CreateMusicFragmentState.CreateMusicFragmentSaved -> navController.popBackStack()
-                is CreateFragmentViewModel.CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields -> handleErrorFields(
+                is CreateViewModel.CreateMusicFragmentState.CreateMusicFragmentSaved -> navController.popBackStack()
+                is CreateViewModel.CreateMusicFragmentState.CreateMusicFragmentWithInvalidFields -> handleErrorFields(
                     it.fields
                 )
             }
@@ -141,9 +141,9 @@ class CreateFragment : Fragment() {
     }
 
     private fun initValidationFields() = mapOf(
-        CreateFragmentViewModel.INPUT_TYPE.first to binding.textInputLayoutCreateType,
-        CreateFragmentViewModel.INPUT_NAME.first to binding.textInputLayoutCreateName,
-        CreateFragmentViewModel.INPUT_AUTHOR.first to binding.textInputLayoutSongTechnique,
-        CreateFragmentViewModel.INPUT_PRACTICE_TIME.first to binding.textInputLayoutPracticeTime,
+        CreateViewModel.INPUT_TYPE.first to binding.textInputLayoutCreateType,
+        CreateViewModel.INPUT_NAME.first to binding.textInputLayoutCreateName,
+        CreateViewModel.INPUT_AUTHOR.first to binding.textInputLayoutSongTechnique,
+        CreateViewModel.INPUT_PRACTICE_TIME.first to binding.textInputLayoutPracticeTime,
     )
 }

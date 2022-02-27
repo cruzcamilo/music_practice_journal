@@ -6,18 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
-import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import com.example.musicpracticejournal.data.db.entity.Review
+import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateFragmentViewModel @Inject constructor(
+class CreateViewModel @Inject constructor(
     private val repository: MusicPracticeRepository
     ) : ViewModel() {
 
@@ -34,21 +32,12 @@ class CreateFragmentViewModel @Inject constructor(
             CreateMusicFragmentState()
     }
 
-    private val _emptyMessageVisibility = MutableLiveData<Boolean>()
-    val emptyMessageVisibility : LiveData<Boolean> = _emptyMessageVisibility
-
     private val _practiceFragments: LiveData<List<PracticeFragment>> = repository.allPracticeFragments.asLiveData()
     val practiceFragments : LiveData<List<PracticeFragment>> = _practiceFragments
 
     private val _createMusicFragmentState = MutableLiveData<CreateMusicFragmentState>()
     val createMusicFragmentState: LiveData<CreateMusicFragmentState>
         get() = _createMusicFragmentState
-
-    private val _createPracticeFragmentEvent = MutableLiveData<Event<Unit>>()
-    val createPracticeFragmentEvent: LiveData<Event<Unit>> = _createPracticeFragmentEvent
-
-    private val _startPracticeEvent = MutableLiveData<Event<PracticeFragment>>()
-    val startPracticeEvent: LiveData<Event<PracticeFragment>> = _startPracticeEvent
 
     private val _reviews: LiveData<List<Review>> = repository.allReviews.asLiveData()
     val reviews : LiveData<List<Review>> = _reviews
@@ -75,27 +64,5 @@ class CreateFragmentViewModel @Inject constructor(
         }
 
         return true
-    }
-
-
-    fun updateEmptyListText(practiceFragments: List<PracticeFragment>?) {
-        _emptyMessageVisibility.value = practiceFragments.isNullOrEmpty()
-    }
-
-    fun deleteAllMusicFragments() = viewModelScope.launch {
-        repository.deleteAllMusicFragments()
-    }
-
-    fun createPracticeFragment() {
-        _createPracticeFragmentEvent.value = Event(Unit)
-    }
-
-    fun startPractice(musicFragment: PracticeFragment) {
-        _startPracticeEvent.value = Event(musicFragment)
-    }
-
-    fun addMockPracticeFragment() = viewModelScope.launch {
-        val practiceFragment = PracticeFragment("Song", "Drowning", "Post solo", "1", PracticeStateEnum.ACTIVE.name, 180, 150)
-        repository.savePracticeFragment(practiceFragment)
     }
 }

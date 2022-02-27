@@ -10,10 +10,15 @@ import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.setBpmInformation
 
-class PracticeFragmentAdapter(private val onFragmentClickListener: (PracticeFragment) -> Unit) :
+class PracticeFragmentAdapter() :
     RecyclerView.Adapter<PracticeFragmentAdapter.MusicFragmentViewHolder>() {
 
+    interface OnItemClickListener {
+        fun onItemClick(practiceFragment: PracticeFragment)
+    }
+
     private var practiceFragmentsList : List<PracticeFragment> = ArrayList(0)
+    var onItemClickListener: OnItemClickListener? = null
 
     inner class MusicFragmentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val fragmentType: AppCompatTextView = view.findViewById(R.id.practice_fragment_type_tv)
@@ -25,7 +30,7 @@ class PracticeFragmentAdapter(private val onFragmentClickListener: (PracticeFrag
 
     fun bindData(practiceFragments: List<PracticeFragment>) {
         practiceFragmentsList = ArrayList(practiceFragments)
-        Log.d("Home Fragment - List", practiceFragments.toString())
+        Log.d("PracticeFragmentAdapter", "Practice Fragment List: $practiceFragments")
         notifyDataSetChanged()
     }
 
@@ -44,7 +49,7 @@ class PracticeFragmentAdapter(private val onFragmentClickListener: (PracticeFrag
         holder.currentTempo.text = practiceFragmentsList[position].currentTempo.setBpmInformation(holder.currentTempo.context)
         holder.targetTempo.text = practiceFragmentsList[position].targetTempo.setBpmInformation(holder.targetTempo.context)
         holder.itemView.setOnClickListener {
-            onFragmentClickListener(practiceFragmentsList[position])
+            onItemClickListener?.onItemClick(practiceFragmentsList[position])
         }
     }
 

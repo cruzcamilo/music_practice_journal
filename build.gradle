@@ -24,6 +24,7 @@ buildscript {
         robolectricVersion = '4.5.1'
         androidXTestRulesVersion = '1.2.0'
         coroutinesVersion = '1.5.0'
+        liveEventVersion = '1.3.0'
     }
     repositories {
         google()
