@@ -10,11 +10,6 @@
 
     <!--    Create Screen-->
     <string name="fab_description">Add new musical fragment</string>
-    <string name="fragment_type_error">Fragment type is a required field</string>
-    <string name="fragment_author">Author is a required field</string>
-    <string name="fragment_name">Name is a required field</string>
-    <string name="fragment_practice_time">Practice time is a required field</string>
-    <string name="fragment_practice_state">Practice fragment state is a required field</string>
     <string name="fragment_create_title">Add A Music Fragment To Practice</string>
     <string name="save_to_my_collection">Save to My Collection</string>
     <string name="save_btn_text">Save</string>

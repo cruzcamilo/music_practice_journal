@@ -43,9 +43,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerAdapter() {
-        practiceFragmentAdapter = PracticeFragmentAdapter {
-            showPracticeScreen(it)
-        }
+        practiceFragmentAdapter = PracticeFragmentAdapter { showPracticeScreen(it) }
         binding?.rvFragments?.adapter = practiceFragmentAdapter
     }
 
