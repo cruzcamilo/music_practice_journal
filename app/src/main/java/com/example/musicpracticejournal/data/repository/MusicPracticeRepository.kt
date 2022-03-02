@@ -29,6 +29,11 @@ class MusicPracticeRepository @Inject constructor(
         database.practiceFragmentDao().savePracticeFragment(practiceFragment)
     }
 
+    @WorkerThread
+    suspend fun getPracticeFragment(id: Long): PracticeFragment? {
+        return database.practiceFragmentDao().getMusicFragmentById(id)
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun saveReview(review: Review) {

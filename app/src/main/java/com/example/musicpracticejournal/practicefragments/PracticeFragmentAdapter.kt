@@ -11,7 +11,7 @@ import com.example.musicpracticejournal.databinding.MusicFragmentItemBinding
 import com.example.musicpracticejournal.util.setBpmInformation
 
 class PracticeFragmentAdapter(
-    private val onItemClickListener: (practiceFragment: PracticeFragment) -> Unit
+    private val onItemClickListener: (practiceFragmentId: Long) -> Unit
 ) :
     ListAdapter<PracticeFragment, PracticeFragmentAdapter.ViewHolder>(MusicFragmentDiffCallback) {
 
@@ -43,7 +43,7 @@ class PracticeFragmentAdapter(
                     targetTempo.setBpmInformation(binding.musicFragmentTargetTempo.context)
 
                 itemView.setOnClickListener {
-                    onItemClickListener.invoke(this)
+                    this?.id?.let { onItemClickListener.invoke(it) }
                 }
             }
         }

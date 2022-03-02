@@ -10,10 +10,10 @@
         android:label="MainScreenFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_home_to_createFragment"
+            android:id="@+id/toCreateFragment"
             app:destination="@id/createFragment" />
         <action
-            android:id="@+id/action_home_to_practiceFragment"
+            android:id="@+id/toPracticeFragment"
             app:destination="@id/practiceFragment" />
     </fragment>
     <fragment

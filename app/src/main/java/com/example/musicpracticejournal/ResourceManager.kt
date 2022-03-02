@@ -13,6 +13,10 @@ class ResourceManager(private val context: Context) {
         return context.getString(id)
     }
 
+    fun getString(@StringRes id: Int, vararg arguments: String?): String {
+        return context.getString(id, *arguments)
+    }
+
     fun getColor(@ColorRes id: Int): Int {
         return ContextCompat.getColor(context, id)
     }

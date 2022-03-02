@@ -8,8 +8,12 @@ import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.data.db.entity.Review
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ReviewViewModel(private val repository: MusicPracticeRepository): ViewModel() {
+class ReviewViewModel @Inject constructor(
+    private val repository: MusicPracticeRepository
+    ) :
+    ViewModel() {
 
     private val _saveReviewEvent = MutableLiveData<Event<Unit>>()
     val saveReviewEvent: LiveData<Event<Unit>> = _saveReviewEvent

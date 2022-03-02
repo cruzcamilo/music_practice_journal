@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.db.entity.PracticeFragment
 import com.example.musicpracticejournal.databinding.FragmentHomeBinding
 import com.example.musicpracticejournal.practicefragments.PracticeFragmentAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,13 +53,13 @@ class HomeFragment : Fragment() {
     private fun setupNavigation() {
         viewModel.event.observe(viewLifecycleOwner) {
             when (it) {
-                is HomeViewModel.Event.CreateScreen -> findNavController().navigate(R.id.action_home_to_createFragment)
+                is HomeViewModel.Event.CreateScreen ->
+                    findNavController().navigate(HomeFragmentDirections.toCreateFragment())
             }
         }
     }
 
-    private fun showPracticeScreen(practiceFragment: PracticeFragment) {
-        val bundle = bundleOf(MUSIC_FRAGMENT_KEY to practiceFragment)
-        findNavController().navigate(R.id.action_home_to_practiceFragment, bundle)
+    private fun showPracticeScreen(entryId: Long) {
+        findNavController().navigate(HomeFragmentDirections.toPracticeFragment(entryId))
     }
 }

@@ -31,7 +31,7 @@ class NavigationTest {
         }
 
         onView(withId(R.id.fab_button)).perform(click())
-        verify(navController).navigate(R.id.action_home_to_createFragment)
+        verify(navController).navigate(R.id.toCreateFragment)
     }
 
 }
