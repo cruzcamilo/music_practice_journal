@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.musicpracticejournal.data.AppDatabase
-import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,7 +33,7 @@ class TasksDaoTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
     private lateinit var database: AppDatabase
-    private lateinit var practiceFragment: PracticeFragment
+    private lateinit var musicFragment: MusicFragment
 
     @Before
     fun init() {
@@ -43,7 +43,7 @@ class TasksDaoTest {
             getApplicationContext(),
             AppDatabase::class.java
         ).build()
-        practiceFragment = PracticeFragment(PracticeTypeEnum.SONG.type, "ameseours", "sens",
+        musicFragment = MusicFragment(PracticeTypeEnum.SONG.type, "ameseours", "sens",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString())
     }
 
@@ -52,21 +52,21 @@ class TasksDaoTest {
 
     @Test
     fun insertMusicFragmentAndGetById() = runBlockingTest {
-        val insertedFragmentId = database.practiceFragmentDao().savePracticeFragment(practiceFragment)
+        val insertedFragmentId = database.practiceFragmentDao().savePracticeFragment(musicFragment)
         val savedMusicFragment = database.practiceFragmentDao().getMusicFragmentById(insertedFragmentId)
 
-        assertThat(savedMusicFragment as PracticeFragment, notNullValue())
+        assertThat(savedMusicFragment as MusicFragment, notNullValue())
         assertThat(savedMusicFragment.id, `is`(insertedFragmentId))
-        assertThat(savedMusicFragment.type, `is`(practiceFragment.type))
-        assertThat(savedMusicFragment.author, `is`(practiceFragment.author))
-        assertThat(savedMusicFragment.name, `is`(practiceFragment.name))
-        assertThat(savedMusicFragment.practiceTime, `is`(practiceFragment.practiceTime))
+        assertThat(savedMusicFragment.type, `is`(musicFragment.type))
+        assertThat(savedMusicFragment.author, `is`(musicFragment.author))
+        assertThat(savedMusicFragment.name, `is`(musicFragment.name))
+        assertThat(savedMusicFragment.practiceTime, `is`(musicFragment.practiceTime))
     }
 
     @Test
     fun updateMusicFragmentAndGetById() = runBlockingTest {
-        val musicFragmentId = database.practiceFragmentDao().savePracticeFragment(practiceFragment)
-        val musicFragmentUpdate = PracticeFragment(
+        val musicFragmentId = database.practiceFragmentDao().savePracticeFragment(musicFragment)
+        val musicFragmentUpdate = MusicFragment(
             PracticeTypeEnum.EXERCISE.type, "Ameseours", "heurt",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(),
             null, null, musicFragmentId)
@@ -75,7 +75,7 @@ class TasksDaoTest {
 
         val updatedMusicFragment = database.practiceFragmentDao().getMusicFragmentById(musicFragmentId)
 
-        assertThat(updatedMusicFragment as PracticeFragment, notNullValue())
+        assertThat(updatedMusicFragment as MusicFragment, notNullValue())
         assertThat(updatedMusicFragment.id, `is`(musicFragmentId))
         assertThat(updatedMusicFragment.type, `is`(musicFragmentUpdate.type))
         assertThat(updatedMusicFragment.author, `is`(musicFragmentUpdate.author))
@@ -86,7 +86,7 @@ class TasksDaoTest {
     @Test
     fun deleteAllMusicFragments() = runBlockingTest {
         val fragmentList = database.practiceFragmentDao().getAllMusicFragments()
-        database.practiceFragmentDao().savePracticeFragment(practiceFragment)
+        database.practiceFragmentDao().savePracticeFragment(musicFragment)
         val list = fragmentList.take(1).toList()[0]
 
         assertThat(list,  notNullValue())

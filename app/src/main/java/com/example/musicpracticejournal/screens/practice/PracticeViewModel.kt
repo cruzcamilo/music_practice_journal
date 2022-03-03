@@ -9,15 +9,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.ResourceManager
 import com.example.musicpracticejournal.data.TimerStateEnum
-import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.data.domain.usecase.TimerUseCase
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.extensions.mapWithDefault
 import com.example.musicpracticejournal.extensions.visibleOrInvisible
+import com.example.musicpracticejournal.util.minsToSeconds
 import com.example.musicpracticejournal.util.secondsToMinutesSeconds
 import com.example.musicpracticejournal.util.timeStringToSeconds
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -37,17 +39,13 @@ class PracticeViewModel @Inject constructor(
     val totalTime = MutableLiveData<String>()
     val lastPractice = MutableLiveData<String>()
     var timerTime = MutableLiveData<String>()
-    var practiceTimeInSecs: Long? = null
+    private var practiceTimeInSecs: Long? = null
     private var fragmentId: Long? = null
-    private var musicFragment: PracticeFragment? = null
-
+    private var musicFragment: MusicFragment? = null
+    private val timerSeconds =  MutableLiveData<Long>()
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
 
-    private val timerSeconds =  MutableLiveData<Long>()
-
-    val timerCurrentTime = timerUseCase.timerValueFlow.asLiveData()
-    val timerState = timerUseCase.timerState.asLiveData()
-
+    private val timerState = timerUseCase.timerState.asLiveData()
     val btnStartVisibility =
         mapWithDefault(timerState, View.VISIBLE) { visibleOrInvisible(it != TimerStateEnum.ACTIVE)}
     val btnPauseVisibility =
@@ -67,9 +65,14 @@ class PracticeViewModel @Inject constructor(
                     totalTime.value = it.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
                     lastPractice.value = it.updated?: resourceManager.getString(R.string.no_data)
                     timerTime.value = "${it.practiceTime}:00"
-                    practiceTimeInSecs = it.practiceTime.toLong() * 60
-                    timerSeconds.value = practiceTimeInSecs
+                    practiceTimeInSecs = it.practiceTime.minsToSeconds()
+                    timerSeconds.value = practiceTimeInSecs!!
                 }
+            }
+        }
+        viewModelScope.launch {
+            timerUseCase.timerValueFlow.collect {
+                timerTime.value = it
             }
         }
     }
@@ -91,13 +94,14 @@ class PracticeViewModel @Inject constructor(
 
     fun pauseTimer() {
         timerUseCase.pause()
-        timerSeconds.value = timerCurrentTime.value!!.timeStringToSeconds()
+        timerSeconds.value = timerTime.value?.timeStringToSeconds()
     }
 
     fun resetTimer() {
-        val totalSeconds = musicFragment?.practiceTime?.toLong()!! * 60
-        timerSeconds.postValue(totalSeconds)
-        timerUseCase.reset(totalSeconds)
+        musicFragment?.practiceTime?.minsToSeconds()?.let { totalSeconds->
+            timerSeconds.value = totalSeconds
+            timerUseCase.reset(totalSeconds)
+        }
     }
 
     private fun saveLastPracticeDate(fragmentId: Long) = viewModelScope.launch {

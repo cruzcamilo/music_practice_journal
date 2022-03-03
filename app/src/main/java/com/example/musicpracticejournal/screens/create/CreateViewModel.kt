@@ -8,7 +8,7 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.ResourceManager
-import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import com.hadilq.liveevent.LiveEvent
@@ -66,7 +66,7 @@ class CreateViewModel @Inject constructor(
 
     fun save() {
         viewModelScope.launch {
-            val practiceFragment = PracticeFragment(
+            val practiceFragment = MusicFragment(
                 type.value ?: "",
                 author.value ?: "",
                 name.value ?: "",

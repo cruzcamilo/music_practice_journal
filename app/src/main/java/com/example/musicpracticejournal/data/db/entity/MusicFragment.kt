@@ -8,7 +8,7 @@ import java.util.Date
 
 @Entity(tableName = "musical_fragment_table")
 @Parcelize
-data class PracticeFragment(
+data class MusicFragment(
     val type: String,
     val author: String,
     val name: String,

@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.practiceFragments.observe(viewLifecycleOwner) { musicFragments ->
+        viewModel.musicFragments.observe(viewLifecycleOwner) { musicFragments ->
             practiceFragmentAdapter.submitList(musicFragments)
         }
     }

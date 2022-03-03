@@ -5,8 +5,11 @@ import android.util.Log
 import com.example.musicpracticejournal.R
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
+/**
+ * Int
+ */
 fun Int.addInitialZero(): String {
     return if (this < 10) {
         "0$this"
@@ -14,6 +17,17 @@ fun Int.addInitialZero(): String {
         this.toString()
     }
 }
+
+fun Int?.setBpmInformation(context: Context): String {
+    this.apply {
+        return if (this == null) context.getString(R.string.no_data)
+        else context.getString(R.string.bpm_amount, this.toString())
+    }
+}
+
+/**
+ * String
+ */
 
 fun String.timeStringToSeconds(): Long {
     val splitUnits = this.split(":")
@@ -28,11 +42,8 @@ fun String.timeStringToSeconds(): Long {
     return result
 }
 
-fun Long.secondsToMinutesSeconds(): String {
-    val f = DecimalFormat("00")
-    val min = this / 60
-    val sec = this % 60
-    return f.format(min) + ":" + f.format(sec)
+fun String.minsToSeconds(): Long {
+    return this.toLong() * 60
 }
 
 fun String.formatDate(): String {
@@ -40,9 +51,13 @@ fun String.formatDate(): String {
     return f.format(this)?:""
 }
 
-fun Int?.setBpmInformation(context: Context): String {
-    this.apply {
-        return if (this == null) context.getString(R.string.no_data)
-        else context.getString(R.string.bpm_amount, this.toString())
-    }
+/**
+ * Long
+ */
+
+fun Long.secondsToMinutesSeconds(): String {
+    val f = DecimalFormat("00")
+    val min = this / 60
+    val sec = this % 60
+    return f.format(min) + ":" + f.format(sec)
 }

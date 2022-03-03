@@ -3,7 +3,7 @@ package com.example.musicpracticejournal.data.repository
 import android.annotation.SuppressLint
 import androidx.annotation.WorkerThread
 import com.example.musicpracticejournal.data.AppDatabase
-import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.data.db.entity.Review
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import kotlinx.coroutines.flow.Flow
@@ -13,24 +13,24 @@ class MusicPracticeRepository @Inject constructor(
     private val database: AppDatabase
 ) {
 
-    val allPracticeFragments: Flow<List<PracticeFragment>> = database.practiceFragmentDao().getAllMusicFragments()
+    val allMusicFragments: Flow<List<MusicFragment>> = database.practiceFragmentDao().getAllMusicFragments()
     val allReviews : Flow<List<Review>> = database.reviewDao().getAllReviews()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun savePracticeFragment(word: PracticeFragment) {
+    suspend fun savePracticeFragment(word: MusicFragment) {
         database.practiceFragmentDao().savePracticeFragment(word)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun saveMock() {
-        val practiceFragment = PracticeFragment("Song", "Drowning", "Post solo", "1", PracticeStateEnum.ACTIVE.name, 180, 150)
+        val practiceFragment = MusicFragment("Song", "Drowning", "Post solo", "1", PracticeStateEnum.ACTIVE.name, 180, 150)
         database.practiceFragmentDao().savePracticeFragment(practiceFragment)
     }
 
     @WorkerThread
-    suspend fun getPracticeFragment(id: Long): PracticeFragment? {
+    suspend fun getPracticeFragment(id: Long): MusicFragment? {
         return database.practiceFragmentDao().getMusicFragmentById(id)
     }
 

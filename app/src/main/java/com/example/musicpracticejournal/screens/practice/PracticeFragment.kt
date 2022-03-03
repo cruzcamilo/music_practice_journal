@@ -28,14 +28,7 @@ class PracticeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeViewModel()
         setupNavigation()
-    }
-
-    private fun observeViewModel() {
-        viewModel.timerCurrentTime.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) binding?.tvTimer?.text = it
-        }
     }
 
     private fun setupNavigation() {

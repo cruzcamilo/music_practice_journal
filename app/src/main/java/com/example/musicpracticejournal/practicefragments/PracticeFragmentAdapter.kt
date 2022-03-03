@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.db.entity.PracticeFragment
+import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.databinding.MusicFragmentItemBinding
 import com.example.musicpracticejournal.util.setBpmInformation
 
 class PracticeFragmentAdapter(
     private val onItemClickListener: (practiceFragmentId: Long) -> Unit
 ) :
-    ListAdapter<PracticeFragment, PracticeFragmentAdapter.ViewHolder>(MusicFragmentDiffCallback) {
+    ListAdapter<MusicFragment, PracticeFragmentAdapter.ViewHolder>(MusicFragmentDiffCallback) {
 
     inner class ViewHolder(val binding : MusicFragmentItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -49,12 +49,12 @@ class PracticeFragmentAdapter(
         }
     }
 
-    object MusicFragmentDiffCallback : DiffUtil.ItemCallback<PracticeFragment>() {
-        override fun areItemsTheSame(oldItem: PracticeFragment, newItem: PracticeFragment): Boolean {
+    object MusicFragmentDiffCallback : DiffUtil.ItemCallback<MusicFragment>() {
+        override fun areItemsTheSame(oldItem: MusicFragment, newItem: MusicFragment): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: PracticeFragment, newItem: PracticeFragment): Boolean {
+        override fun areContentsTheSame(oldItem: MusicFragment, newItem: MusicFragment): Boolean {
             return oldItem == newItem
         }
     }
