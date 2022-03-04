@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.Event
-import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.data.db.entity.Review
+import com.example.musicpracticejournal.data.repository.ReviewRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ReviewViewModel @Inject constructor(
-    private val repository: MusicPracticeRepository
+    private val repository: ReviewRepository
     ) :
     ViewModel() {
 

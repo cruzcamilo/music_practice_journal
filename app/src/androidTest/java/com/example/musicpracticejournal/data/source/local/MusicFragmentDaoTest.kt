@@ -85,7 +85,7 @@ class TasksDaoTest {
 
     @Test
     fun deleteAllMusicFragments() = runBlockingTest {
-        val fragmentList = database.practiceFragmentDao().getAllMusicFragments()
+        val fragmentList = database.practiceFragmentDao().getAll()
         database.practiceFragmentDao().savePracticeFragment(musicFragment)
         val list = fragmentList.take(1).toList()[0]
 

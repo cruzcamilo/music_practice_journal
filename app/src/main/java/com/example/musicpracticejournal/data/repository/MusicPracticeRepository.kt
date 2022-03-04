@@ -1,10 +1,8 @@
 package com.example.musicpracticejournal.data.repository
 
-import android.annotation.SuppressLint
 import androidx.annotation.WorkerThread
 import com.example.musicpracticejournal.data.AppDatabase
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
-import com.example.musicpracticejournal.data.db.entity.Review
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -13,20 +11,8 @@ class MusicPracticeRepository @Inject constructor(
     private val database: AppDatabase
 ) {
 
-    val allMusicFragments: Flow<List<MusicFragment>> = database.practiceFragmentDao().getAllMusicFragments()
-    val allReviews : Flow<List<Review>> = database.reviewDao().getAllReviews()
-
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun savePracticeFragment(word: MusicFragment) {
-        database.practiceFragmentDao().savePracticeFragment(word)
-    }
-
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun saveMock() {
-        val practiceFragment = MusicFragment("Song", "Drowning", "Post solo", "1", PracticeStateEnum.ACTIVE.name, 180, 150)
-        database.practiceFragmentDao().savePracticeFragment(practiceFragment)
+    fun getMusicFragments(): Flow<List<MusicFragment>> {
+        return database.practiceFragmentDao().getAll()
     }
 
     @WorkerThread
@@ -34,18 +20,30 @@ class MusicPracticeRepository @Inject constructor(
         return database.practiceFragmentDao().getMusicFragmentById(id)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun saveReview(review: Review) {
-        database.reviewDao().saveReview(review)
+    suspend fun savePracticeFragment(word: MusicFragment) {
+        database.practiceFragmentDao().savePracticeFragment(word)
+    }
+
+    suspend fun updatePracticeDate(date: String, fragmentId: Long) {
+        database.practiceFragmentDao().updatePracticeFragmentDate(date, fragmentId)
     }
 
     suspend fun deleteAllMusicFragments() {
         database.practiceFragmentDao().deleteAlLMusicFragments()
     }
 
-    @SuppressLint("SimpleDateFormat")
-    suspend fun updatePracticeDate(date: String, fragmentId: Long) {
-        database.practiceFragmentDao().updatePracticeFragmentDate(date, fragmentId)
+    @WorkerThread
+    suspend fun saveMock() {
+        val practiceFragment = MusicFragment(
+            "Song",
+            "Drowning",
+            "Post solo",
+            "1",
+            PracticeStateEnum.ACTIVE.name,
+            180,
+            150
+        )
+        database.practiceFragmentDao().savePracticeFragment(practiceFragment)
     }
 }
