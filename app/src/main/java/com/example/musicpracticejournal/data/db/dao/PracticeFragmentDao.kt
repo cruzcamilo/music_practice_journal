@@ -15,7 +15,6 @@ interface PracticeFragmentDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun savePracticeFragment(musicFragment: MusicFragment): Long
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
     @Update
     suspend fun updateMusicFragment(musicFragment: MusicFragment): Int
 
