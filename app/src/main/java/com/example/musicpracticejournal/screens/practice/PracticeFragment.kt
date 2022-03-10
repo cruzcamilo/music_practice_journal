@@ -29,6 +29,15 @@ class PracticeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupNavigation()
+//        viewModel.title.observe(viewLifecycleOwner) {
+//            activity?.title = it
+//        }
+        binding?.chipGroup?.setOnCheckedChangeListener { group, checkedId ->
+            val selectedDurationChip = requireActivity().findViewById<Chip>(checkedId)
+            selectedDurationChip?.let {
+                viewModel.setTimerValue(it.text.toString())
+            }
+        }
     }
 
     private fun setupNavigation() {

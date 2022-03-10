@@ -23,18 +23,11 @@
             app:layout_constraintGuide_percent="0.1" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_top2_horizontal"
+            android:id="@+id/gl_bottom1_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.21" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_top3_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="256dp" />
+            app:layout_constraintGuide_percent="0.76" />
 
         <TextView
             android:id="@+id/tv_music_fragment_title"
@@ -48,154 +41,83 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Transylvania - Intro" />
 
-        <TextView
-            android:id="@+id/tv_last_practice_label"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/last_practice_label"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/tv_total_time_label"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/gl_top1_horizontal" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_last_practice_label"-->
+<!--            style="@style/TextAppearance.AppCompat.Title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:text="@string/last_practice_label"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/tv_total_time_label"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/gl_top1_horizontal" />-->
 
-        <TextView
-            android:id="@+id/tv_last_practice"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="@={viewModel.lastPractice}"
-            app:layout_constraintEnd_toEndOf="@+id/tv_last_practice_label"
-            app:layout_constraintStart_toStartOf="@+id/tv_last_practice_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_last_practice_label"
-            tools:text="01/10/2020" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_last_practice"-->
+<!--            style="@style/TextAppearance.AppCompat.Subhead"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@={viewModel.lastPractice}"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/tv_last_practice_label"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/tv_last_practice_label"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_last_practice_label"-->
+<!--            tools:text="01/10/2020" />-->
 
-        <TextView
-            android:id="@+id/tv_total_time_label"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/total_time_label"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_last_practice_label"
-            app:layout_constraintTop_toTopOf="@+id/gl_top1_horizontal" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_total_time_label"-->
+<!--            style="@style/TextAppearance.AppCompat.Title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:text="@string/total_time_label"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tv_last_practice_label"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/gl_top1_horizontal" />-->
 
-        <TextView
-            android:id="@+id/tv_total_time"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="@={viewModel.totalTime}"
-            app:layout_constraintEnd_toEndOf="@+id/tv_total_time_label"
-            app:layout_constraintStart_toStartOf="@+id/tv_total_time_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_total_time_label"
-            tools:text="20:00" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_total_time"-->
+<!--            style="@style/TextAppearance.AppCompat.Subhead"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@={viewModel.totalTime}"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/tv_total_time_label"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/tv_total_time_label"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tv_total_time_label"-->
+<!--            tools:text="20:00" />-->
 
-        <TextView
-            android:id="@+id/tv_current_tempo_label"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/last_tempo_label"
-            app:layout_constraintEnd_toEndOf="@+id/tv_last_practice_label"
-            app:layout_constraintStart_toStartOf="@+id/tv_last_practice_label"
-            app:layout_constraintTop_toTopOf="@+id/gl_top2_horizontal" />
-
-        <TextView
-            android:id="@+id/tv_current_tempo"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@={viewModel.currentTempo}"
-            app:layout_constraintEnd_toEndOf="@+id/tv_current_tempo_label"
-            app:layout_constraintStart_toStartOf="@+id/tv_current_tempo_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_current_tempo_label"
-            tools:text="150 bpm" />
-
-        <TextView
-            android:id="@+id/tv_target_tempo_label"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/target_tempo_label"
-            app:layout_constraintEnd_toEndOf="@+id/tv_total_time_label"
-            app:layout_constraintStart_toStartOf="@+id/tv_total_time_label"
-            app:layout_constraintTop_toTopOf="@+id/gl_top2_horizontal" />
-
-        <TextView
-            android:id="@+id/tv_target_tempo"
-            style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@={viewModel.targetTempo}"
-            app:layout_constraintEnd_toEndOf="@+id/tv_target_tempo_label"
-            app:layout_constraintHorizontal_bias="0.48"
-            app:layout_constraintStart_toStartOf="@+id/tv_target_tempo_label"
-            app:layout_constraintTop_toBottomOf="@id/tv_target_tempo_label"
-            tools:text="180 bpm" />
 
         <TextView
             android:id="@+id/tv_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@={viewModel.timerTime}"
             android:textColor="@color/black"
             android:textSize="58sp"
-            android:text="@={viewModel.timerTime}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_start_timer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_music_fragment_title"
             tools:text="05:00" />
-
-        <TextView
-            android:id="@+id/tv_timer_label"
-            style="@style/TextAppearance.AppCompat.Title.Inverse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/practice_time_label"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/tv_timer"
-            app:layout_constraintEnd_toEndOf="@+id/tv_timer"
-            app:layout_constraintStart_toStartOf="@+id/tv_timer"
-            app:layout_constraintTop_toTopOf="@+id/gl_top3_horizontal"
-            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/btn_start_timer"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/desc_play_button"
-            android:src="@drawable/ic_baseline_play_circle_outline_24"
-            android:visibility="@{viewModel.btnStartVisibility}"
             android:onClick="@{() -> viewModel.startTimer()}"
+            android:src="@{viewModel.btnActionImage}"
+            app:layout_constraintBottom_toTopOf="@+id/chipGroup"
             app:layout_constraintEnd_toEndOf="@+id/tv_timer"
             app:layout_constraintStart_toStartOf="@+id/tv_timer"
-            app:layout_constraintTop_toBottomOf="@+id/tv_timer"
-            app:tint="@android:color/black" />
-
-        <ImageView
-            android:id="@+id/btn_pause_timer"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="24dp"
-            android:contentDescription="@string/desc_play_button"
-            android:src="@drawable/ic_baseline_pause_circle_outline_24"
-            android:visibility="@{viewModel.btnPauseVisibility}"
-            android:onClick="@{() -> viewModel.pauseTimer()}"
-            app:layout_constraintEnd_toEndOf="@+id/btn_start_timer"
-            app:layout_constraintStart_toStartOf="@+id/btn_start_timer"
-            app:layout_constraintTop_toBottomOf="@+id/tv_timer" />
+            app:tint="@android:color/black"
+            tools:src="@drawable/ic_baseline_play_circle_outline_24" />
 
         <ImageView
             android:id="@+id/btn_restart_timer"
@@ -203,12 +125,68 @@
             android:layout_height="80dp"
             android:layout_marginTop="16dp"
             android:contentDescription="@string/desc_play_button"
-            android:src="@drawable/ic_baseline_restore_24"
             android:onClick="@{() -> viewModel.resetTimer()}"
+            android:src="@drawable/ic_baseline_restore_24"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/btn_start_timer"
             app:layout_constraintStart_toStartOf="@+id/btn_start_timer"
             app:layout_constraintTop_toBottomOf="@+id/btn_start_timer"
             app:tint="@android:color/black" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            app:singleLine="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:chipSpacingHorizontal="15dp"
+            app:singleSelection="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:minWidth="80dp"
+            android:text="5"
+            android:textAlignment="center"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip2"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="80dp"
+            android:text="10"
+            android:textAlignment="center"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip3"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="80dp"
+            android:text="15"
+            android:textAlignment="center"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip4"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="80dp"
+            android:text="@string/chip_other"
+            android:textAlignment="center" />
+
+        </com.google.android.material.chip.ChipGroup>
 
         <Button
             android:id="@+id/btn_save_review"
@@ -216,9 +194,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/darker_gray"
+            android:onClick="@{() -> viewModel.toReviewScreen()}"
             android:text="@string/btn_performance_review"
             android:textColor="@color/black"
-            android:onClick="@{() -> viewModel.toReviewScreen()}"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btn_restart_timer"
             app:layout_constraintHorizontal_bias="0.42"

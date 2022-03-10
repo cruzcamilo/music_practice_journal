@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_tempo_label"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:paddingVertical="8dp"
+        android:paddingEnd="8dp"
+        android:text="Tempo"
+        app:drawableEndCompat="@drawable/ic_baseline_edit_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_current_label"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Current"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_tempo_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tempo_label" />
+
+    <TextView
+        android:id="@+id/tv_final_label"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Final"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_current_label"
+        app:layout_constraintEnd_toEndOf="@+id/tv_target_tempo"
+        app:layout_constraintStart_toStartOf="@+id/tv_target_tempo"
+        app:layout_constraintTop_toTopOf="@+id/tv_current_label" />
+
+    <TextView
+        android:id="@+id/tv_current_tempo"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@={viewModel.currentTempo}"
+        app:layout_constraintStart_toStartOf="@+id/tv_current_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_current_label"
+        tools:text="150 bpm" />
+
+    <TextView
+        android:id="@+id/tv_target_tempo"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        tools:text="180 bpm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="@={viewModel.targetTempo}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_final_label" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

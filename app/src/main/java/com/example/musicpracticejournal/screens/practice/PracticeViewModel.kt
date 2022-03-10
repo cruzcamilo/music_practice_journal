@@ -1,8 +1,8 @@
 package com.example.musicpracticejournal.screens.practice
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -12,8 +12,6 @@ import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.data.domain.usecase.TimerUseCase
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
-import com.example.musicpracticejournal.extensions.mapWithDefault
-import com.example.musicpracticejournal.extensions.visibleOrInvisible
 import com.example.musicpracticejournal.util.minsToSeconds
 import com.example.musicpracticejournal.util.secondsToMinutesSeconds
 import com.example.musicpracticejournal.util.timeStringToSeconds
@@ -25,6 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
 
+const val DEFAULT_TIMER_VALUE = "5"
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
     private val repository: MusicPracticeRepository,
@@ -34,22 +33,24 @@ class PracticeViewModel @Inject constructor(
     ): ViewModel() {
 
     val title = MutableLiveData<String>()
-    val currentTempo = MutableLiveData<String>()
-    val targetTempo = MutableLiveData<String>()
+    private val currentTempo = MutableLiveData<String>()
+    private val targetTempo = MutableLiveData<String>()
     val totalTime = MutableLiveData<String>()
     val lastPractice = MutableLiveData<String>()
     var timerTime = MutableLiveData<String>()
-    private var practiceTimeInSecs: Long? = null
     private var fragmentId: Long? = null
     private var musicFragment: MusicFragment? = null
     private val timerSeconds =  MutableLiveData<Long>()
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
 
     private val timerState = timerUseCase.timerState.asLiveData()
-    val btnStartVisibility =
-        mapWithDefault(timerState, View.VISIBLE) { visibleOrInvisible(it != TimerStateEnum.ACTIVE)}
-    val btnPauseVisibility =
-        mapWithDefault(timerState, View.INVISIBLE) { visibleOrInvisible(it == TimerStateEnum.ACTIVE)}
+    val btnActionImage = map(timerState) {
+        if (it != TimerStateEnum.ACTIVE) {
+            resourceManager.getDrawable(R.drawable.ic_baseline_play_circle_outline_24)
+        } else {
+            resourceManager.getDrawable(R.drawable.ic_baseline_pause_circle_outline_24)
+        }
+    }
 
     val event = LiveEvent<Event>()
 
@@ -64,9 +65,7 @@ class PracticeViewModel @Inject constructor(
                     targetTempo.value = setTempoText(it.targetTempo)
                     totalTime.value = it.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
                     lastPractice.value = it.updated?: resourceManager.getString(R.string.no_data)
-                    timerTime.value = "${it.practiceTime}:00"
-                    practiceTimeInSecs = it.practiceTime.minsToSeconds()
-                    timerSeconds.value = practiceTimeInSecs!!
+                    setTimerValue(DEFAULT_TIMER_VALUE)
                 }
             }
         }
@@ -85,11 +84,20 @@ class PracticeViewModel @Inject constructor(
         }
     }
 
-    fun startTimer()  {
-        timerSeconds.value?.let {
-            timerUseCase.start(it)
+    fun setTimerValue(time: String) {
+        if (time.length <=2) {
+            timerTime.value = "$time:00"
+            timerSeconds.value = time.minsToSeconds()
         }
-        fragmentId?.let { saveLastPracticeDate(it) }
+    }
+
+    fun startTimer()  {
+        if (timerState.value != TimerStateEnum.ACTIVE) {
+            timerSeconds.value?.let { timerUseCase.start(it) }
+            fragmentId?.let { saveLastPracticeDate(it) }
+        } else {
+            pauseTimer()
+        }
     }
 
     fun pauseTimer() {
