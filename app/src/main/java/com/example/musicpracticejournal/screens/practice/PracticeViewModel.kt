@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
 
-const val DEFAULT_TIMER_VALUE = "5"
+const val DEFAULT_TIMER_VALUE = "5:00"
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
     private val repository: MusicPracticeRepository,
@@ -85,9 +85,11 @@ class PracticeViewModel @Inject constructor(
     }
 
     fun setTimerValue(time: String) {
-        if (time.length <=2) {
-            timerTime.value = "$time:00"
-            timerSeconds.value = time.minsToSeconds()
+        if (time.contains(resourceManager.getString(R.string.chip_other))) {
+            event.value = Event.EnterCustomTime
+        } else {
+            timerTime.value = time
+            timerSeconds.value = time.timeStringToSeconds()
         }
     }
 
@@ -125,5 +127,6 @@ class PracticeViewModel @Inject constructor(
 
     sealed class Event {
         class ToReviewScreen(val fragmentId: Long) : Event()
+        object EnterCustomTime: Event()
     }
 }

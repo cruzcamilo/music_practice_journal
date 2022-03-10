@@ -21,6 +21,7 @@ class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
 
     private var _timerValueFlow = MutableStateFlow("")
     val timerValueFlow: Flow<String> = _timerValueFlow
+    private val f = DecimalFormat("00")
 
     private var _timerState = MutableStateFlow(TimerStateEnum.STOPPED)
     val timerState : Flow<TimerStateEnum>
@@ -61,10 +62,21 @@ class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
             .onStart { emit(totalSeconds) }
             .conflate()
             .transform { remainingSeconds: Long ->
-                val f = DecimalFormat("00")
-                val min = remainingSeconds / 60
-                val sec = remainingSeconds % 60
-                val remainingTime = f.format(min) + ":" + f.format(sec)
-                emit(remainingTime)
+                emit(getRemainingTime(remainingSeconds))
             }
+
+    private fun getRemainingTime(remainingSeconds: Long): String {
+        val minutes = with(remainingSeconds / 60) {
+            if (this > 0) this.toString() else ""
+        }
+
+        val seconds = with(remainingSeconds%60) {
+            if (minutes.isNotEmpty()) {
+                ":${f.format(this)}"
+            } else {
+                this.toString()
+            }
+        }
+        return minutes + seconds
+    }
 }
