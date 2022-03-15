@@ -10,4 +10,14 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="Button_NumberInput">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>

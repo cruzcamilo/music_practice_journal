@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="3"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <Button
+            android:text="1"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="2"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="3"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="4"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="5"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="6"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="7"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="8"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="9"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="00"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <Button
+            android:text="0"
+            tools:ignore="HardcodedText"
+            style="@style/Button_NumberInput" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Button_NumberInput"
+            app:icon="@drawable/ic_baseline_backspace_24_blue"
+            android:backgroundTint="@color/white"
+            app:iconGravity="textStart"
+            tools:ignore="HardcodedText" />
+
+</GridLayout>

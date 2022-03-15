@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_practiceFragment_to_reviewFragment"
             app:destination="@id/reviewFragment" />
+        <action
+            android:id="@+id/toEnterTimeBottomSheet"
+            app:destination="@id/enterTimeBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"
@@ -58,4 +61,9 @@
         android:name="fragment_id"
         app:argType="long" />
     </fragment>
+    <dialog
+        android:id="@+id/enterTimeBottomSheet"
+        android:name="com.example.musicpracticejournal.screens.entertime.EnterTimeBottomSheet"
+        android:label="EnterTimeBottomSheet"
+        tools:layout="@layout/custom_time_sheet"/>
 </navigation>

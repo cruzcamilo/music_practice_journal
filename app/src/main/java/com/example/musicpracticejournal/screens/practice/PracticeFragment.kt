@@ -1,7 +1,6 @@
 package com.example.musicpracticejournal.screens.practice
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +43,9 @@ class PracticeFragment : Fragment() {
                     )
                 }
                 is PracticeViewModel.Event.EnterCustomTime -> {
-                    Log.e("CustomTime", "Yeah!")
+                    findNavController().navigate(
+                         PracticeFragmentDirections.toEnterTimeBottomSheet()
+                    )
                 }
             }
         }
