@@ -63,7 +63,7 @@
     </fragment>
     <dialog
         android:id="@+id/enterTimeBottomSheet"
-        android:name="com.example.musicpracticejournal.screens.entertime.EnterTimeBottomSheet"
+        android:name="com.example.musicpracticejournal.screens.entertime.EnterTimeSheet"
         android:label="EnterTimeBottomSheet"
         tools:layout="@layout/custom_time_sheet"/>
 </navigation>

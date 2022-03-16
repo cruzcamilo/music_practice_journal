@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.musicpracticejournal.screens.entertime.NumberInput
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,65 +8,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <Button
+            android:id="@+id/btn1"
             android:text="1"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn2"
             android:text="2"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn3"
             android:text="3"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn4"
             android:text="4"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn5"
             android:text="5"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn6"
             android:text="6"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn7"
             android:text="7"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn8"
             android:text="8"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn9"
             android:text="9"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn00"
             android:text="00"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <Button
+            android:id="@+id/btn0"
             android:text="0"
             tools:ignore="HardcodedText"
             style="@style/Button_NumberInput" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete"
             style="@style/Button_NumberInput"
             app:icon="@drawable/ic_baseline_backspace_24_blue"
             android:backgroundTint="@color/white"
             app:iconGravity="textStart"
             tools:ignore="HardcodedText" />
 
-</GridLayout>
+</com.example.musicpracticejournal.screens.entertime.NumberInput>
