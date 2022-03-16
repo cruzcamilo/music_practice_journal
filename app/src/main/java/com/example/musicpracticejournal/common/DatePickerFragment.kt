@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.screens.common
+package com.example.musicpracticejournal.common
 
 import android.app.DatePickerDialog
 import android.app.Dialog

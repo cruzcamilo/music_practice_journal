@@ -5,19 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.MainActivity
 import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class CreateFragment : Fragment() {
+class CreateFragment : BaseFragment() {
 
     private var binding: FragmentCreateBinding? = null
     private val viewModel: CreateViewModel by viewModels()
