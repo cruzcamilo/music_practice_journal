@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.databinding.CustomTimeSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,7 +33,9 @@ class EnterTimeSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupBottomDialog()
         setupInput()
+        setupNavigation()
     }
+
 
     private fun setupBottomDialog() {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), theme)
@@ -39,5 +44,18 @@ class EnterTimeSheet : BottomSheetDialogFragment() {
 
     private fun setupInput() {
         binding?.numInput?.root?.onInputListener = viewModel
+    }
+
+    private fun setupNavigation() {
+        viewModel.event.observe(viewLifecycleOwner) {
+            val bundle = bundleOf(TIME_RESULT_KEY to it.time)
+            setFragmentResult(TIME_REQUEST_KEY, bundle)
+            findNavController().navigateUp()
+        }
+    }
+
+    companion object {
+        const val TIME_RESULT_KEY = "time"
+        const val TIME_REQUEST_KEY = "time_request_key"
     }
 }

@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
+import com.example.musicpracticejournal.screens.entertime.EnterTimeSheet
+import kotlinx.coroutines.launch
 
 class PracticeFragment : BaseFragment() {
 
@@ -41,10 +45,18 @@ class PracticeFragment : BaseFragment() {
                     )
                 }
                 is PracticeViewModel.Event.EnterCustomTime -> {
-                    findNavController().navigate(
-                         PracticeFragmentDirections.toEnterTimeBottomSheet()
-                    )
+                    showTimeInput()
                 }
+            }
+        }
+    }
+
+    private fun showTimeInput() {
+        findNavController().navigate(PracticeFragmentDirections.toEnterTimeBottomSheet())
+        setFragmentResultListener(EnterTimeSheet.TIME_REQUEST_KEY) { _, bundle ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                val time = bundle.getString(EnterTimeSheet.TIME_RESULT_KEY)
+                time?.let { viewModel.setTimerValue(it) }
             }
         }
     }
