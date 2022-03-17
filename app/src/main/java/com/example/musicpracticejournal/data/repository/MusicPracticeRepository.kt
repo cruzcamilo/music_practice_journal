@@ -3,7 +3,6 @@ package com.example.musicpracticejournal.data.repository
 import androidx.annotation.WorkerThread
 import com.example.musicpracticejournal.data.AppDatabase
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
-import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -40,7 +39,6 @@ class MusicPracticeRepository @Inject constructor(
             "Drowning",
             "Post solo",
             "1",
-            PracticeStateEnum.ACTIVE.name,
             180,
             150
         )

@@ -12,7 +12,6 @@ import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
-import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 
 class CreateFragment : BaseFragment() {
@@ -46,16 +45,10 @@ class CreateFragment : BaseFragment() {
             this?.setAdapter(typeAdapter)
         }
 
-        val minutesAdapter: ArrayAdapter<PracticeTimeEnum> = ArrayAdapter(
-            activity as MainActivity,
-            R.layout.dropdown_menu_type_item, PracticeTimeEnum.values()
-        )
-        binding?.spinnerCreatePracticeTime?.setAdapter(minutesAdapter)
-
-        val stateArray = arrayOf(PracticeStateEnum.ACTIVE.state, PracticeStateEnum.QUEUED.state)
         val practiceFragmentStateAdapter: ArrayAdapter<String> = ArrayAdapter(
             activity as MainActivity,
-            R.layout.dropdown_menu_type_item, stateArray
+            R.layout.dropdown_menu_type_item,
+            arrayOf(PracticeStateEnum.ACTIVE.state, PracticeStateEnum.QUEUED.state)
         )
         with(binding?.spinnerPracticeState) {
             this?.setText(PracticeStateEnum.ACTIVE.state)

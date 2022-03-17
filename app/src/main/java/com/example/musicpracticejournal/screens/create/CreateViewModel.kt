@@ -24,7 +24,6 @@ class CreateViewModel @Inject constructor(
     val type = MutableLiveData<String>()
     val author = MutableLiveData<String>()
     val name = MutableLiveData<String>()
-    val practiceTime = MutableLiveData<String>()
     val practiceState = MutableLiveData<String>()
     val currentTempo = MutableLiveData<String>()
     val targetTempo = MutableLiveData<String>()
@@ -51,14 +50,12 @@ class CreateViewModel @Inject constructor(
             addSource(type) { value = isSaveButtonEnabled() }
             addSource(author) { value = isSaveButtonEnabled() }
             addSource(name) { value = isSaveButtonEnabled() }
-            addSource(practiceTime) { value = isSaveButtonEnabled() }
             addSource(practiceState) { value = isSaveButtonEnabled() }
         }
     }
 
     private fun isSaveButtonEnabled(): Boolean {
-        val values =
-            listOf(type.value, author.value, name.value, practiceTime.value, practiceState.value)
+        val values = listOf(type.value, author.value, name.value, practiceState.value)
 
         return values.none { it.isNullOrBlank() }
     }
@@ -71,7 +68,6 @@ class CreateViewModel @Inject constructor(
                         type.value ?: "",
                         author.value ?: "",
                         name.value ?: "",
-                        practiceTime.value ?: "",
                         practiceState.value ?: "",
                         targetTempo.value?.toInt(),
                         currentTempo.value?.toInt()

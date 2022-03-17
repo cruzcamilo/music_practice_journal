@@ -10,13 +10,13 @@ import javax.inject.Inject
 class CreateMusicFragmentUseCase @Inject constructor(
     private val musicPracticeRepository: MusicPracticeRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-): UseCase<CreateMusicFragmentUseCase.Params, Unit>(dispatcher) {
+) : UseCase<CreateMusicFragmentUseCase.Params, Unit>(dispatcher) {
 
     override suspend fun execute(params: Params) {
-     musicPracticeRepository.savePracticeFragment(params.musicFragment)
+        musicPracticeRepository.savePracticeFragment(params.musicFragment)
     }
 
-    data class Params (
+    data class Params(
         val musicFragment: MusicFragment
     )
 }

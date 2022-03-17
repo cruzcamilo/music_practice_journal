@@ -91,23 +91,6 @@
                 android:hint="@string/create_fragment_state" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_practice_time"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/practice_time_hint">
-
-            <AutoCompleteTextView
-                android:id="@+id/spinner_create_practice_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.practiceTime}"
-                android:editable="false"
-                android:focusable="false" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
