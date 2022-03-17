@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fab_default_elevation">6dp</dimen>
+    <dimen name="space_l">20dp</dimen>
+    <dimen name="border_width">1dp</dimen>
 </resources>

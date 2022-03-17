@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.data.domain.usecase
+package com.example.musicpracticejournal.domain.usecase
 
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.util.secondsToMinutesSeconds
