@@ -1,7 +1,7 @@
 package com.example.musicpracticejournal.injection
 
 import android.content.Context
-import com.example.musicpracticejournal.ResourceManager
+import com.example.musicpracticejournal.domain.ResourceManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,15 +1,14 @@
 package com.example.musicpracticejournal.screens.create
 
-import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.ResourceManager
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
-import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.domain.ResourceManager
+import com.example.musicpracticejournal.domain.usecase.chunks.CreateMusicFragmentUseCase
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateViewModel @Inject constructor(
-    private val repository: MusicPracticeRepository,
+    private val createMusicFragmentUseCase: CreateMusicFragmentUseCase,
     private val resourceManager: ResourceManager
     ) : ViewModel() {
 
@@ -66,17 +65,19 @@ class CreateViewModel @Inject constructor(
 
     fun save() {
         viewModelScope.launch {
-            val practiceFragment = MusicFragment(
-                type.value ?: "",
-                author.value ?: "",
-                name.value ?: "",
-                practiceTime.value ?: "",
-                practiceState.value ?: "",
-                targetTempo.value?.toInt(),
-                currentTempo.value?.toInt()
+            createMusicFragmentUseCase(
+                CreateMusicFragmentUseCase.Params(
+                    MusicFragment(
+                        type.value ?: "",
+                        author.value ?: "",
+                        name.value ?: "",
+                        practiceTime.value ?: "",
+                        practiceState.value ?: "",
+                        targetTempo.value?.toInt(),
+                        currentTempo.value?.toInt()
+                    )
+                )
             )
-            Log.d("Create", practiceFragment.toString())
-            repository.savePracticeFragment(practiceFragment)
             event.value = Event.ToHomeScreen
         }
     }

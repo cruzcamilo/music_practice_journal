@@ -21,8 +21,8 @@ class MusicPracticeRepository @Inject constructor(
     }
 
     @WorkerThread
-    suspend fun savePracticeFragment(word: MusicFragment) {
-        database.practiceFragmentDao().savePracticeFragment(word)
+    suspend fun savePracticeFragment(musicFragment: MusicFragment) {
+        database.practiceFragmentDao().savePracticeFragment(musicFragment)
     }
 
     suspend fun updatePracticeDate(date: String, fragmentId: Long) {

@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.domain
 
 import android.content.Context
 import android.graphics.drawable.Drawable
