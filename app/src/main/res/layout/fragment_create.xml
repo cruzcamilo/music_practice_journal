@@ -1,130 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.musicpracticejournal.screens.create.CreateViewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="16dp"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/create_title_textview"
-            style="@style/TextViewTitle"
-            android:text="@string/fragment_create_title" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_create_type"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            tools:context=".MainActivity">
 
-            <AutoCompleteTextView
-                android:id="@+id/spinner_practice_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusable="false"
-                android:text="@={viewModel.type}"
-                android:hint="@string/type_hint" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_song_technique"
-            style="@style/ContentTextInputLayout"
-            android:hint="@{viewModel.songTechniqueHint}">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_create_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.author}"
-                android:inputType="textCapSentences" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_create_name"
-            style="@style/ContentTextInputLayout"
-            android:hint="@{viewModel.createNameHint}">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_create_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@={viewModel.name}"
-                android:inputType="textCapSentences" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_practice_state"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <AutoCompleteTextView
-                android:id="@+id/spinner_practice_state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusable="false"
-                android:text="@={viewModel.practiceState}"
-                android:hint="@string/create_fragment_state" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/create_title_textview"
+                style="@style/TextViewTitle"
+                android:text="@string/fragment_create_title" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout_current_tempo"
-                style="@style/ContentTextInputLayout"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:hint="@string/current_tempo">
+                android:id="@+id/text_input_layout_create_type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_current_tempo"
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_practice_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.currentTempo}"
-                    android:inputType="number" />
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="@string/type_hint"
+                    android:text="@={viewModel.type}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout_target_tempo"
+                android:id="@+id/text_input_layout_song_technique"
                 style="@style/ContentTextInputLayout"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:hint="@string/target_tempo">
+                android:hint="@{viewModel.songTechniqueHint}">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_target_tempo"
+                    android:id="@+id/et_create_author"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewModel.targetTempo}"
-                    android:inputType="number" />
+                    android:inputType="textCapSentences"
+                    android:text="@={viewModel.author}" />
             </com.google.android.material.textfield.TextInputLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
-            android:id="@+id/btn_save_music_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="16dp"
-            android:onClick="@{() -> viewModel.save()}"
-            app:enabled="@{viewModel.saveButtonEnabled}"
-            android:text="@string/save_btn_text" />
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_create_name"
+                style="@style/ContentTextInputLayout"
+                android:hint="@{viewModel.createNameHint}">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_create_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:text="@={viewModel.name}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_practice_state"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_practice_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="@string/create_fragment_state"
+                    android:text="@={viewModel.practiceState}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_current_tempo"
+                    style="@style/ContentTextInputLayout"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/current_tempo">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_current_tempo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="@={viewModel.currentTempo}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_target_tempo"
+                    style="@style/ContentTextInputLayout"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:hint="@string/target_tempo">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_target_tempo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="@={viewModel.targetTempo}" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Button
+                android:id="@+id/btn_save_music_fragment"
+                style="@style/Submit_blue"
+                android:layout_marginVertical="16dp"
+                android:onClick="@{() -> viewModel.save()}"
+                android:text="@string/save_btn_text"
+                app:enabled="@{viewModel.saveButtonEnabled}" />
+        </LinearLayout>
+    </ScrollView>
 </layout>

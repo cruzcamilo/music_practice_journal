@@ -48,5 +48,15 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="Submit_blue" parent="Widget.AppCompat.ButtonBar">
+        <item name="android:backgroundTint">@android:color/holo_blue_light</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">fill_horizontal</item>
+    </style>
+
 
 </resources>
