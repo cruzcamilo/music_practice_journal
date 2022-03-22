@@ -15,11 +15,8 @@
         android:padding="@dimen/space_l">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/Tittle_BottomSheet"
             android:text="@{title}"
-            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton"
             app:layout_constraintStart_toStartOf="parent"

@@ -26,6 +26,9 @@
     <string name="desc_play_button">Play button</string>
     <string name="last_practice_label">Last Practice:</string>
     <string name="total_time_label">Total Time</string>
+    <string name="tempo_title">Tempo</string>
+    <string name="tempo_current">Current</string>
+    <string name="tempo_final">Final</string>
     <string name="last_tempo_label">Last Tempo</string>
     <string name="target_tempo_label">Target Tempo</string>
     <string name="practice_time_label">Practice Time</string>

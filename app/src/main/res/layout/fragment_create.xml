@@ -18,11 +18,7 @@
 
         <TextView
             android:id="@+id/create_title_textview"
-            style="@android:style/TextAppearance.Material.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
+            style="@style/TextViewTitle"
             android:text="@string/fragment_create_title" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,10 +40,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_song_technique"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            style="@style/ContentTextInputLayout"
             android:hint="@{viewModel.songTechniqueHint}">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -60,10 +53,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_create_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            style="@style/ContentTextInputLayout"
             android:hint="@{viewModel.createNameHint}">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -79,7 +69,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="8dp">
 
             <AutoCompleteTextView
                 android:id="@+id/spinner_practice_state"
@@ -98,10 +88,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_layout_current_tempo"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                style="@style/ContentTextInputLayout"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:hint="@string/current_tempo">
@@ -116,11 +103,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_input_layout_target_tempo"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/ContentTextInputLayout"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:hint="@string/target_tempo">
 

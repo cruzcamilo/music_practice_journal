@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:paddingVertical="8dp"
         android:paddingEnd="8dp"
-        android:text="Tempo"
+        android:text="@string/tempo_title"
         app:drawableEndCompat="@drawable/ic_baseline_edit_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Current"
+        android:text="@string/tempo_current"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_tempo_label"
         app:layout_constraintTop_toBottomOf="@+id/tv_tempo_label" />
@@ -34,10 +34,9 @@
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Final"
+        android:text="@string/tempo_final"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/tv_current_label"
-        app:layout_constraintEnd_toEndOf="@+id/tv_target_tempo"
         app:layout_constraintStart_toStartOf="@+id/tv_target_tempo"
         app:layout_constraintTop_toTopOf="@+id/tv_current_label" />
 
