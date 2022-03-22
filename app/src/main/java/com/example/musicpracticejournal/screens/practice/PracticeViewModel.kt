@@ -9,9 +9,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
-import com.example.musicpracticejournal.domain.usecase.TimerUseCase
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.domain.ResourceManager
+import com.example.musicpracticejournal.domain.usecase.TimerUseCase
+import com.example.musicpracticejournal.util.TimeInputUtil
 import com.example.musicpracticejournal.util.minsToSeconds
 import com.example.musicpracticejournal.util.secondsToMinutesSeconds
 import com.example.musicpracticejournal.util.timeStringToSeconds
@@ -88,7 +89,7 @@ class PracticeViewModel @Inject constructor(
         if (time.contains(resourceManager.getString(R.string.chip_other))) {
             event.value = Event.EnterCustomTime
         } else {
-            timerTime.value = time
+            timerTime.value = TimeInputUtil.secondsToTime(time.timeStringToSeconds())
             timerSeconds.value = time.timeStringToSeconds()
         }
     }
