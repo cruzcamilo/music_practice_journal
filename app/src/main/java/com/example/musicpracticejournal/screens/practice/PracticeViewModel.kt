@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.common.Constants.DEFAULT_TIMER_VALUE
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
@@ -20,11 +21,12 @@ import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
 
-const val DEFAULT_TIMER_VALUE = "5:00"
+
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
     private val repository: MusicPracticeRepository,
@@ -36,12 +38,15 @@ class PracticeViewModel @Inject constructor(
     val title = MutableLiveData<String>()
     private val currentTempo = MutableLiveData<String>()
     private val targetTempo = MutableLiveData<String>()
-    val totalTime = MutableLiveData<String>()
-    val lastPractice = MutableLiveData<String>()
-    var timerTime = MutableLiveData<String>()
+    //TODO: Check if these fields should be deleted
+    private val totalTime = MutableLiveData<String>()
+    private val lastPractice = MutableLiveData<String>()
+
+    var timeOnScreen = MutableLiveData<String>()
     private var fragmentId: Long? = null
     private var musicFragment: MusicFragment? = null
     private val timerSeconds =  MutableLiveData<Long>()
+    //TODO: Fix warning
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
 
     private val timerState = timerUseCase.timerState.asLiveData()
@@ -56,23 +61,34 @@ class PracticeViewModel @Inject constructor(
     val event = LiveEvent<Event>()
 
     init {
-        viewModelScope.launch {
         fragmentId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).fragmentId
-            fragmentId?.let {
-                musicFragment = repository.getPracticeFragment(it)
-                musicFragment?.let {
-                    title.value = "${it.author} - ${it.name}"
-                    currentTempo.value = setTempoText(it.currentTempo)
-                    targetTempo.value = setTempoText(it.targetTempo)
-                    totalTime.value = it.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
-                    lastPractice.value = it.updated?: resourceManager.getString(R.string.no_data)
-                    setTimerValue(DEFAULT_TIMER_VALUE)
-                }
-            }
+        fragmentId?.let {
+            getPracticeFragment(it)
         }
         viewModelScope.launch {
             timerUseCase.timerValueFlow.collect {
-                timerTime.value = it
+                timeOnScreen.value = it
+            }
+        }
+    }
+
+    private fun getPracticeFragment(it: Long) = viewModelScope.launch {
+        musicFragment = repository.getPracticeFragment(it)
+        musicFragment?.let {
+            title.value = "${it.author} - ${it.name}"
+            currentTempo.value = setTempoText(it.currentTempo)
+            targetTempo.value = setTempoText(it.originalTempo)
+            totalTime.value = it.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
+            lastPractice.value = it.updated ?: resourceManager.getString(R.string.no_data)
+            setTimerValue()
+        }
+    }
+
+    fun refreshAndStartTimer() {
+        fragmentId?.let {
+            runBlocking {
+                getPracticeFragment(it)
+                startTimer()
             }
         }
     }
@@ -85,27 +101,38 @@ class PracticeViewModel @Inject constructor(
         }
     }
 
-    fun setTimerValue(time: String) {
-        if (time.contains(resourceManager.getString(R.string.chip_other))) {
-            event.value = Event.EnterCustomTime
-        } else {
-            timerTime.value = TimeInputUtil.secondsToTime(time.timeStringToSeconds())
-            timerSeconds.value = time.timeStringToSeconds()
+    fun enterCustomTime() {
+        event.value = Event.EnterCustomTime
+    }
+
+    fun setTimerValue(time: String = DEFAULT_TIMER_VALUE) {
+        timeOnScreen.value = TimeInputUtil.secondsToTime(time.timeStringToSeconds())
+        timerSeconds.value = time.timeStringToSeconds()
+    }
+
+    fun operateTimer() {
+        when (timerState.value) {
+            TimerStateEnum.STOPPED -> {
+                if (musicFragment?.originalTempo == null) {
+                    event.value = fragmentId?.let { Event.OriginalTempo(it) }
+                } else {
+                    startTimer()
+                }
+            }
+            TimerStateEnum.PAUSED -> startTimer()
+            TimerStateEnum.ACTIVE -> pauseTimer()
+            null -> return
         }
     }
 
-    fun startTimer()  {
-        if (timerState.value != TimerStateEnum.ACTIVE) {
-            timerSeconds.value?.let { timerUseCase.start(it) }
-            fragmentId?.let { saveLastPracticeDate(it) }
-        } else {
-            pauseTimer()
-        }
+    private fun startTimer() {
+        timerSeconds.value?.let { timerUseCase.start(it) }
+        fragmentId?.let { saveLastPracticeDate(it) }
     }
 
-    fun pauseTimer() {
+    private fun pauseTimer() {
         timerUseCase.pause()
-        timerSeconds.value = timerTime.value?.timeStringToSeconds()
+        timerSeconds.value = timeOnScreen.value?.timeStringToSeconds()
     }
 
     fun resetTimer() {
@@ -129,5 +156,6 @@ class PracticeViewModel @Inject constructor(
     sealed class Event {
         class ToReviewScreen(val fragmentId: Long) : Event()
         object EnterCustomTime: Event()
+        class OriginalTempo(val fragmentId: Long) : Event()
     }
 }

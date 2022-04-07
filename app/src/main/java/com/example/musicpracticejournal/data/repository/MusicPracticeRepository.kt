@@ -28,6 +28,10 @@ class MusicPracticeRepository @Inject constructor(
         database.practiceFragmentDao().updatePracticeFragmentDate(date, fragmentId)
     }
 
+    suspend fun updateOriginalTempo(originalTempo: Int, fragmentId: Long) {
+        database.practiceFragmentDao().updateOriginalTempo(originalTempo, fragmentId)
+    }
+
     suspend fun deleteAllMusicFragments() {
         database.practiceFragmentDao().deleteAlLMusicFragments()
     }
@@ -39,8 +43,8 @@ class MusicPracticeRepository @Inject constructor(
             "Drowning",
             "Post solo",
             "1",
-            180,
-            150
+            null,
+            null
         )
         database.practiceFragmentDao().savePracticeFragment(practiceFragment)
     }

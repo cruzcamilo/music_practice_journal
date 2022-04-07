@@ -13,7 +13,7 @@ data class MusicFragment(
     val author: String,
     val name: String,
     val state: String,
-    val targetTempo: Int? = null,
+    val originalTempo: Int? = null,
     val currentTempo: Int? = null,
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
@@ -21,4 +21,5 @@ data class MusicFragment(
     val created: Date = Date(Date().time),
     val updated: String? = null,
     val totalPracticeTimeInSeconds: Long = 0,
+    val trackTempo: Boolean? = null
 ) : Parcelable

@@ -1,6 +1,7 @@
 package com.example.musicpracticejournal.practicefragments
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -32,15 +33,25 @@ class PracticeFragmentAdapter(
                         author,
                         name
                     )
-                binding.practiceFragmentLastPracticeTv.text =
-                    binding.practiceFragmentLastPracticeTv.context.resources.getString(
-                        R.string.last_practice_item,
-                        updated ?: ""
-                    )
-                binding.practiceFragmentCurrentTempo.text =
-                    currentTempo.setBpmInformation(binding.practiceFragmentCurrentTempo.context)
-                binding.musicFragmentTargetTempo.text =
-                    targetTempo.setBpmInformation(binding.musicFragmentTargetTempo.context)
+                if (updated == null) {
+                    binding.practiceFragmentLastPracticeTv.visibility = View.GONE
+                } else {
+                    binding.practiceFragmentLastPracticeTv.text =
+                        binding.practiceFragmentLastPracticeTv.context.resources.getString(
+                            R.string.last_practice_item,
+                            updated
+                        )
+                }
+
+                if (originalTempo != null && originalTempo > 0) {
+                    binding.practiceFragmentCurrentTempo.text =
+                        currentTempo.setBpmInformation(binding.practiceFragmentCurrentTempo.context)
+                    binding.musicFragmentTargetTempo.text =
+                        originalTempo.setBpmInformation(binding.musicFragmentTargetTempo.context)
+                } else {
+                    binding.musicFragmentCurrentTempoLabel.visibility = View.GONE
+                    binding.practiceFragmentTargetTempoLabel.visibility = View.GONE
+                }
 
                 itemView.setOnClickListener {
                     this?.id?.let { onItemClickListener.invoke(it) }

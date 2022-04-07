@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
 import com.example.musicpracticejournal.screens.entertime.EnterTimeSheet
+import com.example.musicpracticejournal.screens.originaltempo.OriginalTempoSheet
 import kotlinx.coroutines.launch
 
 class PracticeFragment : BaseFragment() {
@@ -47,6 +48,9 @@ class PracticeFragment : BaseFragment() {
                 is PracticeViewModel.Event.EnterCustomTime -> {
                     showTimeInput()
                 }
+                is PracticeViewModel.Event.OriginalTempo -> {
+                    showOriginalTimeSheet(it.fragmentId)
+                }
             }
         }
     }
@@ -57,6 +61,15 @@ class PracticeFragment : BaseFragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 val time = bundle.getString(EnterTimeSheet.TIME_RESULT_KEY)
                 time?.let { viewModel.setTimerValue(it) }
+            }
+        }
+    }
+
+    private fun showOriginalTimeSheet(fragmentId: Long) {
+        findNavController().navigate(PracticeFragmentDirections.toOriginalTempoSheet(fragmentId))
+        setFragmentResultListener(OriginalTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.refreshAndStartTimer()
             }
         }
     }

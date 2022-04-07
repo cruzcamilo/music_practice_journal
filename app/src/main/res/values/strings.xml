@@ -90,5 +90,9 @@
     <string name="time_sheet_title">Enter Time</string>
     <string name="time_sheet_defaulttime">00:00</string>
     <string name="time_sheet_set">Set</string>
+    <string name="original_tempo_title">Speed Training</string>
+    <string name="original_tempo_description1">- Enter the original tempo of this fragment for speed training mode, tracking your progress after each performance</string>
+    <string name="original_tempo_description2">- Leave the box empty to ignore.</string>
+    <string name="original_tempo_hint">Original tempo (bpm)</string>
 
 </resources>

@@ -23,6 +23,10 @@ interface PracticeFragmentDao {
     suspend fun updatePracticeFragmentDate(updateDate: String, fragmentId: Long): Int
 
     @Transaction
+    @Query("UPDATE musical_fragment_table set originalTempo =:originalTempo WHERE id = :fragmentId")
+    suspend fun updateOriginalTempo(originalTempo: Int, fragmentId: Long): Int
+
+    @Transaction
     @Query("SELECT * FROM musical_fragment_table ORDER BY id ASC")
     fun getAll(): Flow<List<MusicFragment>>
 

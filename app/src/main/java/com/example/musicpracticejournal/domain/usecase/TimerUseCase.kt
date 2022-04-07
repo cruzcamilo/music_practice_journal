@@ -1,5 +1,6 @@
 package com.example.musicpracticejournal.domain.usecase
 
+import com.example.musicpracticejournal.common.Constants.DEFAULT_TIMER_VALUE
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.util.TimeInputUtil
 import com.example.musicpracticejournal.util.secondsToMinutesSeconds
@@ -19,7 +20,7 @@ import javax.inject.Inject
 
 class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
 
-    private var _timerValueFlow = MutableStateFlow("")
+    private var _timerValueFlow = MutableStateFlow(DEFAULT_TIMER_VALUE)
     val timerValueFlow: Flow<String> = _timerValueFlow
 
     private var _timerState = MutableStateFlow(TimerStateEnum.STOPPED)
