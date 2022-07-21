@@ -42,7 +42,7 @@ class PracticeFragment : BaseFragment() {
             when(it) {
                 is PracticeViewModel.Event.ToReviewScreen -> {
                     findNavController().navigate(
-                        PracticeFragmentDirections.actionPracticeFragmentToReviewFragment(it.fragmentId)
+                        PracticeFragmentDirections.toReviewFragment(it.fragmentId)
                     )
                 }
                 is PracticeViewModel.Event.EnterCustomTime -> {

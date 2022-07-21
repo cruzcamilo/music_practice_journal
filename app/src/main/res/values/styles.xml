@@ -34,15 +34,16 @@
         <item name="android:layout_marginTop">8dp</item>
     </style>
 
-    <style name="Button_Submit">
+    <style name="Button_Submit" parent="Submit_blue">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginHorizontal">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="Tittle_BottomSheet" parent="TextAppearance.AppCompat.Title">
+    <style name="Title_BottomSheet" parent="TextAppearance.AppCompat.Title">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/black</item>

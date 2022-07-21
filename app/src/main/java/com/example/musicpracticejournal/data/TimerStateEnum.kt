@@ -1,6 +1,6 @@
 package com.example.musicpracticejournal.data
 
-enum class TimerStateEnum() {
+enum class TimerStateEnum {
     ACTIVE,
     STOPPED,
     PAUSED

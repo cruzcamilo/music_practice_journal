@@ -11,7 +11,7 @@ android {
     compileSdk 31
     defaultConfig {
         applicationId "com.example.musicpracticejournal"
-        minSdk 21
+        minSdk 23
         targetSdk 30
         versionCode 1
         versionName "1.0"

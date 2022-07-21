@@ -15,18 +15,18 @@
         android:padding="@dimen/space_l">
 
         <TextView
-            style="@style/Tittle_BottomSheet"
+            style="@style/Title_BottomSheet"
             android:text="@{title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintEnd_toStartOf="@+id/closeBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/closeBtn"
             android:layout_width="wrap_content"
-            android:background="@drawable/shape_circle"
+            android:background="?android:attr/selectableItemBackground"
             android:backgroundTint="@color/white"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_close_24"

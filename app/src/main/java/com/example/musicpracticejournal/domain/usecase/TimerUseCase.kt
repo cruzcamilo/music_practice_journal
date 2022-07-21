@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.transform
@@ -47,6 +48,7 @@ class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
             .transform { remainingSeconds: Long ->
                 emit(TimeInputUtil.secondsToTime(remainingSeconds))
             }
+            .onCompletion { _timerState.value = TimerStateEnum.STOPPED }
 
     fun pause() {
         _timerState.value = TimerStateEnum.PAUSED

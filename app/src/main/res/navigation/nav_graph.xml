@@ -45,7 +45,7 @@
             android:name="fragment_id"
             app:argType="long" />
         <action
-            android:id="@+id/action_practiceFragment_to_reviewFragment"
+            android:id="@+id/toReviewFragment"
             app:destination="@id/reviewFragment" />
         <action
             android:id="@+id/toEnterTimeBottomSheet"

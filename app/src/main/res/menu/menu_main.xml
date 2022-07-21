@@ -10,7 +10,7 @@
     <item
         android:id="@+id/deletePracticeFragments"
         android:icon="@drawable/ic_baseline_delete_24"
-        app:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom"
         android:title="Delete">
     </item>
 </menu>

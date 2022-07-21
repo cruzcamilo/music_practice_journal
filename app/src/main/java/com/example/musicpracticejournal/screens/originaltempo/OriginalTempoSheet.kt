@@ -34,6 +34,7 @@ class OriginalTempoSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupBottomDialog()
         setupNavigation()
+        setupToolbar()
     }
 
 
@@ -44,9 +45,19 @@ class OriginalTempoSheet : BottomSheetDialogFragment() {
 
     private fun setupNavigation() {
         viewModel.event.observe(viewLifecycleOwner) {
-            setFragmentResult(ORIGINAL_TEMPO_KEY, bundleOf())
-            findNavController().navigateUp()
+            dismissSheet()
         }
+    }
+
+    private fun setupToolbar() {
+        binding?.toolbarSheet?.closeBtn?.setOnClickListener {
+            dismissSheet()
+        }
+    }
+
+    private fun dismissSheet() {
+        setFragmentResult(ORIGINAL_TEMPO_KEY, bundleOf())
+        findNavController().navigateUp()
     }
 
     companion object {
