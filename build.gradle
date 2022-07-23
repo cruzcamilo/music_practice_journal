@@ -11,6 +11,7 @@ buildscript {
         nav_version = "2.3.5"
         kotlin_version = '1.5.30'
         hilt_version = '2.40.5'
+        dagger_version = '2.43'
         // testing
         junitVersion = '4.13.2'
         espressoVersion = '3.4.0'
