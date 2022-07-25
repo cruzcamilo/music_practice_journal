@@ -10,9 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.musicpracticejournal.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 open class BaseFragment : Fragment() {
 
     fun setToolbar(toolbar: Toolbar?) {

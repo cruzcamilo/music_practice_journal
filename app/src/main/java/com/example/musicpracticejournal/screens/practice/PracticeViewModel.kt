@@ -18,7 +18,6 @@ import com.example.musicpracticejournal.util.minsToSeconds
 import com.example.musicpracticejournal.util.secondsToMinutesSeconds
 import com.example.musicpracticejournal.util.timeStringToSeconds
 import com.hadilq.liveevent.LiveEvent
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -27,7 +26,7 @@ import java.util.Date
 import javax.inject.Inject
 
 
-@HiltViewModel
+
 class PracticeViewModel @Inject constructor(
     private val repository: MusicPracticeRepository,
     private val timerUseCase: TimerUseCase,

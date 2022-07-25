@@ -12,9 +12,7 @@ import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.db.entity.Review
 import com.example.musicpracticejournal.databinding.FragmentReviewBinding
 import com.example.musicpracticejournal.screens.home.HomeFragment
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ReviewFragment : Fragment() {
 
     private lateinit var binding: FragmentReviewBinding

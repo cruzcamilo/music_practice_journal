@@ -6,11 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.domain.usecase.chunks.SaveOriginalTempoUseCase
 import com.hadilq.liveevent.LiveEvent
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+
 class OriginalTempoViewModel @Inject constructor(
     private val saveOriginalTempoUseCase: SaveOriginalTempoUseCase,
     savedStateHandle: SavedStateHandle

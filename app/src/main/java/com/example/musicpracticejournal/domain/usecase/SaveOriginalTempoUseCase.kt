@@ -2,7 +2,7 @@ package com.example.musicpracticejournal.domain.usecase.chunks
 
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.domain.core.UseCase
-import com.example.musicpracticejournal.injection.IoDispatcher
+import com.example.musicpracticejournal.injection.coroutines.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 

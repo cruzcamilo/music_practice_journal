@@ -11,9 +11,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.musicpracticejournal.databinding.ActivityMainBinding
 import com.example.musicpracticejournal.screens.home.HomeViewModel
 import com.example.musicpracticejournal.util.ScreenList
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

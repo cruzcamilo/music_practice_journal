@@ -4,10 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.musicpracticejournal.util.TimeInputUtil
 import com.hadilq.liveevent.LiveEvent
-import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
+
 class EnterTimeViewModel @Inject constructor() : ViewModel(), NumberInput.OnInputListener {
 
     val event = LiveEvent<Event.ToHomeScreen>()

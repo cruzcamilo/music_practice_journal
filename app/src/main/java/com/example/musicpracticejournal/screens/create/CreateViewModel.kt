@@ -11,11 +11,10 @@ import com.example.musicpracticejournal.domain.ResourceManager
 import com.example.musicpracticejournal.domain.usecase.chunks.CreateMusicFragmentUseCase
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import com.hadilq.liveevent.LiveEvent
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+
 class CreateViewModel @Inject constructor(
     private val createMusicFragmentUseCase: CreateMusicFragmentUseCase,
     private val resourceManager: ResourceManager
