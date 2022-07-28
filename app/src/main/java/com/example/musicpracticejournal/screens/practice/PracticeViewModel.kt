@@ -3,7 +3,6 @@ package com.example.musicpracticejournal.screens.practice
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations.map
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
@@ -13,6 +12,7 @@ import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.domain.ResourceManager
 import com.example.musicpracticejournal.domain.usecase.TimerUseCase
+import com.example.musicpracticejournal.screens.viewmodel.SavedStateViewModel
 import com.example.musicpracticejournal.util.TimeInputUtil
 import com.example.musicpracticejournal.util.minsToSeconds
 import com.example.musicpracticejournal.util.secondsToMinutesSeconds
@@ -31,8 +31,7 @@ class PracticeViewModel @Inject constructor(
     private val repository: MusicPracticeRepository,
     private val timerUseCase: TimerUseCase,
     private val resourceManager: ResourceManager,
-    savedStateHandle: SavedStateHandle
-    ): ViewModel() {
+    ): SavedStateViewModel() {
 
     val title = MutableLiveData<String>()
     private val currentTempo = MutableLiveData<String>()
@@ -42,7 +41,7 @@ class PracticeViewModel @Inject constructor(
     private val lastPractice = MutableLiveData<String>()
 
     var timeOnScreen = MutableLiveData<String>()
-    private var fragmentId: Long? = null
+    var fragmentId: Long? = null
     private var musicFragment: MusicFragment? = null
     private val timerSeconds =  MutableLiveData<Long>()
     //TODO: Fix warning
@@ -59,8 +58,8 @@ class PracticeViewModel @Inject constructor(
 
     val event = LiveEvent<Event>()
 
-    init {
-        fragmentId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).fragmentId
+    override fun init(savedStateHandle: SavedStateHandle) {
+        fragmentId = savedStateHandle.get<Long>("fragment_id")
         fragmentId?.let {
             getPracticeFragment(it)
         }
@@ -79,7 +78,7 @@ class PracticeViewModel @Inject constructor(
             targetTempo.value = setTempoText(it.originalTempo)
             totalTime.value = it.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
             lastPractice.value = it.updated ?: resourceManager.getString(R.string.no_data)
-            setTimerValue()
+            if (timerState.value == TimerStateEnum.STOPPED) setTimerValue()
         }
     }
 

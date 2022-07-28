@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.injection.app
+package com.example.musicpracticejournal.di.app
 
 import javax.inject.Scope
 

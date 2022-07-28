@@ -2,27 +2,27 @@ package com.example.musicpracticejournal.screens.originaltempo
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musicpracticejournal.domain.usecase.chunks.SaveOriginalTempoUseCase
+import com.example.musicpracticejournal.domain.usecase.SaveOriginalTempoUseCase
+import com.example.musicpracticejournal.screens.viewmodel.SavedStateViewModel
 import com.hadilq.liveevent.LiveEvent
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 class OriginalTempoViewModel @Inject constructor(
-    private val saveOriginalTempoUseCase: SaveOriginalTempoUseCase,
-    savedStateHandle: SavedStateHandle
-) : ViewModel(){
+    private val saveOriginalTempoUseCase: SaveOriginalTempoUseCase
+) : SavedStateViewModel() {
 
     val event = LiveEvent<Event.ToPracticeScreen>()
     val originalTempo =  MutableLiveData("")
 
     val tempoInputEnabled =  MutableLiveData(true)
-    var fragmentId: Long? = null
+    private var fragmentId: Long? = null
 
-    init {
-        fragmentId = OriginalTempoSheetArgs.fromSavedStateHandle(savedStateHandle).fragmentId
+
+    override fun init(savedStateHandle: SavedStateHandle) {
+        fragmentId = savedStateHandle.get<Long>("fragment_id")
     }
 
     fun saveTargetTempo () {
@@ -31,7 +31,7 @@ class OriginalTempoViewModel @Inject constructor(
                 if (originalTempo.value?.isNotEmpty() == true ) {
                     saveOriginalTempoUseCase.invoke(
                         SaveOriginalTempoUseCase.Params(
-                            originalTempo = getOriginalTempo(),
+                            originalTempo = retrieveOriginalTempo(),
                             id = fragmentId!!
                         )
                     )
@@ -41,7 +41,7 @@ class OriginalTempoViewModel @Inject constructor(
         event.value = Event.ToPracticeScreen
     }
 
-    private fun getOriginalTempo(): Int {
+    private fun retrieveOriginalTempo(): Int {
         return if (originalTempo.value.isNullOrEmpty()) {
             0
         } else {

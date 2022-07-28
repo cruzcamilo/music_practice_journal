@@ -6,18 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.musicpracticejournal.common.BaseBottomSheetDialogFragment
 import com.example.musicpracticejournal.databinding.CustomTimeSheetBinding
+import com.example.musicpracticejournal.screens.viewmodel.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import javax.inject.Inject
 
 
-class EnterTimeSheet : BottomSheetDialogFragment() {
+class EnterTimeSheet : BaseBottomSheetDialogFragment() {
 
     private var binding: CustomTimeSheetBinding? = null
-    private val viewModel: EnterTimeViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: EnterTimeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(EnterTimeViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

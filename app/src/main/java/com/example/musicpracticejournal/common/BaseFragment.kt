@@ -10,9 +10,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.di.presentation.PresentationModule
+import com.example.musicpracticejournal.screens.activities.BaseActivity
 
-//@AndroidEntryPoint
 open class BaseFragment : Fragment() {
+
+    private val presentationComponent by lazy {
+        (requireActivity() as BaseActivity).activityComponent.newPresentationComponent(
+            PresentationModule(this, this.arguments)
+        )
+    }
+
+    protected val injector get() = presentationComponent
 
     fun setToolbar(toolbar: Toolbar?) {
         val appBarConfiguration = AppBarConfiguration(findNavController().graph)

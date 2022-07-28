@@ -4,20 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
 import com.example.musicpracticejournal.screens.entertime.EnterTimeSheet
 import com.example.musicpracticejournal.screens.originaltempo.OriginalTempoSheet
+import com.example.musicpracticejournal.screens.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class PracticeFragment : BaseFragment() {
 
     private var binding: FragmentPracticeBinding? = null
-    private val viewModel: PracticeViewModel by viewModels()
+
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: PracticeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PracticeViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +78,8 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun showOriginalTimeSheet(fragmentId: Long) {
-        findNavController().navigate(PracticeFragmentDirections.toOriginalTempoSheet(fragmentId))
+        val bundle = bundleOf("fragment_id" to fragmentId)
+        findNavController().navigate(R.id.originalTempoSheet, bundle)
         setFragmentResultListener(OriginalTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.refreshAndStartTimer()

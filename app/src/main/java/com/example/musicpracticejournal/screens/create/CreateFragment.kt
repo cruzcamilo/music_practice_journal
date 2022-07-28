@@ -5,19 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.musicpracticejournal.MainActivity
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
 import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
+import com.example.musicpracticejournal.screens.activities.MainActivity
+import com.example.musicpracticejournal.screens.viewmodel.ViewModelFactory
+import javax.inject.Inject
 
 class CreateFragment : BaseFragment() {
 
     private var binding: FragmentCreateBinding? = null
-    private val viewModel: CreateViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: CreateViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CreateViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

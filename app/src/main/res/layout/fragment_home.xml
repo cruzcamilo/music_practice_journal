@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".screens.activities.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_fragments"

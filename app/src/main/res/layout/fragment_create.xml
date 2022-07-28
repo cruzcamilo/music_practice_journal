@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            tools:context=".MainActivity">
+            tools:context=".screens.activities.MainActivity">
 
             <TextView
                 android:id="@+id/create_title_textview"

@@ -1,25 +1,30 @@
-package com.example.musicpracticejournal
+package com.example.musicpracticejournal.screens.activities
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.databinding.ActivityMainBinding
 import com.example.musicpracticejournal.screens.home.HomeViewModel
+import com.example.musicpracticejournal.screens.viewmodel.ViewModelFactory
 import com.example.musicpracticejournal.util.ScreenList
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewsIdArrayForBackButton: ArrayList<Int>
-    private val viewModel: HomeViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.injection.coroutines
+package com.example.musicpracticejournal.di.presentation
 
 import javax.inject.Qualifier
 

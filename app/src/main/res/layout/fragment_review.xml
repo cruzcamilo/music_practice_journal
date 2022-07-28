@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MainActivity">
+        tools:context=".screens.activities.MainActivity">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_review_performance_title"

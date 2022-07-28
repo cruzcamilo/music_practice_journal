@@ -4,20 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentHomeBinding
 import com.example.musicpracticejournal.practicefragments.PracticeFragmentAdapter
+import com.example.musicpracticejournal.screens.viewmodel.ViewModelFactory
+import javax.inject.Inject
 
 class HomeFragment : BaseFragment() {
 
     private var binding: FragmentHomeBinding? = null
-    private val viewModel: HomeViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: HomeViewModel
     private lateinit var practiceFragmentAdapter: PracticeFragmentAdapter
 
     companion object {
         const val MUSIC_FRAGMENT_KEY = "music_fragment"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -58,6 +69,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun showPracticeScreen(entryId: Long) {
-        findNavController().navigate(HomeFragmentDirections.toPracticeFragment(entryId))
+        val bundle = bundleOf("fragment_id" to entryId)
+        findNavController().navigate(R.id.practiceFragment, bundle)
     }
 }

@@ -1,6 +1,6 @@
-package com.example.musicpracticejournal.injection.coroutines
+package com.example.musicpracticejournal.di.presentation
 
-import com.example.musicpracticejournal.injection.app.AppScope
+import com.example.musicpracticejournal.di.app.AppScope
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher

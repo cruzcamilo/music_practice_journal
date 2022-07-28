@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.injection.app
+package com.example.musicpracticejournal.di.app
 
 import android.app.Application
 import android.content.Context
@@ -12,9 +12,11 @@ import dagger.Provides
 class AppModule(private val application: Application) {
     
     @Provides
+    @AppScope
     fun application() = application
 
     @Provides
+    @AppScope
     fun context(): Context = application.applicationContext
 
     @Provides

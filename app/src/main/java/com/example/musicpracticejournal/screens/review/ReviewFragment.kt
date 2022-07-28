@@ -5,22 +5,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.data.db.entity.Review
 import com.example.musicpracticejournal.databinding.FragmentReviewBinding
 import com.example.musicpracticejournal.screens.home.HomeFragment
+import com.example.musicpracticejournal.screens.viewmodel.ViewModelFactory
+import javax.inject.Inject
 
-class ReviewFragment : Fragment() {
+class ReviewFragment : BaseFragment() {
 
     private lateinit var binding: FragmentReviewBinding
     private var fragmentId: Long? = null
-    private val viewModel: ReviewViewModel by viewModels()
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var viewModel: ReviewViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injector.inject(this)
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ReviewViewModel::class.java)
         fragmentId = requireArguments().getLong(HomeFragment.MUSIC_FRAGMENT_KEY)
         Log.d("Fragment review", fragmentId.toString())
     }

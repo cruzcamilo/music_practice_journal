@@ -1,8 +1,8 @@
-package com.example.musicpracticejournal.domain.usecase.chunks
+package com.example.musicpracticejournal.domain.usecase
 
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.di.presentation.IoDispatcher
 import com.example.musicpracticejournal.domain.core.UseCase
-import com.example.musicpracticejournal.injection.coroutines.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
