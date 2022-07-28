@@ -7,7 +7,7 @@ import dagger.BindsInstance
 import dagger.Subcomponent
 
 @ActivityScope
-@Subcomponent(modules = [ActivityModule::class])
+@Subcomponent
 interface ActivityComponent {
 
     fun newPresentationComponent(presentationModule: PresentationModule): PresentationComponent
