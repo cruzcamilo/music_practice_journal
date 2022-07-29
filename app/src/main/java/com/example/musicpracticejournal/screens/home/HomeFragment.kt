@@ -43,7 +43,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        viewModel.musicFragments.observe(viewLifecycleOwner) { musicFragments ->
+        viewModel.entries.observe(viewLifecycleOwner) { musicFragments ->
             practiceFragmentAdapter.submitList(musicFragments)
         }
     }

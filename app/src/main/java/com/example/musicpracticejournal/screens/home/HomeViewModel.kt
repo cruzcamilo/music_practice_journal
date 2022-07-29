@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.domain.usecase.RetrieveEntriesUseCase
 import com.example.musicpracticejournal.extensions.mapWithDefault
 import com.example.musicpracticejournal.extensions.visibleOrGone
 import com.hadilq.liveevent.LiveEvent
@@ -16,17 +17,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: MusicPracticeRepository) :
+class HomeViewModel @Inject constructor(
+    private val repository: MusicPracticeRepository,
+    private val retrieveEntriesUseCase: RetrieveEntriesUseCase
+    ) :
     ViewModel() {
 
-    val musicFragments = MutableLiveData<List<MusicFragment>>()
+    private val _entries = MutableLiveData<List<MusicFragment>>()
+    val entries: LiveData<List<MusicFragment>> = _entries
+
     val emptyImageVisibility: LiveData<Int> =
-        mapWithDefault(musicFragments, View.GONE) { visibleOrGone(it.isNullOrEmpty()) }
+        mapWithDefault(_entries, View.GONE) { visibleOrGone(it.isNullOrEmpty()) }
     val event = LiveEvent<Event>()
 
     init {
         viewModelScope.launch {
-            repository.getMusicFragments().collect { musicFragments.value = it }
+            retrieveEntriesUseCase.invoke(Unit).collect {
+                _entries.value = it
+            }
         }
     }
 
@@ -38,6 +46,10 @@ class HomeViewModel @Inject constructor(private val repository: MusicPracticeRep
         object CreateScreen : Event()
     }
 
+    /**
+     * Temporary methods for testing purposes
+     * //TODO: Remove when no longer required.
+     */
     fun addMockPracticeFragment() = viewModelScope.launch {
         repository.saveMock()
     }

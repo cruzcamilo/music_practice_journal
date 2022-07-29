@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musicpracticejournal.domain.usecase.chunks.SaveOriginalTempoUseCase
+import com.example.musicpracticejournal.domain.usecase.SaveOriginalTempoUseCase
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ class OriginalTempoViewModel @Inject constructor(
                 if (originalTempo.value?.isNotEmpty() == true ) {
                     saveOriginalTempoUseCase.invoke(
                         SaveOriginalTempoUseCase.Params(
-                            originalTempo = getOriginalTempo(),
+                            originalTempo = retrieveOriginalTempo(),
                             id = fragmentId!!
                         )
                     )
@@ -42,7 +42,7 @@ class OriginalTempoViewModel @Inject constructor(
         event.value = Event.ToPracticeScreen
     }
 
-    private fun getOriginalTempo(): Int {
+    private fun retrieveOriginalTempo(): Int {
         return if (originalTempo.value.isNullOrEmpty()) {
             0
         } else {

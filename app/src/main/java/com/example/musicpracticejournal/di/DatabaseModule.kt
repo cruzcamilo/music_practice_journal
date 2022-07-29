@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.injection
+package com.example.musicpracticejournal.di
 
 import android.app.Application
 import androidx.room.Room

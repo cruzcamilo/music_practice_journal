@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.db.entity.MusicFragment
 import com.example.musicpracticejournal.domain.ResourceManager
-import com.example.musicpracticejournal.domain.usecase.chunks.CreateMusicFragmentUseCase
+import com.example.musicpracticejournal.domain.usecase.CreateEntryUseCase
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateViewModel @Inject constructor(
-    private val createMusicFragmentUseCase: CreateMusicFragmentUseCase,
+    private val createMusicFragmentUseCase: CreateEntryUseCase,
     private val resourceManager: ResourceManager
     ) : ViewModel() {
 
@@ -63,7 +63,7 @@ class CreateViewModel @Inject constructor(
     fun save() {
         viewModelScope.launch {
             createMusicFragmentUseCase(
-                CreateMusicFragmentUseCase.Params(
+                CreateEntryUseCase.Params(
                     MusicFragment(
                         type.value ?: "",
                         author.value ?: "",
