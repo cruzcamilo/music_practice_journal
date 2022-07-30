@@ -19,20 +19,14 @@
             layout="@layout/toolbar_bottom_sheet"
             app:title="@{@string/original_tempo_title}" />
 
-        <TextView
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/enableSwitch"
             style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:text="@string/original_tempo_description1"/>
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/original_tempo_description2"/>
+            android:checked="true"
+            android:text="@{viewModel.descriptionText}" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_input_layout_song_technique"
@@ -41,6 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="16dp"
+            android:visibility="@{viewModel.textInputVisibility}"
             android:enabled="@{viewModel.tempoInputEnabled}"
             android:hint="@string/original_tempo_hint">
 
@@ -56,9 +51,10 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_btn"
-            android:onClick="@{()->viewModel.saveTargetTempo()}"
-            android:text="@string/save_btn_text"
+            android:onClick="@{()->viewModel.save()}"
+            android:text="@string/original_tempo_btn"
             style="@style/Button_Submit"
+            android:enabled="@{viewModel.saveButtonEnabled}"
             />
 
         <androidx.constraintlayout.widget.Guideline

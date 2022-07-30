@@ -46,7 +46,6 @@ class PracticeViewModel @Inject constructor(
     private var fragmentId: Long? = null
     private var musicFragment: MusicFragment? = null
     private val timerSeconds =  MutableLiveData<Long>()
-    //TODO: Fix warning
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
 
     private val timerState = timerUseCase.timerState.asLiveData()

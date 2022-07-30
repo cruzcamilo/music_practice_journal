@@ -35,6 +35,7 @@ class OriginalTempoSheet : BottomSheetDialogFragment() {
         setupBottomDialog()
         setupNavigation()
         setupToolbar()
+        setupSwitch()
     }
 
 
@@ -52,6 +53,12 @@ class OriginalTempoSheet : BottomSheetDialogFragment() {
     private fun setupToolbar() {
         binding?.toolbarSheet?.closeBtn?.setOnClickListener {
             dismissSheet()
+        }
+    }
+
+    private fun setupSwitch() {
+        binding?.enableSwitch?.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.updateSwitchState(isChecked)
         }
     }
 
