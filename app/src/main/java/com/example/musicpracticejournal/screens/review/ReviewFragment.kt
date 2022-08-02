@@ -5,17 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.R
+import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.data.db.entity.Review
 import com.example.musicpracticejournal.databinding.FragmentReviewBinding
 import com.example.musicpracticejournal.screens.home.HomeFragment
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class ReviewFragment : Fragment() {
+
+class ReviewFragment : BaseFragment() {
 
     private lateinit var binding: FragmentReviewBinding
     private var fragmentId: Long? = null

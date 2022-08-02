@@ -33,9 +33,13 @@ fun String.timeStringToSeconds(): Long {
     val splitUnits = this.split(":")
     var result = 0L
     try {
-        val minutesMillis = splitUnits[0].toLong() * 60
-        val secondsMillis = splitUnits[1].toLong()
-        result = minutesMillis + secondsMillis
+        result = if (splitUnits.size == 2) {
+            val minutesMillis = splitUnits[0].toLong() * 60
+            val secondsMillis = splitUnits[1].toLong()
+            minutesMillis + secondsMillis
+        } else  {
+            splitUnits[0].toLong()
+        }
     } catch (e: Exception) {
         Log.e("Min Sec Error", e.message.toString())
     }

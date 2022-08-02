@@ -13,7 +13,7 @@ data class MusicFragment(
     val author: String,
     val name: String,
     val state: String,
-    val originalTempo: Int? = null,
+    val targetTempo: Int? = null,
     val currentTempo: Int? = null,
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,

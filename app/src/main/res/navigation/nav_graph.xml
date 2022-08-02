@@ -53,6 +53,9 @@
         <action
             android:id="@+id/toOriginalTempoSheet"
             app:destination="@id/originalTempoSheet" />
+        <action
+            android:id="@+id/toCurrentTempoSheet"
+            app:destination="@id/currentTempoSheet" />
     </fragment>
     <fragment
         android:id="@+id/reviewFragment"
@@ -73,6 +76,15 @@
         android:id="@+id/originalTempoSheet"
         android:name="com.example.musicpracticejournal.screens.originaltempo.OriginalTempoSheet"
         android:label="OriginalTempoSheet" >
+        <argument
+            android:name="fragment_id"
+            app:argType="long" />
+    </dialog>
+    <dialog
+        android:id="@+id/currentTempoSheet"
+        android:name="com.example.musicpracticejournal.screens.currenttempo.CurrentTempoSheet"
+        tools:layout="@layout/current_tempo_sheet"
+        android:label="CurrentTempoSheet" >
         <argument
             android:name="fragment_id"
             app:argType="long" />

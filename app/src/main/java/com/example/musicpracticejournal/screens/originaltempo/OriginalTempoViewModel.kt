@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.domain.ResourceManager
-import com.example.musicpracticejournal.domain.usecase.SaveOriginalTempoUseCase
+import com.example.musicpracticejournal.domain.usecase.UpdateOriginalTempoUseCase
 import com.example.musicpracticejournal.extensions.mapWithDefault
 import com.example.musicpracticejournal.extensions.visibleOrGone
 import com.hadilq.liveevent.LiveEvent
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OriginalTempoViewModel @Inject constructor(
-    private val saveOriginalTempoUseCase: SaveOriginalTempoUseCase,
+    private val saveOriginalTempoUseCase: UpdateOriginalTempoUseCase,
     resourceManager: ResourceManager,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(){
@@ -68,7 +68,7 @@ class OriginalTempoViewModel @Inject constructor(
         viewModelScope.launch {
             fragmentId?.let {
                 saveOriginalTempoUseCase.invoke(
-                    SaveOriginalTempoUseCase.Params(
+                    UpdateOriginalTempoUseCase.Params(
                         originalTempo = originalTempo.value!!.toInt(),
                         id = fragmentId!!
                     )

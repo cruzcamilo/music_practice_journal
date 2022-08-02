@@ -21,7 +21,6 @@ import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
@@ -57,6 +56,10 @@ class PracticeViewModel @Inject constructor(
         }
     }
 
+    val isPracticeComplete = map(timerState) {
+        it == TimerStateEnum.FINISHED
+    }
+
     val event = LiveEvent<Event>()
 
     init {
@@ -76,19 +79,10 @@ class PracticeViewModel @Inject constructor(
         musicFragment?.let {
             title.value = "${it.author} - ${it.name}"
             currentTempo.value = setTempoText(it.currentTempo)
-            targetTempo.value = setTempoText(it.originalTempo)
+            targetTempo.value = setTempoText(it.targetTempo)
             totalTime.value = it.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
             lastPractice.value = it.updated ?: resourceManager.getString(R.string.no_data)
             setTimerValue()
-        }
-    }
-
-    fun refreshAndStartTimer() {
-        fragmentId?.let {
-            runBlocking {
-                getPracticeFragment(it)
-                startTimer()
-            }
         }
     }
 
@@ -112,19 +106,19 @@ class PracticeViewModel @Inject constructor(
     fun operateTimer() {
         when (timerState.value) {
             TimerStateEnum.STOPPED -> {
-                if (musicFragment?.originalTempo == null) {
+                if (musicFragment?.targetTempo == null) {
                     event.value = fragmentId?.let { Event.OriginalTempo(it) }
                 } else {
                     startTimer()
                 }
             }
-            TimerStateEnum.PAUSED -> startTimer()
+            TimerStateEnum.PAUSED, TimerStateEnum.FINISHED -> startTimer()
             TimerStateEnum.ACTIVE -> pauseTimer()
-            null -> return
+            else -> return
         }
     }
 
-    private fun startTimer() {
+    fun startTimer() {
         timerSeconds.value?.let { timerUseCase.start(it) }
         fragmentId?.let { saveLastPracticeDate(it) }
     }
@@ -152,9 +146,20 @@ class PracticeViewModel @Inject constructor(
         fragmentId?.let { event.value = Event.ToReviewScreen(it) }
     }
 
+    private fun toCurrentTempoScreen() {
+        fragmentId?.let { event.value = Event.ToCurrentTempoScreen(it) }
+    }
+
+    fun finishPractice() {
+        //TODO: Add logic if user is not using speed training
+        toCurrentTempoScreen()
+        timerUseCase.updateTimerState(TimerStateEnum.STOPPED)
+    }
+
     sealed class Event {
         class ToReviewScreen(val fragmentId: Long) : Event()
         object EnterCustomTime: Event()
         class OriginalTempo(val fragmentId: Long) : Event()
+        class ToCurrentTempoScreen(val fragmentId: Long) : Event()
     }
 }

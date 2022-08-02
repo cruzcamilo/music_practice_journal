@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.screens.entertime
+package com.example.musicpracticejournal.screens.currenttempo
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,22 +8,23 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.musicpracticejournal.databinding.CustomTimeSheetBinding
+import com.example.musicpracticejournal.databinding.CurrentTempoSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class CurrentTempoSheet : BottomSheetDialogFragment() {
 
-class EnterTimeSheet : BottomSheetDialogFragment() {
-
-    private var binding: CustomTimeSheetBinding? = null
-    private val viewModel: EnterTimeViewModel by viewModels()
+    private var binding: CurrentTempoSheetBinding? = null
+    private val viewModel: CurrentTempoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = CustomTimeSheetBinding.inflate(inflater, container, false)
+        binding = CurrentTempoSheetBinding.inflate(inflater, container, false)
         binding?.lifecycleOwner = viewLifecycleOwner
         binding?.viewModel = viewModel
         return binding?.root
@@ -32,7 +33,6 @@ class EnterTimeSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupBottomDialog()
-        setupInput()
         setupNavigation()
         setupToolbar()
     }
@@ -43,26 +43,25 @@ class EnterTimeSheet : BottomSheetDialogFragment() {
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun setupToolbar() {
-        binding?.toolbarSheet?.closeBtn?.setOnClickListener {
-            findNavController().navigateUp()
-        }
-    }
-
-    private fun setupInput() {
-        binding?.numInput?.root?.onInputListener = viewModel
-    }
-
     private fun setupNavigation() {
         viewModel.event.observe(viewLifecycleOwner) {
-            val bundle = bundleOf(TIME_RESULT_KEY to it.time)
-            setFragmentResult(TIME_REQUEST_KEY, bundle)
-            findNavController().navigateUp()
+            dismissSheet()
         }
+    }
+
+    private fun setupToolbar() {
+        binding?.toolbarSheet?.closeBtn?.setOnClickListener {
+            dismissSheet()
+        }
+    }
+
+    private fun dismissSheet() {
+        setFragmentResult(CURRENT_TEMPO_KEY, bundleOf())
+        findNavController().navigateUp()
     }
 
     companion object {
-        const val TIME_RESULT_KEY = "time"
-        const val TIME_REQUEST_KEY = "time_request_key"
+        const val CURRENT_TEMPO_KEY = "current"
     }
+
 }

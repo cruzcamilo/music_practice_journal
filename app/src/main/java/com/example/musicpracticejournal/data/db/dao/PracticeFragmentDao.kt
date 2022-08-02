@@ -16,15 +16,19 @@ interface PracticeFragmentDao {
     suspend fun savePracticeFragment(musicFragment: MusicFragment): Long
 
     @Update
-    suspend fun updateMusicFragment(musicFragment: MusicFragment): Int
+    suspend fun updatePracticeFragment(musicFragment: MusicFragment): Int
 
     @Transaction
     @Query("UPDATE musical_fragment_table set updated =:updateDate WHERE id = :fragmentId")
     suspend fun updatePracticeFragmentDate(updateDate: String, fragmentId: Long): Int
 
     @Transaction
-    @Query("UPDATE musical_fragment_table set originalTempo =:originalTempo WHERE id = :fragmentId")
+    @Query("UPDATE musical_fragment_table set targetTempo =:originalTempo WHERE id = :fragmentId")
     suspend fun updateOriginalTempo(originalTempo: Int, fragmentId: Long): Int
+
+    @Transaction
+    @Query("UPDATE musical_fragment_table set currentTempo =:currentTempo WHERE id = :fragmentId")
+    suspend fun updateCurrentTempo(currentTempo: Int, fragmentId: Long): Int
 
     @Transaction
     @Query("SELECT * FROM musical_fragment_table ORDER BY id ASC")

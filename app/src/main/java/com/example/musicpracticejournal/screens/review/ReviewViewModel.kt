@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.Event
 import com.example.musicpracticejournal.data.db.entity.Review
 import com.example.musicpracticejournal.data.repository.ReviewRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ReviewViewModel @Inject constructor(
     private val repository: ReviewRepository
     ) :

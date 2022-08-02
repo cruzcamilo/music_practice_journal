@@ -43,11 +43,11 @@ class PracticeFragmentAdapter(
                         )
                 }
 
-                if (originalTempo != null && originalTempo > 0) {
+                if (targetTempo != null && targetTempo > 0) {
                     binding.practiceFragmentCurrentTempo.text =
                         currentTempo.setBpmInformation(binding.practiceFragmentCurrentTempo.context)
                     binding.musicFragmentTargetTempo.text =
-                        originalTempo.setBpmInformation(binding.musicFragmentTargetTempo.context)
+                        targetTempo.setBpmInformation(binding.musicFragmentTargetTempo.context)
                 } else {
                     binding.musicFragmentCurrentTempoLabel.visibility = View.GONE
                     binding.practiceFragmentTargetTempoLabel.visibility = View.GONE

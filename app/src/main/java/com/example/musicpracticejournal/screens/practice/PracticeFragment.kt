@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
+import com.example.musicpracticejournal.screens.currenttempo.CurrentTempoSheet
 import com.example.musicpracticejournal.screens.entertime.EnterTimeSheet
 import com.example.musicpracticejournal.screens.originaltempo.OriginalTempoSheet
 import kotlinx.coroutines.launch
@@ -51,7 +52,13 @@ class PracticeFragment : BaseFragment() {
                 is PracticeViewModel.Event.OriginalTempo -> {
                     showOriginalTimeSheet(it.fragmentId)
                 }
+                is PracticeViewModel.Event.ToCurrentTempoScreen -> {
+                    showCurrentTempoSheet(it.fragmentId)
+                }
             }
+        }
+        viewModel.isPracticeComplete.observe(viewLifecycleOwner) {
+            if (it) viewModel.finishPractice()
         }
     }
 
@@ -69,8 +76,15 @@ class PracticeFragment : BaseFragment() {
         findNavController().navigate(PracticeFragmentDirections.toOriginalTempoSheet(fragmentId))
         setFragmentResultListener(OriginalTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.refreshAndStartTimer()
+                viewModel.startTimer()
             }
+        }
+    }
+
+    private fun showCurrentTempoSheet(fragmentId: Long) {
+        findNavController().navigate(PracticeFragmentDirections.toCurrentTempoSheet(fragmentId))
+        setFragmentResultListener(CurrentTempoSheet.CURRENT_TEMPO_KEY) { _, _ ->
+            binding?.performanceReviewBtn?.visibility = View.VISIBLE
         }
     }
 }

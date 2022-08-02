@@ -71,7 +71,7 @@ class TasksDaoTest {
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(),
             null, null, musicFragmentId)
 
-        database.practiceFragmentDao().updateMusicFragment(musicFragmentUpdate)
+        database.practiceFragmentDao().updatePracticeFragment(musicFragmentUpdate)
 
         val updatedMusicFragment = database.practiceFragmentDao().getMusicFragmentById(musicFragmentId)
 

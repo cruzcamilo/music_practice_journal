@@ -24,12 +24,21 @@ class MusicPracticeRepository @Inject constructor(
         database.practiceFragmentDao().savePracticeFragment(musicFragment)
     }
 
+    @WorkerThread
+    suspend fun updatePracticeFragment(musicFragment: MusicFragment) {
+        database.practiceFragmentDao().updatePracticeFragment(musicFragment)
+    }
+
     suspend fun updatePracticeDate(date: String, fragmentId: Long) {
         database.practiceFragmentDao().updatePracticeFragmentDate(date, fragmentId)
     }
 
     suspend fun updateOriginalTempo(originalTempo: Int, fragmentId: Long) {
         database.practiceFragmentDao().updateOriginalTempo(originalTempo, fragmentId)
+    }
+
+    suspend fun updateCurrentTempo(currentTempo: Int, fragmentId: Long) {
+        database.practiceFragmentDao().updateCurrentTempo(currentTempo, fragmentId)
     }
 
     suspend fun deleteAllMusicFragments() {

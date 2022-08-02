@@ -32,7 +32,7 @@ class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
 
     fun start(totalSeconds: Long) {
         _timerState.value = TimerStateEnum.ACTIVE
-        if (job == null && _timerState.value == TimerStateEnum.ACTIVE) {
+        if (job == null || job?.isCompleted == true) {
             _timerState.value = TimerStateEnum.ACTIVE
             job = timerScope.launch {
                 initTimer(totalSeconds)
@@ -48,11 +48,17 @@ class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
             .transform { remainingSeconds: Long ->
                 emit(TimeInputUtil.secondsToTime(remainingSeconds))
             }
-            .onCompletion { _timerState.value = TimerStateEnum.STOPPED }
+            .onCompletion {
+                if(_timerValueFlow.value == "0") _timerState.value = TimerStateEnum.FINISHED
+            }
 
     fun pause() {
         _timerState.value = TimerStateEnum.PAUSED
         cancelTimer()
+    }
+
+    fun updateTimerState(stateEnum: TimerStateEnum) {
+        _timerState.value = stateEnum
     }
 
     private fun cancelTimer(){
