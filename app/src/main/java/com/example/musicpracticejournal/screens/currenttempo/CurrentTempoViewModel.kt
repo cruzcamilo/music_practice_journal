@@ -20,10 +20,10 @@ class CurrentTempoViewModel @Inject constructor(
     val event = LiveEvent<Event.ToPracticeScreen>()
     val currentTempo =  MutableLiveData("")
     val saveButtonEnabled = MediatorLiveData<Boolean>()
-    var fragmentId: Long? = null
+    var entryId: Long? = null
 
     init {
-        fragmentId = CurrentTempoSheetArgs.fromSavedStateHandle(savedStateHandle).fragmentId
+        entryId = CurrentTempoSheetArgs.fromSavedStateHandle(savedStateHandle).entryId
         with(saveButtonEnabled) {
             addSource(currentTempo) { value = it.isNotEmpty() }
         }
@@ -31,11 +31,11 @@ class CurrentTempoViewModel @Inject constructor(
 
     fun save () {
         viewModelScope.launch {
-            fragmentId?.let {
+            entryId?.let {
                 updateCurrentTempoUseCase.invoke(
                     UpdateCurrentTempoUseCase.Params(
                         currentTempo = currentTempo.value!!.toInt(),
-                        id = fragmentId!!
+                        id = entryId!!
                     )
                 )
             }

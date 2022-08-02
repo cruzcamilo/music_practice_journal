@@ -42,7 +42,7 @@
         android:label="PracticeFragment"
         tools:layout="@layout/fragment_practice">
         <argument
-            android:name="fragment_id"
+            android:name="entryId"
             app:argType="long" />
         <action
             android:id="@+id/toReviewFragment"
@@ -64,7 +64,7 @@
         app:popUpTo="@+id/home"
         tools:layout="@layout/fragment_review">
     <argument
-        android:name="fragment_id"
+        android:name="entryId"
         app:argType="long" />
     </fragment>
     <dialog
@@ -77,7 +77,7 @@
         android:name="com.example.musicpracticejournal.screens.originaltempo.OriginalTempoSheet"
         android:label="OriginalTempoSheet" >
         <argument
-            android:name="fragment_id"
+            android:name="entryId"
             app:argType="long" />
     </dialog>
     <dialog
@@ -86,7 +86,7 @@
         tools:layout="@layout/current_tempo_sheet"
         android:label="CurrentTempoSheet" >
         <argument
-            android:name="fragment_id"
+            android:name="entryId"
             app:argType="long" />
     </dialog>
 

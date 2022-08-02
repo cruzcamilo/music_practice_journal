@@ -6,42 +6,42 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.example.musicpracticejournal.data.db.entity.MusicFragment
+import com.example.musicpracticejournal.data.db.entity.Entry
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PracticeFragmentDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun savePracticeFragment(musicFragment: MusicFragment): Long
+    suspend fun savePracticeFragment(entry: Entry): Long
 
     @Update
-    suspend fun updatePracticeFragment(musicFragment: MusicFragment): Int
+    suspend fun updatePracticeFragment(entry: Entry): Int
 
     @Transaction
-    @Query("UPDATE musical_fragment_table set updated =:updateDate WHERE id = :fragmentId")
-    suspend fun updatePracticeFragmentDate(updateDate: String, fragmentId: Long): Int
+    @Query("UPDATE Entry set updated =:updateDate WHERE id = :entryId")
+    suspend fun updatePracticeFragmentDate(updateDate: String, entryId: Long): Int
 
     @Transaction
-    @Query("UPDATE musical_fragment_table set targetTempo =:originalTempo WHERE id = :fragmentId")
-    suspend fun updateOriginalTempo(originalTempo: Int, fragmentId: Long): Int
+    @Query("UPDATE Entry set targetTempo =:originalTempo WHERE id = :entryId")
+    suspend fun updateOriginalTempo(originalTempo: Int, entryId: Long): Int
 
     @Transaction
-    @Query("UPDATE musical_fragment_table set currentTempo =:currentTempo WHERE id = :fragmentId")
-    suspend fun updateCurrentTempo(currentTempo: Int, fragmentId: Long): Int
+    @Query("UPDATE Entry set currentTempo =:currentTempo WHERE id = :entryId")
+    suspend fun updateCurrentTempo(currentTempo: Int, entryId: Long): Int
 
     @Transaction
-    @Query("SELECT * FROM musical_fragment_table ORDER BY id ASC")
-    fun getAll(): Flow<List<MusicFragment>>
+    @Query("SELECT * FROM Entry ORDER BY id ASC")
+    fun getAll(): Flow<List<Entry>>
 
     @Transaction
-    @Query("SELECT * FROM musical_fragment_table WHERE id = :fragmentId")
-    suspend fun getMusicFragmentById(fragmentId: Long): MusicFragment?
+    @Query("SELECT * FROM Entry WHERE id = :entryId")
+    suspend fun getPracticeFragmentById(entryId: Long): Entry?
 
-    @Query("DELETE FROM musical_fragment_table WHERE id = :fragmentId")
-    suspend fun deleteMusicFragmentById(fragmentId: String): Int
+    @Query("DELETE FROM Entry WHERE id = :entryId")
+    suspend fun deletePracticeFragmentById(entryId: String): Int
 
-    @Query("DELETE FROM musical_fragment_table")
+    @Query("DELETE FROM Entry")
     suspend fun deleteAlLMusicFragments()
 
 }

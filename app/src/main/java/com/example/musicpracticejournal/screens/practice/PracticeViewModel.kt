@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.Constants.DEFAULT_TIMER_VALUE
 import com.example.musicpracticejournal.data.TimerStateEnum
-import com.example.musicpracticejournal.data.db.entity.MusicFragment
+import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
 import com.example.musicpracticejournal.domain.ResourceManager
 import com.example.musicpracticejournal.domain.usecase.TimerUseCase
@@ -42,8 +42,8 @@ class PracticeViewModel @Inject constructor(
     private val lastPractice = MutableLiveData<String>()
 
     var timeOnScreen = MutableLiveData<String>()
-    private var fragmentId: Long? = null
-    private var musicFragment: MusicFragment? = null
+    private var entryId: Long? = null
+    private var entry: Entry? = null
     private val timerSeconds =  MutableLiveData<Long>()
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
 
@@ -63,8 +63,8 @@ class PracticeViewModel @Inject constructor(
     val event = LiveEvent<Event>()
 
     init {
-        fragmentId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).fragmentId
-        fragmentId?.let {
+        entryId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).entryId
+        entryId?.let {
             getPracticeFragment(it)
         }
         viewModelScope.launch {
@@ -75,8 +75,8 @@ class PracticeViewModel @Inject constructor(
     }
 
     private fun getPracticeFragment(it: Long) = viewModelScope.launch {
-        musicFragment = repository.getPracticeFragment(it)
-        musicFragment?.let {
+        entry = repository.getPracticeFragment(it)
+        entry?.let {
             title.value = "${it.author} - ${it.name}"
             currentTempo.value = setTempoText(it.currentTempo)
             targetTempo.value = setTempoText(it.targetTempo)
@@ -106,8 +106,8 @@ class PracticeViewModel @Inject constructor(
     fun operateTimer() {
         when (timerState.value) {
             TimerStateEnum.STOPPED -> {
-                if (musicFragment?.targetTempo == null) {
-                    event.value = fragmentId?.let { Event.OriginalTempo(it) }
+                if (entry?.targetTempo == null) {
+                    event.value = entryId?.let { Event.OriginalTempo(it) }
                 } else {
                     startTimer()
                 }
@@ -120,7 +120,7 @@ class PracticeViewModel @Inject constructor(
 
     fun startTimer() {
         timerSeconds.value?.let { timerUseCase.start(it) }
-        fragmentId?.let { saveLastPracticeDate(it) }
+        entryId?.let { saveLastPracticeDate(it) }
     }
 
     private fun pauseTimer() {
@@ -129,25 +129,25 @@ class PracticeViewModel @Inject constructor(
     }
 
     fun resetTimer() {
-        musicFragment?.practiceTime?.minsToSeconds()?.let { totalSeconds->
+        entry?.practiceTime?.minsToSeconds()?.let { totalSeconds->
             timerSeconds.value = totalSeconds
             timerUseCase.reset(totalSeconds)
         }
     }
 
-    private fun saveLastPracticeDate(fragmentId: Long) = viewModelScope.launch {
-        repository.updatePracticeDate(date, fragmentId)
-        if (musicFragment?.updated == null) {
+    private fun saveLastPracticeDate(entryId: Long) = viewModelScope.launch {
+        repository.updatePracticeDate(date, entryId)
+        if (entry?.updated == null) {
             lastPractice.value = date
         }
     }
 
     fun toReviewScreen() {
-        fragmentId?.let { event.value = Event.ToReviewScreen(it) }
+        entryId?.let { event.value = Event.ToReviewScreen(it) }
     }
 
     private fun toCurrentTempoScreen() {
-        fragmentId?.let { event.value = Event.ToCurrentTempoScreen(it) }
+        entryId?.let { event.value = Event.ToCurrentTempoScreen(it) }
     }
 
     fun finishPractice() {
@@ -157,9 +157,9 @@ class PracticeViewModel @Inject constructor(
     }
 
     sealed class Event {
-        class ToReviewScreen(val fragmentId: Long) : Event()
+        class ToReviewScreen(val entryId: Long) : Event()
         object EnterCustomTime: Event()
-        class OriginalTempo(val fragmentId: Long) : Event()
-        class ToCurrentTempoScreen(val fragmentId: Long) : Event()
+        class OriginalTempo(val entryId: Long) : Event()
+        class ToCurrentTempoScreen(val entryId: Long) : Event()
     }
 }

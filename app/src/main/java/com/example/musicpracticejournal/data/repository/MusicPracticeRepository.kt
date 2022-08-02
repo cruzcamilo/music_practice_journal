@@ -2,7 +2,7 @@ package com.example.musicpracticejournal.data.repository
 
 import androidx.annotation.WorkerThread
 import com.example.musicpracticejournal.data.AppDatabase
-import com.example.musicpracticejournal.data.db.entity.MusicFragment
+import com.example.musicpracticejournal.data.db.entity.Entry
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -10,35 +10,35 @@ class MusicPracticeRepository @Inject constructor(
     private val database: AppDatabase
 ) {
 
-    fun getMusicFragments(): Flow<List<MusicFragment>> {
+    fun getMusicFragments(): Flow<List<Entry>> {
         return database.practiceFragmentDao().getAll()
     }
 
     @WorkerThread
-    suspend fun getPracticeFragment(id: Long): MusicFragment? {
-        return database.practiceFragmentDao().getMusicFragmentById(id)
+    suspend fun getPracticeFragment(id: Long): Entry? {
+        return database.practiceFragmentDao().getPracticeFragmentById(id)
     }
 
     @WorkerThread
-    suspend fun savePracticeFragment(musicFragment: MusicFragment) {
-        database.practiceFragmentDao().savePracticeFragment(musicFragment)
+    suspend fun savePracticeFragment(entry: Entry) {
+        database.practiceFragmentDao().savePracticeFragment(entry)
     }
 
     @WorkerThread
-    suspend fun updatePracticeFragment(musicFragment: MusicFragment) {
-        database.practiceFragmentDao().updatePracticeFragment(musicFragment)
+    suspend fun updatePracticeFragment(entry: Entry) {
+        database.practiceFragmentDao().updatePracticeFragment(entry)
     }
 
-    suspend fun updatePracticeDate(date: String, fragmentId: Long) {
-        database.practiceFragmentDao().updatePracticeFragmentDate(date, fragmentId)
+    suspend fun updatePracticeDate(date: String, entryId: Long) {
+        database.practiceFragmentDao().updatePracticeFragmentDate(date, entryId)
     }
 
-    suspend fun updateOriginalTempo(originalTempo: Int, fragmentId: Long) {
-        database.practiceFragmentDao().updateOriginalTempo(originalTempo, fragmentId)
+    suspend fun updateOriginalTempo(originalTempo: Int, entryId: Long) {
+        database.practiceFragmentDao().updateOriginalTempo(originalTempo, entryId)
     }
 
-    suspend fun updateCurrentTempo(currentTempo: Int, fragmentId: Long) {
-        database.practiceFragmentDao().updateCurrentTempo(currentTempo, fragmentId)
+    suspend fun updateCurrentTempo(currentTempo: Int, entryId: Long) {
+        database.practiceFragmentDao().updateCurrentTempo(currentTempo, entryId)
     }
 
     suspend fun deleteAllMusicFragments() {
@@ -47,7 +47,7 @@ class MusicPracticeRepository @Inject constructor(
 
     @WorkerThread
     suspend fun saveMock() {
-        val practiceFragment = MusicFragment(
+        val entry = Entry(
             "Song",
             "Drowning",
             "Post solo",
@@ -55,6 +55,6 @@ class MusicPracticeRepository @Inject constructor(
             null,
             null
         )
-        database.practiceFragmentDao().savePracticeFragment(practiceFragment)
+        database.practiceFragmentDao().savePracticeFragment(entry)
     }
 }

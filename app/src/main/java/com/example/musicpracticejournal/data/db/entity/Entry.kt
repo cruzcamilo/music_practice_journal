@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
-@Entity(tableName = "musical_fragment_table")
+@Entity(tableName = "Entry")
 @Parcelize
-data class MusicFragment(
+data class Entry(
     val type: String,
     val author: String,
     val name: String,

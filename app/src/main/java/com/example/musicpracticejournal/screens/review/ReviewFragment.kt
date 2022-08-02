@@ -1,7 +1,6 @@
 package com.example.musicpracticejournal.screens.review
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +16,12 @@ import com.example.musicpracticejournal.screens.home.HomeFragment
 class ReviewFragment : BaseFragment() {
 
     private lateinit var binding: FragmentReviewBinding
-    private var fragmentId: Long? = null
+    private var entryId: Long? = null
     private val viewModel: ReviewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragmentId = requireArguments().getLong(HomeFragment.MUSIC_FRAGMENT_KEY)
-        Log.d("Fragment review", fragmentId.toString())
+        entryId = requireArguments().getLong(HomeFragment.MUSIC_FRAGMENT_KEY)
     }
 
     override fun onCreateView(
@@ -45,7 +43,7 @@ class ReviewFragment : BaseFragment() {
     private fun saveReview() {
         val review = Review(binding.ratingBarAccuracy.rating, binding.ratingBarRhythm.rating,
             binding.ratingBarArticulation.rating, binding.ratingBarDynamics.rating,
-            binding.etAdditionalNotes.text.toString(), fragmentId!!)
+            binding.etAdditionalNotes.text.toString(), entryId!!)
         viewModel.saveReview(review)
     }
 

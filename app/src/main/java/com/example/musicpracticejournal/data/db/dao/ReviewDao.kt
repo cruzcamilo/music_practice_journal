@@ -13,8 +13,8 @@ interface ReviewDao {
     @Query("SELECT * FROM review")
     fun getAllReviews(): Flow<List<Review>>
 
-    @Query("SELECT * FROM review WHERE practiceFragmentId = :fragmentId")
-    suspend fun getMusicFragmentById(fragmentId: Long): Review?
+    @Query("SELECT * FROM review WHERE entryId = :entryId")
+    suspend fun getPracticeFragmentById(entryId: Long): Review?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveReview(review: Review): Long

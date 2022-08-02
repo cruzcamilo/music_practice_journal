@@ -28,7 +28,7 @@ class OriginalTempoViewModel @Inject constructor(
     val originalTempo =  MutableLiveData("")
     val tempoInputEnabled =  MutableLiveData(true)
     val saveButtonEnabled = MediatorLiveData<Boolean>()
-    var fragmentId: Long? = null
+    var entryId: Long? = null
 
     private val isSwitchEnabled = MutableLiveData(true)
 
@@ -42,7 +42,7 @@ class OriginalTempoViewModel @Inject constructor(
         mapWithDefault(isSwitchEnabled, View.GONE) { visibleOrGone(it) }
 
     init {
-        fragmentId = OriginalTempoSheetArgs.fromSavedStateHandle(savedStateHandle).fragmentId
+        entryId = OriginalTempoSheetArgs.fromSavedStateHandle(savedStateHandle).entryId
         with(saveButtonEnabled) {
             addSource(isSwitchEnabled) { value = isSaveButtonEnabled() }
             addSource(originalTempo) { value = isSaveButtonEnabled() }
@@ -66,11 +66,11 @@ class OriginalTempoViewModel @Inject constructor(
 
     private fun saveTargetTempo() {
         viewModelScope.launch {
-            fragmentId?.let {
+            entryId?.let {
                 saveOriginalTempoUseCase.invoke(
                     UpdateOriginalTempoUseCase.Params(
                         originalTempo = originalTempo.value!!.toInt(),
-                        id = fragmentId!!
+                        id = entryId!!
                     )
                 )
             }

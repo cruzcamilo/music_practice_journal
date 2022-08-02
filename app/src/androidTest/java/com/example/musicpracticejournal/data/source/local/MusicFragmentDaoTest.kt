@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.musicpracticejournal.data.AppDatabase
-import com.example.musicpracticejournal.data.db.entity.MusicFragment
+import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.practicefragments.PracticeTimeEnum
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,7 +33,7 @@ class TasksDaoTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
     private lateinit var database: AppDatabase
-    private lateinit var musicFragment: MusicFragment
+    private lateinit var entry: Entry
 
     @Before
     fun init() {
@@ -43,7 +43,7 @@ class TasksDaoTest {
             getApplicationContext(),
             AppDatabase::class.java
         ).build()
-        musicFragment = MusicFragment(PracticeTypeEnum.SONG.type, "ameseours", "sens",
+        entry = Entry(PracticeTypeEnum.SONG.type, "ameseours", "sens",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString())
     }
 
@@ -52,41 +52,41 @@ class TasksDaoTest {
 
     @Test
     fun insertMusicFragmentAndGetById() = runBlockingTest {
-        val insertedFragmentId = database.practiceFragmentDao().savePracticeFragment(musicFragment)
-        val savedMusicFragment = database.practiceFragmentDao().getMusicFragmentById(insertedFragmentId)
+        val insertedFragmentId = database.practiceFragmentDao().savePracticeFragment(entry)
+        val savedMusicFragment = database.practiceFragmentDao().getPracticeFragmentById(insertedFragmentId)
 
-        assertThat(savedMusicFragment as MusicFragment, notNullValue())
+        assertThat(savedMusicFragment as Entry, notNullValue())
         assertThat(savedMusicFragment.id, `is`(insertedFragmentId))
-        assertThat(savedMusicFragment.type, `is`(musicFragment.type))
-        assertThat(savedMusicFragment.author, `is`(musicFragment.author))
-        assertThat(savedMusicFragment.name, `is`(musicFragment.name))
-        assertThat(savedMusicFragment.practiceTime, `is`(musicFragment.practiceTime))
+        assertThat(savedMusicFragment.type, `is`(entry.type))
+        assertThat(savedMusicFragment.author, `is`(entry.author))
+        assertThat(savedMusicFragment.name, `is`(entry.name))
+        assertThat(savedMusicFragment.practiceTime, `is`(entry.practiceTime))
     }
 
     @Test
     fun updateMusicFragmentAndGetById() = runBlockingTest {
-        val musicFragmentId = database.practiceFragmentDao().savePracticeFragment(musicFragment)
-        val musicFragmentUpdate = MusicFragment(
+        val musicFragmentId = database.practiceFragmentDao().savePracticeFragment(entry)
+        val entryUpdate = Entry(
             PracticeTypeEnum.EXERCISE.type, "Ameseours", "heurt",
             PracticeTimeEnum.FIFTEEN.toString(), Calendar.getInstance().time.toString(),
             null, null, musicFragmentId)
 
-        database.practiceFragmentDao().updatePracticeFragment(musicFragmentUpdate)
+        database.practiceFragmentDao().updatePracticeFragment(entryUpdate)
 
-        val updatedMusicFragment = database.practiceFragmentDao().getMusicFragmentById(musicFragmentId)
+        val updatedMusicFragment = database.practiceFragmentDao().getPracticeFragmentById(musicFragmentId)
 
-        assertThat(updatedMusicFragment as MusicFragment, notNullValue())
+        assertThat(updatedMusicFragment as Entry, notNullValue())
         assertThat(updatedMusicFragment.id, `is`(musicFragmentId))
-        assertThat(updatedMusicFragment.type, `is`(musicFragmentUpdate.type))
-        assertThat(updatedMusicFragment.author, `is`(musicFragmentUpdate.author))
-        assertThat(updatedMusicFragment.name, `is`(musicFragmentUpdate.name))
-        assertThat(updatedMusicFragment.practiceTime, `is`(musicFragmentUpdate.practiceTime))
+        assertThat(updatedMusicFragment.type, `is`(entryUpdate.type))
+        assertThat(updatedMusicFragment.author, `is`(entryUpdate.author))
+        assertThat(updatedMusicFragment.name, `is`(entryUpdate.name))
+        assertThat(updatedMusicFragment.practiceTime, `is`(entryUpdate.practiceTime))
     }
 
     @Test
     fun deleteAllMusicFragments() = runBlockingTest {
         val fragmentList = database.practiceFragmentDao().getAll()
-        database.practiceFragmentDao().savePracticeFragment(musicFragment)
+        database.practiceFragmentDao().savePracticeFragment(entry)
         val list = fragmentList.take(1).toList()[0]
 
         assertThat(list,  notNullValue())

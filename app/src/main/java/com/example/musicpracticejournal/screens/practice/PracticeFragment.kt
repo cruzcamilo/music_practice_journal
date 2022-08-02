@@ -43,17 +43,17 @@ class PracticeFragment : BaseFragment() {
             when(it) {
                 is PracticeViewModel.Event.ToReviewScreen -> {
                     findNavController().navigate(
-                        PracticeFragmentDirections.toReviewFragment(it.fragmentId)
+                        PracticeFragmentDirections.toReviewFragment(it.entryId)
                     )
                 }
                 is PracticeViewModel.Event.EnterCustomTime -> {
                     showTimeInput()
                 }
                 is PracticeViewModel.Event.OriginalTempo -> {
-                    showOriginalTimeSheet(it.fragmentId)
+                    showOriginalTimeSheet(it.entryId)
                 }
                 is PracticeViewModel.Event.ToCurrentTempoScreen -> {
-                    showCurrentTempoSheet(it.fragmentId)
+                    showCurrentTempoSheet(it.entryId)
                 }
             }
         }
@@ -72,8 +72,8 @@ class PracticeFragment : BaseFragment() {
         }
     }
 
-    private fun showOriginalTimeSheet(fragmentId: Long) {
-        findNavController().navigate(PracticeFragmentDirections.toOriginalTempoSheet(fragmentId))
+    private fun showOriginalTimeSheet(entryId: Long) {
+        findNavController().navigate(PracticeFragmentDirections.toOriginalTempoSheet(entryId))
         setFragmentResultListener(OriginalTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.startTimer()
@@ -81,8 +81,8 @@ class PracticeFragment : BaseFragment() {
         }
     }
 
-    private fun showCurrentTempoSheet(fragmentId: Long) {
-        findNavController().navigate(PracticeFragmentDirections.toCurrentTempoSheet(fragmentId))
+    private fun showCurrentTempoSheet(entryId: Long) {
+        findNavController().navigate(PracticeFragmentDirections.toCurrentTempoSheet(entryId))
         setFragmentResultListener(CurrentTempoSheet.CURRENT_TEMPO_KEY) { _, _ ->
             binding?.performanceReviewBtn?.visibility = View.VISIBLE
         }

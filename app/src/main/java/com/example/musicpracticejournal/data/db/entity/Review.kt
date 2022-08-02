@@ -14,7 +14,7 @@ data class Review(
     val articulation:Float,
     val dynamics:Float,
     val additionalNotes:String?,
-    val practiceFragmentId: Long,
+    val entryId: Long,
     @PrimaryKey(autoGenerate = true)
     val id: Long? = null,
     val created :Date = Date(Date().time),

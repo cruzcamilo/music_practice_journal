@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
-import com.example.musicpracticejournal.data.db.entity.MusicFragment
+import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.domain.ResourceManager
 import com.example.musicpracticejournal.domain.usecase.CreateEntryUseCase
 import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
@@ -64,7 +64,7 @@ class CreateViewModel @Inject constructor(
         viewModelScope.launch {
             createMusicFragmentUseCase(
                 CreateEntryUseCase.Params(
-                    MusicFragment(
+                    Entry(
                         type.value ?: "",
                         author.value ?: "",
                         name.value ?: "",
