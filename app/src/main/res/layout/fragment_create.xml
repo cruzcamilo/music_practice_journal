@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
             tools:context=".MainActivity">
@@ -83,44 +83,16 @@
                     android:editable="false"
                     android:focusable="false"
                     android:hint="@string/create_fragment_state"
-                    android:text="@={viewModel.practiceState}" />
+                    android:text="@={viewModel.practiceState}"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/enableTrackTempoSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_current_tempo"
-                    style="@style/ContentTextInputLayout"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:hint="@string/current_tempo">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_current_tempo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="@={viewModel.currentTempo}" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_target_tempo"
-                    style="@style/ContentTextInputLayout"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:hint="@string/target_tempo">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_target_tempo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="@={viewModel.targetTempo}" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:checked="@={viewModel.trackTempo}"
+                android:text="@string/track_tempo" />
 
             <Button
                 android:id="@+id/btn_save_music_fragment"

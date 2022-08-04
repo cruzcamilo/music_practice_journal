@@ -21,6 +21,7 @@
     <string name="practice_time_hint">Practice Time (minutes)*</string>
     <string name="date_hint">Date</string>
     <string name="create_fragment_state">State*</string>
+    <string name="track_tempo">Track tempo of the performance</string>
 
     <!--    Practice Screen-->
     <string name="desc_play_button">Play button</string>

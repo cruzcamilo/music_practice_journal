@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.example.musicpracticejournal.screens.originaltempo.OriginalTempoViewModel" />
+            type="com.example.musicpracticejournal.screens.targettempo.TargetTempoViewModel" />
     </data>
 
     <LinearLayout
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:checked="true"
+            tools:text="@string/original_tempo_description_enabled"
             android:text="@{viewModel.descriptionText}" />
 
         <com.google.android.material.textfield.TextInputLayout

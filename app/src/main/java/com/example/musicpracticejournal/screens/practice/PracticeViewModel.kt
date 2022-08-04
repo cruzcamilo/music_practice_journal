@@ -42,7 +42,7 @@ class PracticeViewModel @Inject constructor(
     private val lastPractice = MutableLiveData<String>()
 
     var timeOnScreen = MutableLiveData<String>()
-    private var entryId: Long? = null
+    private var entryId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).entryId
     private var entry: Entry? = null
     private val timerSeconds =  MutableLiveData<Long>()
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
@@ -63,10 +63,7 @@ class PracticeViewModel @Inject constructor(
     val event = LiveEvent<Event>()
 
     init {
-        entryId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).entryId
-        entryId?.let {
-            getPracticeFragment(it)
-        }
+        getPracticeFragment(entryId)
         viewModelScope.launch {
             timerUseCase.timerValueFlow.collect {
                 timeOnScreen.value = it
@@ -106,8 +103,8 @@ class PracticeViewModel @Inject constructor(
     fun operateTimer() {
         when (timerState.value) {
             TimerStateEnum.STOPPED -> {
-                if (entry?.targetTempo == null) {
-                    event.value = entryId?.let { Event.OriginalTempo(it) }
+                if (userRequiresToEnterTargetTempo()) {
+                    event.value = Event.TargetTempo(entryId)
                 } else {
                     startTimer()
                 }
@@ -118,9 +115,12 @@ class PracticeViewModel @Inject constructor(
         }
     }
 
+    private fun userRequiresToEnterTargetTempo() =
+        entry?.targetTempo == null && entry?.trackTempo == true
+
     fun startTimer() {
         timerSeconds.value?.let { timerUseCase.start(it) }
-        entryId?.let { saveLastPracticeDate(it) }
+        saveLastPracticeDate(entryId)
     }
 
     private fun pauseTimer() {
@@ -143,23 +143,24 @@ class PracticeViewModel @Inject constructor(
     }
 
     fun toReviewScreen() {
-        entryId?.let { event.value = Event.ToReviewScreen(it) }
+        event.value = Event.ToReviewScreen(entryId)
     }
 
     private fun toCurrentTempoScreen() {
-        entryId?.let { event.value = Event.ToCurrentTempoScreen(it) }
+        event.value = Event.ToCurrentTempoScreen(entryId)
     }
 
     fun finishPractice() {
-        //TODO: Add logic if user is not using speed training
-        toCurrentTempoScreen()
+        if (entry?.trackTempo == true) {
+            toCurrentTempoScreen()
+        }
         timerUseCase.updateTimerState(TimerStateEnum.STOPPED)
     }
 
     sealed class Event {
         class ToReviewScreen(val entryId: Long) : Event()
         object EnterCustomTime: Event()
-        class OriginalTempo(val entryId: Long) : Event()
+        class TargetTempo(val entryId: Long) : Event()
         class ToCurrentTempoScreen(val entryId: Long) : Event()
     }
 }

@@ -12,7 +12,7 @@ import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentPracticeBinding
 import com.example.musicpracticejournal.screens.currenttempo.CurrentTempoSheet
 import com.example.musicpracticejournal.screens.entertime.EnterTimeSheet
-import com.example.musicpracticejournal.screens.originaltempo.OriginalTempoSheet
+import com.example.musicpracticejournal.screens.targettempo.TargetTempoSheet
 import kotlinx.coroutines.launch
 
 class PracticeFragment : BaseFragment() {
@@ -49,7 +49,7 @@ class PracticeFragment : BaseFragment() {
                 is PracticeViewModel.Event.EnterCustomTime -> {
                     showTimeInput()
                 }
-                is PracticeViewModel.Event.OriginalTempo -> {
+                is PracticeViewModel.Event.TargetTempo -> {
                     showOriginalTimeSheet(it.entryId)
                 }
                 is PracticeViewModel.Event.ToCurrentTempoScreen -> {
@@ -74,7 +74,7 @@ class PracticeFragment : BaseFragment() {
 
     private fun showOriginalTimeSheet(entryId: Long) {
         findNavController().navigate(PracticeFragmentDirections.toOriginalTempoSheet(entryId))
-        setFragmentResultListener(OriginalTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
+        setFragmentResultListener(TargetTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.startTimer()
             }

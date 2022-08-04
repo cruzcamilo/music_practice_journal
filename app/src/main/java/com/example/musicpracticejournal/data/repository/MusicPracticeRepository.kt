@@ -52,7 +52,7 @@ class MusicPracticeRepository @Inject constructor(
             "Drowning",
             "Post solo",
             "1",
-            null,
+            true,
             null
         )
         database.practiceFragmentDao().savePracticeFragment(entry)

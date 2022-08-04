@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateViewModel @Inject constructor(
-    private val createMusicFragmentUseCase: CreateEntryUseCase,
+    private val createEntryUseCase: CreateEntryUseCase,
     private val resourceManager: ResourceManager
     ) : ViewModel() {
 
@@ -25,8 +25,7 @@ class CreateViewModel @Inject constructor(
     val author = MutableLiveData<String>()
     val name = MutableLiveData<String>()
     val practiceState = MutableLiveData<String>()
-    val currentTempo = MutableLiveData<String>()
-    val targetTempo = MutableLiveData<String>()
+    val trackTempo = MutableLiveData(false)
     val saveButtonEnabled = MediatorLiveData<Boolean>()
     val event = LiveEvent<Event.ToHomeScreen>()
 
@@ -62,15 +61,14 @@ class CreateViewModel @Inject constructor(
 
     fun save() {
         viewModelScope.launch {
-            createMusicFragmentUseCase(
+            createEntryUseCase(
                 CreateEntryUseCase.Params(
                     Entry(
                         type.value ?: "",
                         author.value ?: "",
                         name.value ?: "",
                         practiceState.value ?: "",
-                        targetTempo.value?.toInt(),
-                        currentTempo.value?.toInt()
+                        trackTempo.value ?: false
                     )
                 )
             )

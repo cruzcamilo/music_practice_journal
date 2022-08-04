@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.screens.originaltempo
+package com.example.musicpracticejournal.screens.targettempo
 
 import android.view.View
 import androidx.lifecycle.LiveData
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OriginalTempoViewModel @Inject constructor(
+class TargetTempoViewModel @Inject constructor(
     private val saveOriginalTempoUseCase: UpdateOriginalTempoUseCase,
     resourceManager: ResourceManager,
     savedStateHandle: SavedStateHandle
@@ -42,7 +42,7 @@ class OriginalTempoViewModel @Inject constructor(
         mapWithDefault(isSwitchEnabled, View.GONE) { visibleOrGone(it) }
 
     init {
-        entryId = OriginalTempoSheetArgs.fromSavedStateHandle(savedStateHandle).entryId
+        entryId = TargetTempoSheetArgs.fromSavedStateHandle(savedStateHandle).entryId
         with(saveButtonEnabled) {
             addSource(isSwitchEnabled) { value = isSaveButtonEnabled() }
             addSource(originalTempo) { value = isSaveButtonEnabled() }

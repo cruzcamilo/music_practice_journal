@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.screens.originaltempo
+package com.example.musicpracticejournal.screens.targettempo
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,23 +8,23 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.musicpracticejournal.databinding.OriginalTempoSheetBinding
+import com.example.musicpracticejournal.databinding.TargetTempoSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OriginalTempoSheet : BottomSheetDialogFragment() {
+class TargetTempoSheet : BottomSheetDialogFragment() {
 
-    private var binding: OriginalTempoSheetBinding? = null
-    private val viewModel: OriginalTempoViewModel by viewModels()
+    private var binding: TargetTempoSheetBinding? = null
+    private val viewModel: TargetTempoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = OriginalTempoSheetBinding.inflate(inflater, container, false)
+        binding = TargetTempoSheetBinding.inflate(inflater, container, false)
         binding?.lifecycleOwner = viewLifecycleOwner
         binding?.viewModel = viewModel
         return binding?.root

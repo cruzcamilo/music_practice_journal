@@ -74,7 +74,7 @@
         tools:layout="@layout/custom_time_sheet"/>
     <dialog
         android:id="@+id/originalTempoSheet"
-        android:name="com.example.musicpracticejournal.screens.originaltempo.OriginalTempoSheet"
+        android:name="com.example.musicpracticejournal.screens.targettempo.TargetTempoSheet"
         android:label="OriginalTempoSheet" >
         <argument
             android:name="entryId"
