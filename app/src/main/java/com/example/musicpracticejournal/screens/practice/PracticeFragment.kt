@@ -73,7 +73,7 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun showOriginalTimeSheet(entryId: Long) {
-        findNavController().navigate(PracticeFragmentDirections.toOriginalTempoSheet(entryId))
+        safeNavigate(PracticeFragmentDirections.toOriginalTempoSheet(entryId))
         setFragmentResultListener(TargetTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
             viewLifecycleOwner.lifecycleScope.launch {
                 viewModel.startTimer()
@@ -82,7 +82,7 @@ class PracticeFragment : BaseFragment() {
     }
 
     private fun showCurrentTempoSheet(entryId: Long) {
-        findNavController().navigate(PracticeFragmentDirections.toCurrentTempoSheet(entryId))
+        safeNavigate(PracticeFragmentDirections.toCurrentTempoSheet(entryId))
         setFragmentResultListener(CurrentTempoSheet.CURRENT_TEMPO_KEY) { _, _ ->
             binding?.performanceReviewBtn?.visibility = View.VISIBLE
         }
