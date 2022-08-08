@@ -10,7 +10,7 @@ import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.Constants.DEFAULT_TIMER_VALUE
 import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.data.db.entity.Entry
-import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.data.repository.EntryRepository
 import com.example.musicpracticejournal.domain.ResourceManager
 import com.example.musicpracticejournal.domain.usecase.TimerUseCase
 import com.example.musicpracticejournal.util.TimeInputUtil
@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
-    private val repository: MusicPracticeRepository,
+    private val repository: EntryRepository,
     private val timerUseCase: TimerUseCase,
     private val resourceManager: ResourceManager,
     savedStateHandle: SavedStateHandle
@@ -63,7 +63,7 @@ class PracticeViewModel @Inject constructor(
     val event = LiveEvent<Event>()
 
     init {
-        getPracticeFragment(entryId)
+        getEntry(entryId)
         viewModelScope.launch {
             timerUseCase.timerValueFlow.collect {
                 timeOnScreen.value = it
@@ -71,8 +71,8 @@ class PracticeViewModel @Inject constructor(
         }
     }
 
-    private fun getPracticeFragment(it: Long) = viewModelScope.launch {
-        entry = repository.getPracticeFragment(it)
+    private fun getEntry(it: Long) = viewModelScope.launch {
+        entry = repository.getEntry(it)
         entry?.let {
             title.value = "${it.author} - ${it.name}"
             currentTempo.value = setTempoText(it.currentTempo)

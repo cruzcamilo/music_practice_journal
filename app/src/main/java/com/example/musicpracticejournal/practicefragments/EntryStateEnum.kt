@@ -1,6 +1,6 @@
 package com.example.musicpracticejournal.practicefragments
 
-enum class PracticeStateEnum(val state: String) {
+enum class EntryStateEnum(val state: String) {
     QUEUED ("Queued"),
     ACTIVE("Active"),
     COMPLETE("Completed");

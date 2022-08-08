@@ -9,7 +9,7 @@ import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.domain.ResourceManager
 import com.example.musicpracticejournal.domain.usecase.CreateEntryUseCase
-import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
+import com.example.musicpracticejournal.practicefragments.EntryTypeEnum
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -30,14 +30,14 @@ class CreateViewModel @Inject constructor(
     val event = LiveEvent<Event.ToHomeScreen>()
 
     val songTechniqueHint = type.map {
-        if (it == PracticeTypeEnum.SONG.type ||it.isNullOrBlank()) {
+        if (it == EntryTypeEnum.SONG.type ||it.isNullOrBlank()) {
             resourceManager.getString(R.string.song_hint)
         } else {
             resourceManager.getString(R.string.technique_hint)
         }
     }
     val createNameHint = type.map {
-        if (it == PracticeTypeEnum.SONG.type ||it.isNullOrBlank()) {
+        if (it == EntryTypeEnum.SONG.type ||it.isNullOrBlank()) {
             resourceManager.getString(R.string.section_hint)
         } else {
             resourceManager.getString(R.string.name_hint)

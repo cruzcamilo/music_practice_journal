@@ -67,12 +67,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.addTestPractice -> {
-                viewModel.addMockPracticeFragment()
+            R.id.addMockEntry -> {
+                viewModel.addMockEntry()
                 true
             }
-            R.id.deletePracticeFragments -> {
-                viewModel.deleteAllMusicFragments()
+            R.id.deleteEntries -> {
+                viewModel.deleteAllEntries()
                 true
             }
             else ->

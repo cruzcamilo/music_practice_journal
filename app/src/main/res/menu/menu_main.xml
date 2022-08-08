@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/addTestPractice"
+        android:id="@+id/addMockEntry"
         android:icon="@drawable/add_24"
         app:showAsAction="ifRoom"
         android:title="Add">
     </item>
     <item
-        android:id="@+id/deletePracticeFragments"
+        android:id="@+id/deleteEntries"
         android:icon="@drawable/ic_baseline_delete_24"
         app:showAsAction="ifRoom"
         android:title="Delete">

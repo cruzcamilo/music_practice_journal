@@ -22,7 +22,7 @@
             app:layout_constraintGuide_begin="128dp" />
 
         <TextView
-            android:id="@+id/practice_fragment_type_tv"
+            android:id="@+id/type_tv"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,28 +33,28 @@
             tools:text="Song" />
 
         <TextView
-            android:id="@+id/practice_fragment_title_tv"
+            android:id="@+id/title_tv"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/practice_fragment_type_tv"
-            app:layout_constraintStart_toStartOf="@+id/practice_fragment_type_tv"
-            app:layout_constraintTop_toBottomOf="@+id/practice_fragment_type_tv"
+            app:layout_constraintEnd_toEndOf="@+id/type_tv"
+            app:layout_constraintStart_toStartOf="@+id/type_tv"
+            app:layout_constraintTop_toBottomOf="@+id/type_tv"
             tools:text="Drowning - Post solo" />
 
         <TextView
-            android:id="@+id/practice_fragment_last_practice_tv"
+            android:id="@+id/last_practice_tv"
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/practice_fragment_title_tv"
-            app:layout_constraintStart_toStartOf="@+id/practice_fragment_title_tv"
-            app:layout_constraintTop_toBottomOf="@+id/practice_fragment_title_tv"
+            app:layout_constraintEnd_toEndOf="@+id/title_tv"
+            app:layout_constraintStart_toStartOf="@+id/title_tv"
+            app:layout_constraintTop_toBottomOf="@+id/title_tv"
             tools:text="Last Practice: Yesterday" />
 
         <TextView
-            android:id="@+id/music_fragment_current_tempo_label"
+            android:id="@+id/current_tempo_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -62,38 +62,38 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/practice_fragment_target_tempo_label"
+            app:layout_constraintStart_toEndOf="@+id/target_tempo_label"
             app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
         <TextView
-            android:id="@+id/practice_fragment_current_tempo"
+            android:id="@+id/current_tempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/practice_fragment_target_tempo_label"
-            app:layout_constraintStart_toStartOf="@+id/practice_fragment_target_tempo_label"
-            app:layout_constraintTop_toBottomOf="@+id/practice_fragment_target_tempo_label"
+            app:layout_constraintEnd_toEndOf="@+id/target_tempo_label"
+            app:layout_constraintStart_toStartOf="@+id/target_tempo_label"
+            app:layout_constraintTop_toBottomOf="@+id/target_tempo_label"
             tools:text="120bpm" />
 
         <TextView
-            android:id="@+id/music_fragment_target_tempo"
+            android:id="@+id/target_tempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@+id/music_fragment_current_tempo_label"
-            app:layout_constraintStart_toStartOf="@+id/music_fragment_current_tempo_label"
-            app:layout_constraintTop_toBottomOf="@+id/music_fragment_current_tempo_label"
+            app:layout_constraintEnd_toEndOf="@+id/current_tempo_label"
+            app:layout_constraintStart_toStartOf="@+id/current_tempo_label"
+            app:layout_constraintTop_toBottomOf="@+id/current_tempo_label"
             tools:text="160bpm" />
 
 
         <TextView
-            android:id="@+id/practice_fragment_target_tempo_label"
+            android:id="@+id/target_tempo_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/last_tempo_label"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/music_fragment_current_tempo_label"
+            app:layout_constraintEnd_toStartOf="@+id/current_tempo_label"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guideline2" />

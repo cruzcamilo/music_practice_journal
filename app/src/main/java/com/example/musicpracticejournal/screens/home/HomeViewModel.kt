@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.data.db.entity.Entry
-import com.example.musicpracticejournal.data.repository.MusicPracticeRepository
+import com.example.musicpracticejournal.data.repository.EntryRepository
 import com.example.musicpracticejournal.domain.usecase.RetrieveEntriesUseCase
 import com.example.musicpracticejournal.extensions.mapWithDefault
 import com.example.musicpracticejournal.extensions.visibleOrGone
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: MusicPracticeRepository,
+    private val repository: EntryRepository,
     private val retrieveEntriesUseCase: RetrieveEntriesUseCase
     ) :
     ViewModel() {
@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun createPracticeFragment() {
+    fun goToCreateScreen() {
         event.value = Event.CreateScreen
     }
 
@@ -50,11 +50,11 @@ class HomeViewModel @Inject constructor(
      * Temporary methods for testing purposes
      * //TODO: Remove when no longer required.
      */
-    fun addMockPracticeFragment() = viewModelScope.launch {
+    fun addMockEntry() = viewModelScope.launch {
         repository.saveMock()
     }
 
-    fun deleteAllMusicFragments() = viewModelScope.launch {
-        repository.deleteAllMusicFragments()
+    fun deleteAllEntries() = viewModelScope.launch {
+        repository.deleteAllEntries()
     }
 }

@@ -14,12 +14,12 @@ interface ReviewDao {
     fun getAllReviews(): Flow<List<Review>>
 
     @Query("SELECT * FROM review WHERE entryId = :entryId")
-    suspend fun getPracticeFragmentById(entryId: Long): Review?
+    suspend fun getReviewByEntryId(entryId: Long): Review?
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveReview(review: Review): Long
 
     @Query("DELETE FROM review")
-    suspend fun deleteAlLMusicFragments()
+    suspend fun deleteAllReviews()
 
 }

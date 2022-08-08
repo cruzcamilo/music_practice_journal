@@ -6,43 +6,43 @@ import com.example.musicpracticejournal.data.db.entity.Entry
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MusicPracticeRepository @Inject constructor(
+class EntryRepository @Inject constructor(
     private val database: AppDatabase
 ) {
 
     fun getMusicFragments(): Flow<List<Entry>> {
-        return database.practiceFragmentDao().getAll()
+        return database.entryDao().getAllEntries()
     }
 
     @WorkerThread
-    suspend fun getPracticeFragment(id: Long): Entry? {
-        return database.practiceFragmentDao().getPracticeFragmentById(id)
+    suspend fun getEntry(id: Long): Entry? {
+        return database.entryDao().getEntryById(id)
     }
 
     @WorkerThread
-    suspend fun savePracticeFragment(entry: Entry) {
-        database.practiceFragmentDao().savePracticeFragment(entry)
+    suspend fun saveEntry(entry: Entry) {
+        database.entryDao().saveEntry(entry)
     }
 
     @WorkerThread
-    suspend fun updatePracticeFragment(entry: Entry) {
-        database.practiceFragmentDao().updatePracticeFragment(entry)
+    suspend fun updateEntry(entry: Entry) {
+        database.entryDao().updateEntry(entry)
     }
 
     suspend fun updatePracticeDate(date: String, entryId: Long) {
-        database.practiceFragmentDao().updatePracticeFragmentDate(date, entryId)
+        database.entryDao().updateEntryDate(date, entryId)
     }
 
     suspend fun updateOriginalTempo(originalTempo: Int, entryId: Long) {
-        database.practiceFragmentDao().updateOriginalTempo(originalTempo, entryId)
+        database.entryDao().updateOriginalTempo(originalTempo, entryId)
     }
 
     suspend fun updateCurrentTempo(currentTempo: Int, entryId: Long) {
-        database.practiceFragmentDao().updateCurrentTempo(currentTempo, entryId)
+        database.entryDao().updateCurrentTempo(currentTempo, entryId)
     }
 
-    suspend fun deleteAllMusicFragments() {
-        database.practiceFragmentDao().deleteAlLMusicFragments()
+    suspend fun deleteAllEntries() {
+        database.entryDao().deleteEntries()
     }
 
     @WorkerThread
@@ -55,6 +55,6 @@ class MusicPracticeRepository @Inject constructor(
             true,
             null
         )
-        database.practiceFragmentDao().savePracticeFragment(entry)
+        database.entryDao().saveEntry(entry)
     }
 }

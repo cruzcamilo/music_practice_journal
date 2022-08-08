@@ -1,6 +1,6 @@
 package com.example.musicpracticejournal.practicefragments
 
-enum class PracticeTypeEnum(val type: String) {
+enum class EntryTypeEnum(val type: String) {
     SONG("Song"),
     EXERCISE("Exercise");
 

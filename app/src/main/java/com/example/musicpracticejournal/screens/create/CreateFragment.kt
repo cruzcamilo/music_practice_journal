@@ -11,8 +11,8 @@ import com.example.musicpracticejournal.MainActivity
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentCreateBinding
-import com.example.musicpracticejournal.practicefragments.PracticeStateEnum
-import com.example.musicpracticejournal.practicefragments.PracticeTypeEnum
+import com.example.musicpracticejournal.practicefragments.EntryStateEnum
+import com.example.musicpracticejournal.practicefragments.EntryTypeEnum
 
 class CreateFragment : BaseFragment() {
 
@@ -36,22 +36,22 @@ class CreateFragment : BaseFragment() {
     }
 
     private fun initializeSpinners() {
-        val typeAdapter: ArrayAdapter<PracticeTypeEnum> = ArrayAdapter(
+        val typeAdapter: ArrayAdapter<EntryTypeEnum> = ArrayAdapter(
             activity as MainActivity,
-            R.layout.dropdown_menu_type_item, PracticeTypeEnum.values()
+            R.layout.dropdown_menu_type_item, EntryTypeEnum.values()
         )
         with (binding?.spinnerPracticeType) {
-            this?.setText(PracticeTypeEnum.SONG.type)
+            this?.setText(EntryTypeEnum.SONG.type)
             this?.setAdapter(typeAdapter)
         }
 
         val practiceFragmentStateAdapter: ArrayAdapter<String> = ArrayAdapter(
             activity as MainActivity,
             R.layout.dropdown_menu_type_item,
-            arrayOf(PracticeStateEnum.ACTIVE.state, PracticeStateEnum.QUEUED.state)
+            arrayOf(EntryStateEnum.ACTIVE.state, EntryStateEnum.QUEUED.state)
         )
         with(binding?.spinnerPracticeState) {
-            this?.setText(PracticeStateEnum.ACTIVE.state)
+            this?.setText(EntryStateEnum.ACTIVE.state)
             this?.setAdapter(practiceFragmentStateAdapter)
         }
     }

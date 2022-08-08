@@ -10,17 +10,17 @@ import com.example.musicpracticejournal.data.db.entity.Entry
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface PracticeFragmentDao {
+interface EntryDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun savePracticeFragment(entry: Entry): Long
+    suspend fun saveEntry(entry: Entry): Long
 
     @Update
-    suspend fun updatePracticeFragment(entry: Entry): Int
+    suspend fun updateEntry(entry: Entry): Int
 
     @Transaction
     @Query("UPDATE Entry set updated =:updateDate WHERE id = :entryId")
-    suspend fun updatePracticeFragmentDate(updateDate: String, entryId: Long): Int
+    suspend fun updateEntryDate(updateDate: String, entryId: Long): Int
 
     @Transaction
     @Query("UPDATE Entry set targetTempo =:originalTempo WHERE id = :entryId")
@@ -32,16 +32,16 @@ interface PracticeFragmentDao {
 
     @Transaction
     @Query("SELECT * FROM Entry ORDER BY id ASC")
-    fun getAll(): Flow<List<Entry>>
+    fun getAllEntries(): Flow<List<Entry>>
 
     @Transaction
     @Query("SELECT * FROM Entry WHERE id = :entryId")
-    suspend fun getPracticeFragmentById(entryId: Long): Entry?
+    suspend fun getEntryById(entryId: Long): Entry?
 
     @Query("DELETE FROM Entry WHERE id = :entryId")
-    suspend fun deletePracticeFragmentById(entryId: String): Int
+    suspend fun deleteEntryById(entryId: String): Int
 
     @Query("DELETE FROM Entry")
-    suspend fun deleteAlLMusicFragments()
+    suspend fun deleteEntries()
 
 }

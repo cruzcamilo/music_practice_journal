@@ -11,10 +11,10 @@ import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.databinding.MusicFragmentItemBinding
 import com.example.musicpracticejournal.util.setBpmInformation
 
-class PracticeFragmentAdapter(
+class EntryAdapter(
     private val onItemClickListener: (entryId: Long) -> Unit
 ) :
-    ListAdapter<Entry, PracticeFragmentAdapter.ViewHolder>(MusicFragmentDiffCallback) {
+    ListAdapter<Entry, EntryAdapter.ViewHolder>(MusicFragmentDiffCallback) {
 
     inner class ViewHolder(val binding : MusicFragmentItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -26,31 +26,31 @@ class PracticeFragmentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
             with(getItem(position)) {
-                binding.practiceFragmentTypeTv.text = type
-                binding.practiceFragmentTitleTv.text =
-                    binding.practiceFragmentLastPracticeTv.context.getString(
+                binding.typeTv.text = type
+                binding.titleTv.text =
+                    binding.lastPracticeTv.context.getString(
                         R.string.title,
                         author,
                         name
                     )
                 if (updated == null) {
-                    binding.practiceFragmentLastPracticeTv.visibility = View.GONE
+                    binding.lastPracticeTv.visibility = View.GONE
                 } else {
-                    binding.practiceFragmentLastPracticeTv.text =
-                        binding.practiceFragmentLastPracticeTv.context.resources.getString(
+                    binding.lastPracticeTv.text =
+                        binding.lastPracticeTv.context.resources.getString(
                             R.string.last_practice_item,
                             updated
                         )
                 }
 
                 if (targetTempo != null && targetTempo > 0) {
-                    binding.practiceFragmentCurrentTempo.text =
-                        currentTempo.setBpmInformation(binding.practiceFragmentCurrentTempo.context)
-                    binding.musicFragmentTargetTempo.text =
-                        targetTempo.setBpmInformation(binding.musicFragmentTargetTempo.context)
+                    binding.currentTempo.text =
+                        currentTempo.setBpmInformation(binding.currentTempo.context)
+                    binding.targetTempo.text =
+                        targetTempo.setBpmInformation(binding.targetTempo.context)
                 } else {
-                    binding.musicFragmentCurrentTempoLabel.visibility = View.GONE
-                    binding.practiceFragmentTargetTempoLabel.visibility = View.GONE
+                    binding.currentTempoLabel.visibility = View.GONE
+                    binding.targetTempoLabel.visibility = View.GONE
                 }
 
                 itemView.setOnClickListener {

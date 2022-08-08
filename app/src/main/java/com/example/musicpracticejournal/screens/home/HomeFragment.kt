@@ -8,13 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.musicpracticejournal.common.BaseFragment
 import com.example.musicpracticejournal.databinding.FragmentHomeBinding
-import com.example.musicpracticejournal.practicefragments.PracticeFragmentAdapter
+import com.example.musicpracticejournal.practicefragments.EntryAdapter
 
 class HomeFragment : BaseFragment() {
 
     private var binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var practiceFragmentAdapter: PracticeFragmentAdapter
+    private lateinit var entryAdapter: EntryAdapter
 
     companion object {
         const val MUSIC_FRAGMENT_KEY = "music_fragment"
@@ -38,13 +38,13 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupRecyclerAdapter() {
-        practiceFragmentAdapter = PracticeFragmentAdapter { showPracticeScreen(it) }
-        binding?.rvFragments?.adapter = practiceFragmentAdapter
+        entryAdapter = EntryAdapter { showPracticeScreen(it) }
+        binding?.rvFragments?.adapter = entryAdapter
     }
 
     private fun setupObservers() {
         viewModel.entries.observe(viewLifecycleOwner) { musicFragments ->
-            practiceFragmentAdapter.submitList(musicFragments)
+            entryAdapter.submitList(musicFragments)
         }
     }
 

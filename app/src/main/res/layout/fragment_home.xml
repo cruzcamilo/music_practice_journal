@@ -63,7 +63,7 @@
             android:contentDescription="@string/fab_description"
             android:elevation="@dimen/fab_default_elevation"
             android:src="@drawable/add_24"
-            android:onClick="@{() -> viewModel.createPracticeFragment()}"
+            android:onClick="@{() -> viewModel.goToCreateScreen()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
