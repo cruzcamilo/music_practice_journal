@@ -1,5 +1,6 @@
 package com.example.musicpracticejournal.screens.currenttempo
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -15,12 +16,14 @@ import javax.inject.Inject
 class CurrentTempoViewModel @Inject constructor(
     private val updateCurrentTempoUseCase: UpdateCurrentTempoUseCase,
     savedStateHandle: SavedStateHandle
-) : ViewModel(){
+) : ViewModel() {
 
-    val event = LiveEvent<Event.ToPracticeScreen>()
+    var entryId: Long? = null
     val currentTempo =  MutableLiveData("")
     val saveButtonEnabled = MediatorLiveData<Boolean>()
-    var entryId: Long? = null
+
+    private val _event = LiveEvent<Event.ToPracticeScreen>()
+    val event: LiveData<Event.ToPracticeScreen> = _event
 
     init {
         entryId = CurrentTempoSheetArgs.fromSavedStateHandle(savedStateHandle).entryId
@@ -40,7 +43,7 @@ class CurrentTempoViewModel @Inject constructor(
                 )
             }
         }
-        event.value = Event.ToPracticeScreen
+        _event.value = Event.ToPracticeScreen
     }
 
     sealed class Event {

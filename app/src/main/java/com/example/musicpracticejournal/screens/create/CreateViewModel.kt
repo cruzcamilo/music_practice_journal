@@ -1,5 +1,6 @@
 package com.example.musicpracticejournal.screens.create
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,23 +22,24 @@ class CreateViewModel @Inject constructor(
     private val resourceManager: ResourceManager
     ) : ViewModel() {
 
-    val type = MutableLiveData<String>()
+    val type = MutableLiveData(EntryTypeEnum.SONG.type)
     val author = MutableLiveData<String>()
     val name = MutableLiveData<String>()
     val practiceState = MutableLiveData<String>()
     val trackTempo = MutableLiveData(false)
     val saveButtonEnabled = MediatorLiveData<Boolean>()
-    val event = LiveEvent<Event.ToHomeScreen>()
+    private val _event = LiveEvent<Event>()
+    val event: LiveData<Event> = _event
 
     val songTechniqueHint = type.map {
-        if (it == EntryTypeEnum.SONG.type ||it.isNullOrBlank()) {
+        if (it == EntryTypeEnum.SONG.type) {
             resourceManager.getString(R.string.song_hint)
         } else {
             resourceManager.getString(R.string.technique_hint)
         }
     }
     val createNameHint = type.map {
-        if (it == EntryTypeEnum.SONG.type ||it.isNullOrBlank()) {
+        if (it == EntryTypeEnum.SONG.type) {
             resourceManager.getString(R.string.section_hint)
         } else {
             resourceManager.getString(R.string.name_hint)
@@ -72,7 +74,7 @@ class CreateViewModel @Inject constructor(
                     )
                 )
             )
-            event.value = Event.ToHomeScreen
+            _event.value = Event.ToHomeScreen
         }
     }
 
