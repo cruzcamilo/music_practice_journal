@@ -6,9 +6,7 @@ import com.example.musicpracticejournal.data.db.entity.Entry
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class EntryRepository @Inject constructor(
-    private val database: AppDatabase
-) {
+class EntryRepository @Inject constructor(private val database: AppDatabase) {
 
     fun getMusicFragments(): Flow<List<Entry>> {
         return database.entryDao().getAllEntries()
