@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.domain.ResourceManager
-import com.example.musicpracticejournal.domain.usecase.UpdateOriginalTempoUseCase
+import com.example.musicpracticejournal.domain.usecase.UpdateTargetTempoUseCase
 import com.example.musicpracticejournal.extensions.mapWithDefault
 import com.example.musicpracticejournal.extensions.visibleOrGone
 import com.hadilq.liveevent.LiveEvent
@@ -19,33 +19,34 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TargetTempoViewModel @Inject constructor(
-    private val saveOriginalTempoUseCase: UpdateOriginalTempoUseCase,
-    resourceManager: ResourceManager,
+    private val updateTargetTempoUseCase: UpdateTargetTempoUseCase,
+    private val resourceManager: ResourceManager,
     savedStateHandle: SavedStateHandle
 ) : ViewModel(){
 
-    val event = LiveEvent<Event.ToPracticeScreen>()
-    val originalTempo =  MutableLiveData("")
+    var entryId: Long? = null
+    val targetTempo =  MutableLiveData("")
     val tempoInputEnabled =  MutableLiveData(true)
     val saveButtonEnabled = MediatorLiveData<Boolean>()
-    var entryId: Long? = null
-
     private val isSwitchEnabled = MutableLiveData(true)
 
+    private val _event = LiveEvent<Event.ToPracticeScreen>()
+    val event : LiveData<Event.ToPracticeScreen> get() = _event
+
     val descriptionText: LiveData<String> = mapWithDefault(
-        isSwitchEnabled, resourceManager.getString(R.string.original_tempo_description_disabled)
+        isSwitchEnabled, resourceManager.getString(R.string.target_tempo_description_disabled)
     )  {
-        if (!it) resourceManager.getString(R.string.original_tempo_description_disabled)
-        else resourceManager.getString(R.string.original_tempo_description_enabled)
+        if (!it) resourceManager.getString(R.string.target_tempo_description_disabled)
+        else resourceManager.getString(R.string.target_tempo_description_enabled)
     }
     val textInputVisibility: LiveData<Int> =
-        mapWithDefault(isSwitchEnabled, View.GONE) { visibleOrGone(it) }
+        mapWithDefault(isSwitchEnabled, View.VISIBLE) { visibleOrGone(it) }
 
     init {
         entryId = TargetTempoSheetArgs.fromSavedStateHandle(savedStateHandle).entryId
         with(saveButtonEnabled) {
             addSource(isSwitchEnabled) { value = isSaveButtonEnabled() }
-            addSource(originalTempo) { value = isSaveButtonEnabled() }
+            addSource(targetTempo) { value = isSaveButtonEnabled() }
         }
     }
 
@@ -53,23 +54,21 @@ class TargetTempoViewModel @Inject constructor(
         return if (isSwitchEnabled.value == false) {
             true
         }  else {
-            originalTempo.value?.isNotEmpty()!!
+            targetTempo.value?.isNotEmpty()!!
         }
     }
 
     fun save () {
-        if (!originalTempo.value.isNullOrEmpty()) {
-            saveTargetTempo()
-        }
-        event.value = Event.ToPracticeScreen
+        saveTargetTempo()
+        _event.value = Event.ToPracticeScreen
     }
 
     private fun saveTargetTempo() {
         viewModelScope.launch {
             entryId?.let {
-                saveOriginalTempoUseCase.invoke(
-                    UpdateOriginalTempoUseCase.Params(
-                        originalTempo = originalTempo.value!!.toInt(),
+                updateTargetTempoUseCase.invoke(
+                    UpdateTargetTempoUseCase.Params(
+                        targetTempo = targetTempo.value!!.toInt(),
                         id = entryId!!
                     )
                 )
@@ -79,7 +78,11 @@ class TargetTempoViewModel @Inject constructor(
 
     fun updateSwitchState(isChecked: Boolean) {
         isSwitchEnabled.value = isChecked
-        if (!isChecked) originalTempo.value = ""
+        clearTargetTempo(isChecked)
+    }
+
+    private fun clearTargetTempo(isChecked: Boolean) {
+        if (!isChecked) targetTempo.value = ""
     }
 
     sealed class Event {

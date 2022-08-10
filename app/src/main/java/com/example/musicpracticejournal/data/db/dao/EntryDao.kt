@@ -23,8 +23,8 @@ interface EntryDao {
     suspend fun updateEntryDate(updateDate: String, entryId: Long): Int
 
     @Transaction
-    @Query("UPDATE Entry set targetTempo =:originalTempo WHERE id = :entryId")
-    suspend fun updateOriginalTempo(originalTempo: Int, entryId: Long): Int
+    @Query("UPDATE Entry set targetTempo =:targetTempo WHERE id = :entryId")
+    suspend fun updateTargetTempo(targetTempo: Int, entryId: Long): Int
 
     @Transaction
     @Query("UPDATE Entry set currentTempo =:currentTempo WHERE id = :entryId")

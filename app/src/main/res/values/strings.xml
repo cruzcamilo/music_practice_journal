@@ -86,12 +86,12 @@
     <string name="time_sheet_defaulttime">00:00</string>
     <string name="time_sheet_set">Set</string>
 
-    <!--    Original tempo-->
-    <string name="original_tempo_title">Speed Training</string>
-    <string name="original_tempo_description_disabled">I don\'t want to track tempo information at this moment</string>
-    <string name="original_tempo_description_enabled">Speed Training mode allows to track your tempo after each practice and measure your progress</string>
-    <string name="original_tempo_hint">Target tempo (bpm)</string>
-    <string name="original_tempo_btn">Continue</string>
+    <!--    Target tempo-->
+    <string name="target_tempo_title">Speed Training</string>
+    <string name="target_tempo_description_disabled">I don\'t want to track tempo information at this moment</string>
+    <string name="target_tempo_description_enabled">Speed Training mode allows to track your tempo after each practice and measure your progress</string>
+    <string name="target_tempo_hint">Target tempo (bpm)</string>
+    <string name="target_tempo_btn">Continue</string>
 
     <!--    Current tempo-->
     <string name="current_tempo_hint">Current tempo (bpm)</string>

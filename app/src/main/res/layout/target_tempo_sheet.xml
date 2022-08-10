@@ -18,7 +18,7 @@
         <include
             android:id="@+id/toolbar_sheet"
             layout="@layout/toolbar_bottom_sheet"
-            app:title="@{@string/original_tempo_title}" />
+            app:title="@{@string/target_tempo_title}" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/enableSwitch"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:checked="true"
-            tools:text="@string/original_tempo_description_enabled"
+            tools:text="@string/target_tempo_description_enabled"
             android:text="@{viewModel.descriptionText}" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -39,7 +39,7 @@
             android:layout_marginHorizontal="16dp"
             android:visibility="@{viewModel.textInputVisibility}"
             android:enabled="@{viewModel.tempoInputEnabled}"
-            android:hint="@string/original_tempo_hint">
+            android:hint="@string/target_tempo_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_create_author"
@@ -47,14 +47,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:maxLength="3"
-                android:text="@={viewModel.originalTempo}"
+                android:text="@={viewModel.targetTempo}"
                 android:textColorHint="#757575" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_btn"
             android:onClick="@{()->viewModel.save()}"
-            android:text="@string/original_tempo_btn"
+            android:text="@string/target_tempo_btn"
             style="@style/Button_Submit"
             android:enabled="@{viewModel.saveButtonEnabled}"
             />

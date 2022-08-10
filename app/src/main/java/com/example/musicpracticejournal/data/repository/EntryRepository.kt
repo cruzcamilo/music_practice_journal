@@ -33,8 +33,8 @@ class EntryRepository @Inject constructor(
         database.entryDao().updateEntryDate(date, entryId)
     }
 
-    suspend fun updateOriginalTempo(originalTempo: Int, entryId: Long) {
-        database.entryDao().updateOriginalTempo(originalTempo, entryId)
+    suspend fun updateTargetTempo(targetTempo: Int, entryId: Long) {
+        database.entryDao().updateTargetTempo(targetTempo, entryId)
     }
 
     suspend fun updateCurrentTempo(currentTempo: Int, entryId: Long) {

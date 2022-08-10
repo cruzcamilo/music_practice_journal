@@ -17,7 +17,7 @@
         <include
             android:id="@+id/toolbar_sheet"
             layout="@layout/toolbar_bottom_sheet"
-            app:title="@{@string/original_tempo_title}" />
+            app:title="@{@string/target_tempo_title}" />
 
         <TextView
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_btn"
             android:onClick="@{()->viewModel.save()}"
-            android:text="@string/original_tempo_btn"
+            android:text="@string/target_tempo_btn"
             style="@style/Button_Submit"
             android:enabled="@{viewModel.saveButtonEnabled}"
             />

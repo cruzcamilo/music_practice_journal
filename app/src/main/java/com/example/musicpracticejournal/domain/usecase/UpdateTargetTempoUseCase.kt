@@ -6,17 +6,17 @@ import com.example.musicpracticejournal.domain.core.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class UpdateOriginalTempoUseCase @Inject constructor(
+class UpdateTargetTempoUseCase @Inject constructor(
     private val entryRepository: EntryRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : UseCase<UpdateOriginalTempoUseCase.Params, Unit>(dispatcher) {
+) : UseCase<UpdateTargetTempoUseCase.Params, Unit>(dispatcher) {
 
     override suspend fun execute(params: Params) {
-        entryRepository.updateOriginalTempo(params.originalTempo, params.id)
+        entryRepository.updateTargetTempo(params.targetTempo, params.id)
     }
 
     data class Params(
-        val originalTempo: Int,
+        val targetTempo: Int,
         val id: Long
     )
 }
