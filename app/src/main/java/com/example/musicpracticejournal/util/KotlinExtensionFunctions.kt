@@ -18,11 +18,10 @@ fun Int.addInitialZero(): String {
     }
 }
 
-fun Int?.setBpmInformation(context: Context): String {
-    this.apply {
-        return if (this == null) context.getString(R.string.no_data)
-        else context.getString(R.string.bpm_amount, this.toString())
-    }
+fun String.setBpmInformation(context: Context): String {
+    return if (this.isNotEmpty()) {
+        context.getString(R.string.bpm_amount, this)
+    } else ""
 }
 
 /**

@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.domain.usecase.DeleteAllEntriesUseCase
 import com.example.musicpracticejournal.domain.usecase.RetrieveEntriesUseCase
 import com.example.musicpracticejournal.domain.usecase.SaveTestEntryUseCase
+import com.example.musicpracticejournal.dto.EntryItem
 import com.example.musicpracticejournal.extensions.mapWithDefault
 import com.example.musicpracticejournal.extensions.visibleOrGone
 import com.hadilq.liveevent.LiveEvent
@@ -24,8 +24,8 @@ class HomeViewModel @Inject constructor(
     private val retrieveEntriesUseCase: RetrieveEntriesUseCase
     ) : ViewModel() {
 
-    private val _entries = MutableLiveData<List<Entry>>()
-    val entries: LiveData<List<Entry>> = _entries
+    private val _entries = MutableLiveData<List<EntryItem>>()
+    val entries: LiveData<List<EntryItem>> = _entries
 
     val emptyImageVisibility: LiveData<Int> =
         mapWithDefault(_entries, View.GONE) { visibleOrGone(it.isEmpty()) }

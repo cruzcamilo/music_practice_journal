@@ -3,13 +3,15 @@ package com.example.musicpracticejournal.data.repository
 import androidx.annotation.WorkerThread
 import com.example.musicpracticejournal.data.AppDatabase
 import com.example.musicpracticejournal.data.db.entity.Entry
+import com.example.musicpracticejournal.data.mapper.toDomain
+import com.example.musicpracticejournal.dto.EntryItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class EntryRepository @Inject constructor(private val database: AppDatabase) {
 
-    fun getMusicFragments(): Flow<List<Entry>> {
-        return database.entryDao().getAllEntries()
+    fun getMusicFragments(): Flow<List<EntryItem>> {
+        return database.entryDao().getAllEntries().toDomain()
     }
 
     @WorkerThread
