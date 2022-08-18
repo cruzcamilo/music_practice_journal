@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.databinding.MusicFragmentItemBinding
-import com.example.musicpracticejournal.dto.EntryItem
+import com.example.musicpracticejournal.domain.entity.EntryItem
 import com.example.musicpracticejournal.extensions.visibleOrGone
 import com.example.musicpracticejournal.util.setBpmInformation
 
@@ -54,8 +54,9 @@ class EntryAdapter(
     private fun updateVisibility(viewHolder: ViewHolder, entryItem: EntryItem) {
         viewHolder.binding.lastPracticeTv.visibility = entryItem.getUpdatedVisibility()
         viewHolder.binding.currentTempoLabel.visibility = visibleOrGone(entryItem.currentTempo.isNotEmpty())
-        viewHolder.binding.currentTempo.visibility = visibleOrGone(entryItem.currentTempo.isNotEmpty())
-        viewHolder.binding.targetTempoLabel.visibility = visibleOrGone(entryItem.targetTempo.isNotEmpty())
+        viewHolder.binding.targetTempoLabel.visibility = entryItem.getTempoVisibility()
+        viewHolder.binding.currentTempo.visibility = entryItem.getTempoVisibility()
+        viewHolder.binding.targetTempo.visibility = entryItem.getTempoVisibility()
     }
 
     object EntryItemDiffCallback : DiffUtil.ItemCallback<EntryItem>() {

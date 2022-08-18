@@ -8,12 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.domain.usecase.DeleteAllEntriesUseCase
 import com.example.musicpracticejournal.domain.usecase.RetrieveEntriesUseCase
 import com.example.musicpracticejournal.domain.usecase.SaveTestEntryUseCase
-import com.example.musicpracticejournal.dto.EntryItem
+import com.example.musicpracticejournal.domain.entity.EntryItem
 import com.example.musicpracticejournal.extensions.mapWithDefault
 import com.example.musicpracticejournal.extensions.visibleOrGone
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

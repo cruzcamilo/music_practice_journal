@@ -1,7 +1,7 @@
 package com.example.musicpracticejournal.data.mapper
 
 import com.example.musicpracticejournal.data.db.entity.Entry
-import com.example.musicpracticejournal.dto.EntryItem
+import com.example.musicpracticejournal.domain.entity.EntryItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

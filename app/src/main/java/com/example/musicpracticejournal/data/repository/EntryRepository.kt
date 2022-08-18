@@ -4,7 +4,7 @@ import androidx.annotation.WorkerThread
 import com.example.musicpracticejournal.data.AppDatabase
 import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.data.mapper.toDomain
-import com.example.musicpracticejournal.dto.EntryItem
+import com.example.musicpracticejournal.domain.entity.EntryItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ class EntryRepository @Inject constructor(private val database: AppDatabase) {
     }
 
     @WorkerThread
-    suspend fun getEntry(id: Long): Entry? {
+    suspend fun getEntry(id: Long): Entry {
         return database.entryDao().getEntryById(id)
     }
 

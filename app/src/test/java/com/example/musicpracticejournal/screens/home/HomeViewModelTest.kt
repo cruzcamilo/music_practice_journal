@@ -2,10 +2,10 @@ package com.example.musicpracticejournal.screens.home
 
 import android.view.View
 import com.example.musicpracticejournal.BaseViewModelTest
-import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.domain.usecase.DeleteAllEntriesUseCase
 import com.example.musicpracticejournal.domain.usecase.RetrieveEntriesUseCase
 import com.example.musicpracticejournal.domain.usecase.SaveTestEntryUseCase
+import com.example.musicpracticejournal.domain.entity.EntryItem
 import com.google.common.truth.Truth.assertThat
 import getOrAwaitValue
 import io.mockk.coEvery
@@ -27,7 +27,7 @@ internal class HomeViewModelTest: BaseViewModelTest() {
     @MockK private lateinit var saveTestEntryUseCaseMock: SaveTestEntryUseCase
     @MockK private lateinit var deleteAllEntriesUseCaseMock: DeleteAllEntriesUseCase
     @MockK private lateinit var retrieveEntriesUseCaseMock: RetrieveEntriesUseCase
-    private val entryList = listOf<Entry>(mockk(relaxed = true), mockk(relaxed = true))
+    private val entryList = listOf<EntryItem>(mockk(relaxed = true), mockk(relaxed = true))
     private lateinit var SUT: HomeViewModel
 
     @Test

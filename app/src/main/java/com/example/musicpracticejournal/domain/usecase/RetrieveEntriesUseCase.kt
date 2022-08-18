@@ -3,7 +3,7 @@ package com.example.musicpracticejournal.domain.usecase
 import com.example.musicpracticejournal.data.repository.EntryRepository
 import com.example.musicpracticejournal.di.IoDispatcher
 import com.example.musicpracticejournal.domain.core.FlowUseCase
-import com.example.musicpracticejournal.dto.EntryItem
+import com.example.musicpracticejournal.domain.entity.EntryItem
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

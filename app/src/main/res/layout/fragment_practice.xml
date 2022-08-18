@@ -74,7 +74,7 @@
             app:layout_constraintStart_toStartOf="@+id/tv_timer"
             app:layout_constraintTop_toTopOf="@+id/gl_bottom1_horizontal"
             app:tint="@android:color/black"
-            tools:src="@drawable/ic_baseline_play_circle_outline_24" />
+            tools:src="@drawable/ic_play_circle" />
 
         <ImageView
             android:id="@+id/btn_restart_timer"
@@ -133,7 +133,7 @@
             android:id="@+id/chip4"
             style="@style/time_input_button"
             android:text="@string/chip_other"
-            android:onClick="@{() -> viewModel.enterCustomTime()}"
+            android:onClick="@{() -> viewModel.toCustomTimeScreen()}"
             app:layout_constraintBottom_toBottomOf="@+id/chip3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/chip3"

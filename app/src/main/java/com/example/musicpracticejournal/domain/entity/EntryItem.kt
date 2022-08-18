@@ -1,4 +1,4 @@
-package com.example.musicpracticejournal.dto
+package com.example.musicpracticejournal.domain.entity
 
 import com.example.musicpracticejournal.extensions.visibleOrGone
 
@@ -13,4 +13,5 @@ data class EntryItem (
     val updated: String = "",
 ) {
     fun getUpdatedVisibility(): Int = visibleOrGone(updated.isNotEmpty())
+    fun getTempoVisibility(): Int = visibleOrGone(currentTempo.isNotEmpty() && targetTempo.isNotEmpty())
 }
