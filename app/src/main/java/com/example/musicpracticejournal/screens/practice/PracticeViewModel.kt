@@ -1,5 +1,7 @@
 package com.example.musicpracticejournal.screens.practice
 
+import androidx.annotation.VisibleForTesting
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations.map
@@ -15,11 +17,9 @@ import com.example.musicpracticejournal.domain.ResourceManager
 import com.example.musicpracticejournal.domain.usecase.TimerUseCase
 import com.example.musicpracticejournal.util.TimeInputUtil
 import com.example.musicpracticejournal.util.minsToSeconds
-import com.example.musicpracticejournal.util.secondsToMinutesSeconds
 import com.example.musicpracticejournal.util.timeStringToSeconds
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -35,24 +35,22 @@ class PracticeViewModel @Inject constructor(
     ): ViewModel() {
 
     val title = MutableLiveData<String>()
+    var timeOnScreen = MutableLiveData<String>()
     private val currentTempo = MutableLiveData<String>()
     private val targetTempo = MutableLiveData<String>()
-    //TODO: Check if these fields should be deleted
-    private val totalTime = MutableLiveData<String>()
-    private val lastPractice = MutableLiveData<String>()
-
-    var timeOnScreen = MutableLiveData<String>()
     private var entryId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).entryId
-    private var entry: Entry? = null
-    private val timerSeconds =  MutableLiveData<Long>()
+    private lateinit var entry: Entry
+    private var timerSeconds = MutableLiveData<Long>()
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val timerState = timerUseCase.timerState.asLiveData()
+    val timerValueFlow = timerUseCase.timerValueFlow
 
-    private val timerState = timerUseCase.timerState.asLiveData()
     val btnActionImage = map(timerState) {
         if (it != TimerStateEnum.ACTIVE) {
-            resourceManager.getDrawable(R.drawable.ic_baseline_play_circle_outline_24)
+            resourceManager.getDrawable(R.drawable.ic_play_circle)
         } else {
-            resourceManager.getDrawable(R.drawable.ic_baseline_pause_circle_outline_24)
+            resourceManager.getDrawable(R.drawable.ic_pause_circle)
         }
     }
 
@@ -60,39 +58,23 @@ class PracticeViewModel @Inject constructor(
         it == TimerStateEnum.FINISHED
     }
 
-    val event = LiveEvent<Event>()
+    private val _event = LiveEvent<Event>()
+    val event: LiveData<Event> = _event
 
-    init {
+    fun onStart() {
         getEntry(entryId)
-        viewModelScope.launch {
-            timerUseCase.timerValueFlow.collect {
-                timeOnScreen.value = it
-            }
-        }
+        setTimerValue()
     }
 
     private fun getEntry(it: Long) = viewModelScope.launch {
         entry = repository.getEntry(it)
-        entry?.let {
-            title.value = "${it.author} - ${it.name}"
-            currentTempo.value = setTempoText(it.currentTempo)
-            targetTempo.value = setTempoText(it.targetTempo)
-            totalTime.value = it.totalPracticeTimeInSeconds.secondsToMinutesSeconds()
-            lastPractice.value = it.updated ?: resourceManager.getString(R.string.no_data)
-            setTimerValue()
-        }
+        populateUi()
     }
 
-    private fun setTempoText(tempo: Int?): String {
-        return if (tempo == null) {
-            resourceManager.getString(R.string.no_data)
-        } else {
-            resourceManager.getString(R.string.bpm_amount, tempo.toString())
-        }
-    }
-
-    fun enterCustomTime() {
-        event.value = Event.EnterCustomTime
+    private fun populateUi() {
+        title.value = "${entry.author} - ${entry.name}"
+        currentTempo.value = entry.setTempoText(resourceManager.getApplicationContext(), entry.currentTempo)
+        targetTempo.value = entry.setTempoText(resourceManager.getApplicationContext(), entry.targetTempo)
     }
 
     fun setTimerValue(time: String = DEFAULT_TIMER_VALUE) {
@@ -100,11 +82,33 @@ class PracticeViewModel @Inject constructor(
         timerSeconds.value = time.timeStringToSeconds()
     }
 
+//    interface TimerOperation {
+//        fun performAction()
+//    }
+//
+//    class TimerActive @Inject constructor(val timerUseCase: TimerUseCase) : TimerOperation {
+//        override fun performAction() {
+//            timerUseCase.pause()
+//        }
+//    }
+//
+//    class TimerPaused() : TimerOperation {
+//        override fun performAction() {
+//
+//        }
+//    }
+//
+//    class TimerStopped() : TimerOperation {
+//        override fun performAction() {
+//
+//        }
+//    }
+
     fun operateTimer() {
         when (timerState.value) {
             TimerStateEnum.STOPPED -> {
-                if (userRequiresToEnterTargetTempo()) {
-                    event.value = Event.TargetTempo(entryId)
+                if (targetTempoIsMissing()) {
+                    _event.value = Event.TargetTempo(entryId)
                 } else {
                     startTimer()
                 }
@@ -115,8 +119,7 @@ class PracticeViewModel @Inject constructor(
         }
     }
 
-    private fun userRequiresToEnterTargetTempo() =
-        entry?.targetTempo == null && entry?.trackTempo == true
+    private fun targetTempoIsMissing() = entry.targetTempo == null && entry.trackTempo
 
     fun startTimer() {
         timerSeconds.value?.let { timerUseCase.start(it) }
@@ -128,33 +131,37 @@ class PracticeViewModel @Inject constructor(
         timerSeconds.value = timeOnScreen.value?.timeStringToSeconds()
     }
 
+    //TODO review. This button is temporarily disabled
     fun resetTimer() {
-        entry?.practiceTime?.minsToSeconds()?.let { totalSeconds->
+        entry.practiceTime?.minsToSeconds()?.let { totalSeconds->
             timerSeconds.value = totalSeconds
             timerUseCase.reset(totalSeconds)
         }
     }
 
-    private fun saveLastPracticeDate(entryId: Long) = viewModelScope.launch {
-        repository.updatePracticeDate(date, entryId)
-        if (entry?.updated == null) {
-            lastPractice.value = date
+    private fun saveLastPracticeDate(entryId: Long) {
+        viewModelScope.launch {
+            repository.updatePracticeDate(date, entryId)
         }
-    }
-
-    fun toReviewScreen() {
-        event.value = Event.ToReviewScreen(entryId)
-    }
-
-    private fun toCurrentTempoScreen() {
-        event.value = Event.ToCurrentTempoScreen(entryId)
     }
 
     fun finishPractice() {
-        if (entry?.trackTempo == true) {
+        if (entry.trackTempo) {
             toCurrentTempoScreen()
         }
         timerUseCase.updateTimerState(TimerStateEnum.STOPPED)
+    }
+
+    fun toReviewScreen() {
+        _event.value = Event.ToReviewScreen(entryId)
+    }
+
+    private fun toCurrentTempoScreen() {
+        _event.value = Event.ToCurrentTempoScreen(entryId)
+    }
+
+    fun toCustomTimeScreen() {
+        _event.value = Event.EnterCustomTime
     }
 
     sealed class Event {

@@ -10,16 +10,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class TimerUseCase @Inject constructor(private val timerScope: CoroutineScope) {
+class TimerUseCase (private val timerScope: CoroutineScope) {
 
     private var _timerValueFlow = MutableStateFlow(DEFAULT_TIMER_VALUE)
     val timerValueFlow: Flow<String> = _timerValueFlow

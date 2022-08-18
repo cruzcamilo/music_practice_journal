@@ -9,6 +9,10 @@ import androidx.core.content.ContextCompat
 
 class ResourceManager(private val context: Context) {
 
+    fun getApplicationContext(): Context {
+        return context
+    }
+
     fun getString(@StringRes id: Int): String {
         return context.getString(id)
     }

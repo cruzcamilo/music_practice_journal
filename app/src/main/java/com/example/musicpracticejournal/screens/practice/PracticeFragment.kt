@@ -33,9 +33,20 @@ class PracticeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupNavigation()
-//        viewModel.title.observe(viewLifecycleOwner) {
-//            activity?.title = it
-//        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        observeTimerValue()
+        viewModel.onStart()
+    }
+
+    private fun observeTimerValue() {
+        lifecycleScope.launch {
+            viewModel.timerValueFlow.collect {
+                viewModel.timeOnScreen.value = it
+            }
+        }
     }
 
     private fun setupNavigation() {
