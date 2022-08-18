@@ -5,7 +5,7 @@ buildscript {
         appCompatVersion = '1.2.0'
         constraintLayoutVersion = '2.0.2'
         coreTestingVersion = '2.1.0'
-        lifecycleVersion = '2.3.1'
+        lifecycleVersion = '2.5.1'
         materialVersion = '1.2.1'
         roomVersion = '2.2.5'
         nav_version = "2.3.5"
