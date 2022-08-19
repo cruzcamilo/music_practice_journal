@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.common.Constants.DEFAULT_TIMER_VALUE
@@ -14,9 +13,8 @@ import com.example.musicpracticejournal.data.TimerStateEnum
 import com.example.musicpracticejournal.data.db.entity.Entry
 import com.example.musicpracticejournal.data.repository.EntryRepository
 import com.example.musicpracticejournal.domain.ResourceManager
-import com.example.musicpracticejournal.domain.usecase.TimerUseCase
+import com.example.musicpracticejournal.domain.entity.Timer
 import com.example.musicpracticejournal.util.TimeInputUtil
-import com.example.musicpracticejournal.util.minsToSeconds
 import com.example.musicpracticejournal.util.timeStringToSeconds
 import com.hadilq.liveevent.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
     private val repository: EntryRepository,
-    private val timerUseCase: TimerUseCase,
+    private val timer: Timer,
     private val resourceManager: ResourceManager,
     savedStateHandle: SavedStateHandle
     ): ViewModel() {
@@ -40,11 +38,10 @@ class PracticeViewModel @Inject constructor(
     private val targetTempo = MutableLiveData<String>()
     private var entryId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).entryId
     private lateinit var entry: Entry
-    private var timerSeconds = MutableLiveData<Long>()
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    val timerState = timerUseCase.timerState.asLiveData()
-    val timerValueFlow = timerUseCase.timerValueFlow
+    val timerState = timer.getStateAsLiveData()
+    val timerValueFlow = timer.getCurrentTime()
 
     val btnActionImage = map(timerState) {
         if (it != TimerStateEnum.ACTIVE) {
@@ -78,65 +75,29 @@ class PracticeViewModel @Inject constructor(
     }
 
     fun setTimerValue(time: String = DEFAULT_TIMER_VALUE) {
+        timer.setInitTime(time)
         timeOnScreen.value = TimeInputUtil.secondsToTime(time.timeStringToSeconds())
-        timerSeconds.value = time.timeStringToSeconds()
     }
 
-//    interface TimerOperation {
-//        fun performAction()
-//    }
-//
-//    class TimerActive @Inject constructor(val timerUseCase: TimerUseCase) : TimerOperation {
-//        override fun performAction() {
-//            timerUseCase.pause()
-//        }
-//    }
-//
-//    class TimerPaused() : TimerOperation {
-//        override fun performAction() {
-//
-//        }
-//    }
-//
-//    class TimerStopped() : TimerOperation {
-//        override fun performAction() {
-//
-//        }
-//    }
 
     fun operateTimer() {
-        when (timerState.value) {
-            TimerStateEnum.STOPPED -> {
-                if (targetTempoIsMissing()) {
-                    _event.value = Event.TargetTempo(entryId)
-                } else {
-                    startTimer()
-                }
-            }
-            TimerStateEnum.PAUSED, TimerStateEnum.FINISHED -> startTimer()
-            TimerStateEnum.ACTIVE -> pauseTimer()
-            else -> return
+        if (isTargetTempoRequired()) {
+            _event.value = Event.TargetTempo(entryId)
+        } else {
+            playPause()
         }
     }
 
-    private fun targetTempoIsMissing() = entry.targetTempo == null && entry.trackTempo
+    private fun isTargetTempoRequired() = entry.targetTempo == null
+            && entry.trackTempo && timer.getCurrentState() == TimerStateEnum.STOPPED
 
-    fun startTimer() {
-        timerSeconds.value?.let { timerUseCase.start(it) }
-        saveLastPracticeDate(entryId)
-    }
-
-    private fun pauseTimer() {
-        timerUseCase.pause()
-        timerSeconds.value = timeOnScreen.value?.timeStringToSeconds()
+    fun playPause() {
+        timer.playPause()
     }
 
     //TODO review. This button is temporarily disabled
     fun resetTimer() {
-        entry.practiceTime?.minsToSeconds()?.let { totalSeconds->
-            timerSeconds.value = totalSeconds
-            timerUseCase.reset(totalSeconds)
-        }
+        timer.reset()
     }
 
     private fun saveLastPracticeDate(entryId: Long) {
@@ -149,7 +110,7 @@ class PracticeViewModel @Inject constructor(
         if (entry.trackTempo) {
             toCurrentTempoScreen()
         }
-        timerUseCase.updateTimerState(TimerStateEnum.STOPPED)
+        saveLastPracticeDate(entryId)
     }
 
     fun toReviewScreen() {

@@ -14,12 +14,12 @@ class EnterTimeViewModel @Inject constructor() : ViewModel(), NumberInput.OnInpu
     val inputTime =  MutableLiveData("00:00")
 
     override fun onInput(input: String) {
-        val currentInputTime = inputTime.value?:""
+        val currentInputTime = inputTime.value ?: ""
         inputTime.value = TimeInputUtil.append(input, currentInputTime)
     }
 
     override fun onDelete() {
-        val currentInputTime = inputTime.value?:""
+        val currentInputTime = inputTime.value ?: ""
         inputTime.value = TimeInputUtil.delete(currentInputTime)
     }
 

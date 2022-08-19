@@ -2,7 +2,8 @@ package com.example.musicpracticejournal.di
 
 import android.content.Context
 import com.example.musicpracticejournal.domain.ResourceManager
-import com.example.musicpracticejournal.domain.usecase.TimerUseCase
+import com.example.musicpracticejournal.domain.entity.Timer
+import com.example.musicpracticejournal.domain.entity.TimerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +21,6 @@ class AppModule {
     fun provideResourceManager(@ApplicationContext context: Context): ResourceManager = ResourceManager(context)
 
     @Provides
-    @Singleton
-    fun provideTimerUseCase(timerscope: CoroutineScope): TimerUseCase = TimerUseCase(timerscope)
+    fun provideTimerImpl(timerscope: CoroutineScope): Timer = TimerImpl(timerscope)
 
 }

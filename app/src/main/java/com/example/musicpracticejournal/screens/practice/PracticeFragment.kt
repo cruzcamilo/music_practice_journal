@@ -87,7 +87,7 @@ class PracticeFragment : BaseFragment() {
         safeNavigate(PracticeFragmentDirections.toOriginalTempoSheet(entryId))
         setFragmentResultListener(TargetTempoSheet.ORIGINAL_TEMPO_KEY) { _, _ ->
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.startTimer()
+                viewModel.playPause()
             }
         }
     }
