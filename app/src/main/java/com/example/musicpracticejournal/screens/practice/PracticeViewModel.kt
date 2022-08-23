@@ -1,6 +1,5 @@
 package com.example.musicpracticejournal.screens.practice
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -39,9 +38,11 @@ class PracticeViewModel @Inject constructor(
     private var entryId = PracticeFragmentArgs.fromSavedStateHandle(savedStateHandle).entryId
     private lateinit var entry: Entry
     private val date = SimpleDateFormat("dd-MM-yyyy").format(Date())
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    val timerState = timer.getStateAsLiveData()
+    private val timerState = timer.getStateAsLiveData()
     val timerValueFlow = timer.getCurrentTime()
+
+    private val _event = LiveEvent<Event>()
+    val event: LiveData<Event> = _event
 
     val btnActionImage = map(timerState) {
         if (it != TimerStateEnum.ACTIVE) {
@@ -55,9 +56,6 @@ class PracticeViewModel @Inject constructor(
         it == TimerStateEnum.FINISHED
     }
 
-    private val _event = LiveEvent<Event>()
-    val event: LiveData<Event> = _event
-
     fun onStart() {
         getEntry(entryId)
         setTimerValue()
@@ -69,16 +67,15 @@ class PracticeViewModel @Inject constructor(
     }
 
     private fun populateUi() {
-        title.value = "${entry.author} - ${entry.name}"
-        currentTempo.value = entry.setTempoText(resourceManager.getApplicationContext(), entry.currentTempo)
-        targetTempo.value = entry.setTempoText(resourceManager.getApplicationContext(), entry.targetTempo)
+        title.value = entry.getTitle()
+        currentTempo.value = entry.getCurrentTempoBpm()
+        targetTempo.value = entry.getTargetTempoBpm()
     }
 
     fun setTimerValue(time: String = DEFAULT_TIMER_VALUE) {
         timer.setInitTime(time)
         timeOnScreen.value = TimeInputUtil.secondsToTime(time.timeStringToSeconds())
     }
-
 
     fun operateTimer() {
         if (isTargetTempoRequired()) {
@@ -95,7 +92,6 @@ class PracticeViewModel @Inject constructor(
         timer.playPause()
     }
 
-    //TODO review. This button is temporarily disabled
     fun resetTimer() {
         timer.reset()
     }
@@ -113,12 +109,12 @@ class PracticeViewModel @Inject constructor(
         saveLastPracticeDate(entryId)
     }
 
-    fun toReviewScreen() {
-        _event.value = Event.ToReviewScreen(entryId)
-    }
-
     private fun toCurrentTempoScreen() {
         _event.value = Event.ToCurrentTempoScreen(entryId)
+    }
+
+    fun toReviewScreen() {
+        _event.value = Event.ToReviewScreen(entryId)
     }
 
     fun toCustomTimeScreen() {

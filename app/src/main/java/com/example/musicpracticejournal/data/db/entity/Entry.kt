@@ -1,10 +1,8 @@
 package com.example.musicpracticejournal.data.db.entity
 
-import android.content.Context
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.musicpracticejournal.R
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
@@ -26,13 +24,8 @@ data class Entry(
     val totalPracticeTimeInSeconds: Long = 0,
 ) : Parcelable {
 
-    fun setTempoText(context: Context, tempo: Int?): String {
-        var tempoText = ""
-        tempo?.let {
-            tempoText = context.getString(R.string.bpm_amount, tempo.toString())
-        }
-        return tempoText
-    }
-
+    fun getCurrentTempoBpm() = "$targetTempo bpm"
+    fun getTargetTempoBpm() = "$currentTempo bpm"
+    fun getTitle() = "$author - $name"
 
 }
