@@ -6,11 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.musicpracticejournal.R
 import com.example.musicpracticejournal.databinding.MusicFragmentItemBinding
 import com.example.musicpracticejournal.domain.entity.EntryItem
 import com.example.musicpracticejournal.extensions.visibleOrGone
-import com.example.musicpracticejournal.util.setBpmInformation
 
 class EntryAdapter(
     private val onItemClickListener: (entryId: Long) -> Unit
@@ -41,14 +39,10 @@ class EntryAdapter(
 
     private fun setStrings(viewHolder: ViewHolder, entryItem: EntryItem) {
         viewHolder.binding.typeTv.text = entryItem.type
-        viewHolder.binding.titleTv.text = context.getString(R.string.title, entryItem.author, entryItem.name)
-        viewHolder.binding.lastPracticeTv.text = context.resources.getString(
-            R.string.last_practice_item,
-            entryItem.updated
-        )
-
-        viewHolder.binding.currentTempo.text = entryItem.currentTempo.setBpmInformation(context)
-        viewHolder.binding.targetTempo.text = entryItem.targetTempo.setBpmInformation(context)
+        viewHolder.binding.titleTv.text = entryItem.getTitle()
+        viewHolder.binding.lastPracticeTv.text = entryItem.getLastPractice(context)
+        viewHolder.binding.currentTempo.text = entryItem.setBpmText(entryItem.currentTempo)
+        viewHolder.binding.targetTempo.text = entryItem.setBpmText(entryItem.targetTempo)
     }
 
     private fun updateVisibility(viewHolder: ViewHolder, entryItem: EntryItem) {
